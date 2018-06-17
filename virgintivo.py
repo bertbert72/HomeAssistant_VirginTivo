@@ -174,7 +174,7 @@ class VirginTivo(MediaPlayerDevice):
                 currStatus = re.search('(?<=CH_FAILED )\w+', data)
                 if currStatus is not None:
                     currStatus = currStatus.group(0)
-                    _LOGGER.debug("Failure message is [%s]",currStatus)
+                    _LOGGER.warning("Failure message is [%s]",currStatus)
                     if currStatus != "NO_LIVE":
                         self.disconnect()
             else:
