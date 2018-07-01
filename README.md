@@ -1,5 +1,8 @@
-# HomeAssistant_VirginTivo
-HomeAssistant component for control of Virgin Media Tivo boxes
+# Home Assistant VirginTivo
+Home Assistant component for control of Virgin Media Tivo boxes
+
+![Virgin Tivo component for Home Assistant](img/HA-VT01.png "Virgin Tivo component for Home Assistant")
+![Source list](img/HA-VT02.png "Source List")
 
 Features are
 
@@ -9,16 +12,28 @@ Features are
 + Set channel through dropdown
 + Can restrict channels shown in dropdown
 + Automatically switch to HD version of channel
++ Switch between +1 and normal version of channel
++ Depending on whether the channel is available on Virgin Go
+  + Display programme information
+  + Display grab of current programme
++ Optionally use Tivo remote to control other media player devices (obscure I know!)
 
-Sample configuration in repository with full list of Virgin Media channels.
+A sample configuration is in the repository with a full list of Virgin Media channels.
+
+# Usage
++ Drop the file into the custom_components/media_player directory.
++ Edit your configuration file to add the `virgintivo` platform.
+
+# Configuration
+There are 2 required sections: tivos and channels, plus 1 optional section: guide.
 
 Platform settings are:
 
-Name | Description | Example
------------- | ------------- | -------------
-platform | Must be virgintivo | virgintivo
-showbydefault | Whether all channels default to shown/hidden | true
-hdverbydefault | Whether to switch to HD if available | false
+| Name | Default | Description | Example |
+|:---- |:-------:|:------------|:--------|
+| platform | | Must be virgintivo | virgintivo |
+| default_is_show | | Whether all channels default to shown/hidden | true |
+| hdverbydefault | | Whether to switch to HD if available | false |
 
 The Tivos should be listed under the `tivos:` section.  Each entry has two required settings.
 
