@@ -1,75 +1,93 @@
   - platform: virgintivo
-    showbydefault: false
-    hdverbydefault: true
+    default_is_show: false
+    default_is_hd: true
+    scan_interval: 1 
     tivos:
       1:
         name: Virgin V6
-        host: TIVO-C68000012345678
+        host: TIVO-C68000020000000
+        force_hd: true
       2:
         name: Virgin Tivo
-        host: TIVO-CF000012345678
+        host: TIVO-CF0010E31000000
+      3:
+        name: Virgin Pretend
+        host: TIVO-CF0010E39999999
+    guide:
+      picture_refresh: 30
     channels:
       100:
         name: Virgin Media Previews
       101:
         name: BBC One
-        hdver: 108
         show: true
+        hd_channel: 108
       102:
         name: BBC Two
-        hdver: 162
         show: true
+        hd_channel: 162
       103:
         name: ITV
-        hdver: 113
         show: true
+        hd_channel: 113
+        plus_one: 114
       104:
         name: Channel 4
-        hdver: 141
         show: true
+        hd_channel: 141
+        plus_one: 142
       105:
         name: Channel 5
-        hdver: 150
         show: true
+        hd_channel: 150
+        plus_one: 155
       106:
-        name: BBC Three Online Link
+        name: E4
+        show: true
+        hd_channel: 145
+        plus_one: 146
       107:
         name: BBC Four
-        hdver: 163
+        hd_channel: 163
       108:
         name: BBC One HD
       109:
         name: Sky 1 HD
       110:
         name: Sky 1
-        hdver: 109
         show: true
+        hd_channel: 109
       111:
         name: Sky Living HD
       112:
         name: Sky Living
-        hdver: 111
+        hd_channel: 111
+        plus_one: 140
       113:
         name: ITV HD
       114:
         name: ITV +1
       115:
         name: ITV2
-        hdver: 176
         show: true
+        hd_channel: 176
+        plus_one: 116
       116:
         name: ITV2 +1
       117:
         name: ITV3
-        hdver: 177
         show: true
+        hd_channel: 177
+        plus_one: 174
       118:
         name: ITV4
-        hdver: 178
         show: true
+        hd_channel: 178
+        plus_one: 175
       119:
         name: ITVBe
-        hdver: 179
+        hd_channel: 179
+        plus_one: 120
       120:
         name: ITVBe +1
       121:
@@ -77,23 +95,26 @@
         show: true
       122:
         name: Sky Arts
-        hdver: 206
+        hd_channel: 206
       123:
         name: Pick
       124:
         name: Gold
         show: true
+        plus_one: 190
       125:
         name: W
-        hdver: 191
+        hd_channel: 191
+        plus_one: 131
       126:
         name: alibi
-        hdver: 200
         show: true
+        hd_channel: 200
+        plus_one: 130
       127:
         name: Dave
-        hdver: 194
         show: true
+        hd_channel: 194
       128:
         name: Drama
       129:
@@ -104,27 +125,31 @@
         name: W +1
       132:
         name: Comedy Central
-        hdver: 181
         show: true
+        hd_channel: 181
+        plus_one: 133
       133:
         name: Comedy Central +1
       134:
         name: MTV
-        hdver: 183
+        hd_channel: 183
       135:
         name: Syfy
-        hdver: 165
         show: true
+        hd_channel: 165
+        plus_one: 136
       136:
         name: Syfy +1
       137:
         name: Universal Channel
-        hdver: 164
+        hd_channel: 164
+        plus_one: 138
       138:
         name: Universal Channel +1
       139:
         name: Challenge
         show: true
+        plus_one: 180
       140:
         name: Sky Living +1
       141:
@@ -133,30 +158,31 @@
         name: Channel 4 +1
       143:
         name: 4seven
-      144:
-        name: E4
-        hdver: 145
-        show: true
+        hd_channel: 203
       145:
         name: E4 HD
       146:
         name: E4 +1
       147:
         name: More4
-        hdver: 195
         show: true
+        hd_channel: 195
       148:
         name: CBS Reality
+        plus_one: 201
       149:
         name: Horror Channel
+        plus_one: 202
       150:
         name: Channel 5 HD
       151:
         name: 5STAR
+        plus_one: 186
       152:
         name: My5
       153:
         name: 5 USA
+        plus_one: 185
       154:
         name: Spike
       155:
@@ -165,13 +191,15 @@
         name: E!
       157:
         name: FOX
-        hdver: 199
+        hd_channel: 199
+        plus_one: 158
       158:
-        name: FOX +
+        name: FOX +1
       159:
         name: Local TV Channel
       160:
         name: Real Lives
+        plus_one: 207
       161:
         name: BBC Alba
       162:
@@ -186,17 +214,20 @@
         name: S4C
       167:
         name: TLC
-        hdver: 168
+        hd_channel: 168
+        plus_one: 169
       168:
         name: TLC HD
       169:
         name: TLC +1
       170:
-        name: I.D.
+        name: Investigation Discovery
+        plus_one: 171
       171:
-        name: I.D. +1
+        name: Investigation Discovery +1
       172:
         name: Quest
+        plus_one: 173
       173:
         name: Quest +1
       174:
@@ -225,8 +256,6 @@
         name: 5 USA +1
       186:
         name: 5STAR +1
-      189:
-        name: True Entertainment
       190:
         name: Gold +1
       191:
@@ -234,7 +263,7 @@
       192:
         name: CBS Action
       193:
-        name: Sony Crime
+        name: Sony Crime Channel
       194:
         name: Dave HD
       195:
@@ -254,8 +283,7 @@
       202:
         name: Horror Channel +1
       203:
-        name: 4Seven HD
-        hdver: 203
+        name: 4seven HD
       204:
         name: Netflix
       206:
@@ -264,7 +292,7 @@
         name: Real Lives +1
       208:
         name: Lifetime
-        hdver: 209
+        hd_channel: 209
       209:
         name: Lifetime HD
       210:
@@ -275,53 +303,63 @@
         name: TruTV
       213:
         name: DMAX
+        plus_one: 214
       214:
         name: DMAX +1
       215:
         name: Quest Red
+      216:
+        name: Blaze
       245:
         name: Yesterday
+        plus_one: 246
       246:
         name: Yesterday +1
       247:
         name: Eden
-        hdver: 249
+        hd_channel: 249
+        plus_one: 248
       248:
         name: Eden +1
       249:
         name: Eden HD
       250:
         name: Discovery Channel
-        hdver: 250
+        hd_channel: 251
+        plus_one: 252
       251:
         name: Discovery Channel HD
       252:
         name: Discovery Channel +1
       256:
         name: Animal Planet
-        hdver: 257
+        hd_channel: 257
+        plus_one: 258
       257:
         name: Animal Planet HD
       258:
         name: Animal Planet +1
       259:
         name: Discovery Science
+        plus_one: 260
       260:
         name: Discovery Science +1
       261:
         name: Discovery Turbo
       262:
         name: Discovery History
+        plus_one: 263
       263:
         name: Discovery History +1
       264:
         name: Nat Geo Wild
-        hdver: 265
+        hd_channel: 265
       265:
         name: Nat Geo Wild HD
       266:
         name: National Geographic Channel
-        hdver: 268
+        hd_channel: 268
+        plus_one: 267
       267:
         name: National Geographic Channel +1
       268:
@@ -330,32 +368,36 @@
         name: Community Channel
       270:
         name: History
+        plus_one: 271
       271:
         name: History +1
       273:
         name: H2
-        hdver: 274
+        hd_channel: 274
       274:
         name: H2 HD
       275:
-        name: CI
+        name: Crime + Investigation
       276:
         name: PBS America
       277:
         name: Forces TV
       278:
         name: Good Food
-        hdver: 280
+        hd_channel: 280
+        plus_one: 279
       279:
         name: Good Food +1
       280:
         name: Good Food HD
       281:
         name: Home
+        plus_one: 282
       282:
         name: Home +1
       284:
         name: Discovery Home & Health
+        plus_one: 285
       285:
         name: Discovery Home & Health +1
       286:
@@ -363,7 +405,7 @@
       287:
         name: GOD Channel
       290:
-        name: GINXeSports TV
+        name: GINX eSports TV
       291:
         name: Food Network
       292:
@@ -384,8 +426,8 @@
         name: MTV Rocks
       316:
         name: VH1
-      317:
-        name: Viva
+      318:
+        name: MTV OMG
       330:
         name: Box Upfront
       335:
@@ -403,7 +445,7 @@
       343:
         name: Vintage TV
       344:
-       name: Vevo
+        name: Vevo
       345:
         name: Clubland TV
       400:
@@ -432,7 +474,8 @@
         name: Sky Cinema Select HD
       415:
         name: TCM
-        hdver: 416
+        hd_channel: 416
+        plus_one: 417
       416:
         name: TCM HD
       417:
@@ -449,47 +492,49 @@
         name: Movies4Men
       428:
         name: Film4
-        hdver: 429
         show: true
+        hd_channel: 429
+        plus_one: 430
       429:
         name: Film4 HD
       430:
         name: Film4 +1
       431:
         name: Sky Cinema Premiere
-        hdver: 401
+        hd_channel: 401
+        plus_one: 432
       432:
         name: Sky Cinema Premiere +1
       433:
         name: Sky Cinema Hits
-        hdver: 403
+        hd_channel: 403
       434:
         name: Sky Cinema Greats
-        hdver: 404
+        hd_channel: 404
       435:
         name: Sky Cinema Disney
-        hdver: 405
+        hd_channel: 405
       436:
         name: Sky Cinema Family
-        hdver: 406
+        hd_channel: 406
       437:
         name: Sky Cinema Action & Adventure
-        hdver: 407
+        hd_channel: 407
       438:
         name: Sky Cinema Comedy
-        hdver: 408
+        hd_channel: 408
       439:
         name: Sky Cinema Crime & Thriller
-        hdver: 409
+        hd_channel: 409
       440:
         name: Sky Cinema Drama & Romance
-        hdver: 410
+        hd_channel: 410
       441:
         name: Sky Cinema Sci Fi & Horror
-        hdver: 411
+        hd_channel: 411
       442:
         name: Sky Cinema Select
-        hdver: 412
+        hd_channel: 412
       445:
         name: Talking Pictures TV
       501:
@@ -503,7 +548,7 @@
       505:
         name: Sky Sports Golf HD
       506:
-        name: Sky Sports Formula 1 HD
+        name: Sky Sports F1 HD
       507:
         name: Sky Sports Action HD
       508:
@@ -514,44 +559,44 @@
         name: Sky Sports Mix HD
       511:
         name: Sky Sports Main Event
-        hdver: 501
+        hd_channel: 501
       512:
         name: Sky Sports Premier League
-        hdver: 502
+        hd_channel: 502
       513:
         name: Sky Sports Football
-        hdver: 503
+        hd_channel: 503
       514:
         name: Sky Sports Cricket
-        hdver: 504
+        hd_channel: 504
       515:
         name: Sky Sports Golf
-        hdver: 505
+        hd_channel: 505
       516:
-        name: Sky Sports Formula 1
-        hdver: 506
+        name: Sky Sports F1
+        hd_channel: 506
       517:
         name: Sky Sports Action
-        hdver: 507
+        hd_channel: 507
       518:
         name: Sky Sports Arena
-        hdver: 508
+        hd_channel: 508
       519:
         name: Sky Sports News
-        hdver: 509
+        hd_channel: 509
       520:
         name: Sky Sports Mix
-        hdver: 510
+        hd_channel: 510
       521:
         name: Eurosport 1 HD
       522:
         name: Eurosport 2 HD
       523:
         name: Eurosport 1
-        hdver: 521
+        hd_channel: 521
       524:
         name: Eurosport 2
-        hdver: 522
+        hd_channel: 522
       526:
         name: MUTV
       527:
@@ -564,16 +609,16 @@
         name: BT Sport ESPN HD
       531:
         name: BT Sport 1
-        hdver: 527
+        hd_channel: 527
       532:
         name: BT Sport 2
-        hdver: 528
+        hd_channel: 528
       533:
         name: BT Sport 3
-        hdver: 529
+        hd_channel: 529
       534:
         name: BT Sport ESPN
-        hdver: 530
+        hd_channel: 530
       535:
         name: At The Races
       536:
@@ -581,21 +626,19 @@
       544:
         name: Liverpool FC TV
       545:
-        name: Motors TV
+        name: Motorsport.tv
       546:
         name: Box Nation
       548:
-        name: BT Sport Showcase
+        name: BT Sport Freeview
       551:
         name: Premier Sports
-      552:
-        name: Bike
       601:
         name: BBC News
-        hdver: 604
+        hd_channel: 604
       602:
         name: Sky News
-        hdver: 603
+        hd_channel: 603
       603:
         name: Sky News HD
       604:
@@ -619,24 +662,26 @@
       625:
         name: NHK World HD
       700:
-        name: Tiddlers TV
+        name: Virgin Media Kids
       701:
         name: CBBC
-        hdver: 710
+        hd_channel: 710
       702:
         name: CBeebies
-        hdver: 711
+        hd_channel: 711
       703:
         name: BabyTV
       704:
         name: Cartoon Network
-        hdver: 732
+        hd_channel: 732
+        plus_one: 705
       705:
         name: Cartoon Network +1
       706:
         name: Cartoonito
       707:
         name: Disney XD
+        plus_one: 708
       708:
         name: Disney XD +1
       710:
@@ -645,7 +690,6 @@
         name: CBeebies HD
       712:
         name: Nickelodeon
-        hdver: 714
       713:
         name: Nick +1
       714:
@@ -658,24 +702,26 @@
         name: Nicktoons
       724:
         name: Disney Channel
+        plus_one: 725
       725:
         name: Disney Channel +1
       727:
         name: Disney Junior
       730:
         name: Boomerang
+        plus_one: 731
       731:
         name: Boomerang +1
       732:
         name: Cartoon Network HD
       734:
         name: CITV
+      735:
+        name: BabyFirst
       736:
         name: POP
       737:
         name: Tiny Pop
-      738:
-        name: Kix Power
       740:
         name: QVC
       741:
@@ -694,16 +740,18 @@
         name: TJC
       801:
         name: Star Gold
+      802:
+        name: Star Utsav
       803:
         name: Star Plus
       804:
-        name: Life OK
+        name: Star Bharat
       805:
-        name: Sony TV India
+        name: SET
       806:
-        name: Sony MAX
+        name: MAX
       807:
-        name: Sony SAB
+        name: SAB
       809:
         name: Zee TV
       810:
@@ -724,6 +772,8 @@
         name: Colors TV
       827:
         name: Rishtey
+      828:
+        name: Rishtey Cineplex
       829:
         name: NDTV Good Times
       830:
@@ -737,11 +787,33 @@
       834:
         name: Worldbox
       835:
-        name: Nollywood
+        name: Nigeria
       836:
         name: NDTV India
       837:
         name: NDTV Spice
+      838:
+        name: Islam Channel UK
+      839:
+        name: Islam Channel Urdu
+      840:
+        name: Brit Asia TV
+      841:
+        name: MTV Beats
+      842:
+        name: ABN TV
+      851:
+        name: BBC OneAudio Description
+      852:
+        name: BBC TwoAudio Description
+      853:
+        name: ITVAudio Description
+      854:
+        name: Channel 4Audio Description
+      855:
+        name: Channel 5Audio Description
+      856:
+        name: S4CAudio Description
       861:
         name: BBC One England
       862:
@@ -753,13 +825,145 @@
       865:
         name: BBC Two England
       875:
-        name: RTE One
+        name: RTÉ One
         show: true
+        logo: https://www.freeview.co.uk/app/themes/freeview/assets/images/channels/entertainment/rteone.png
       876:
-        name: RTE2
+        name: RTÉ2
         show: true
+        logo: https://www.freeview.co.uk/app/themes/freeview/assets/images/channels/entertainment/rtetwo.png
       877:
         name: TG4
+      901:
+        name: BBC Radio 1
+        target: media_player.family_room
+        source: Virgin V6
+      902:
+        name: BBC Radio 2
+        target: media_player.family_room
+        source: Virgin Tivo
+      903:
+        name: BBC Radio 3
+        target: media_player.family_room
+        source: CCTV
+      904:
+        name: BBC Radio 4 FM
+      905:
+        name: BBC Radio 5 Live
+      906:
+        name: BBC World Service
+      907:
+        name: BBC Radio 1Xtra
+      908:
+        name: BBC Radio 5 Live Sports Extra
+      909:
+        name: BBC Radio 6 Music
+      910:
+        name: BBC Radio 4 Extra
+      911:
+        name: BBC Radio 4 Long Wave
+      912:
+        name: BBC Asian Network
+      913:
+        name: BBC Local Radio
+      915:
+        name: Absolute Radio
+      916:
+        name: Smooth Radio
+      917:
+        name: RTÉ Radio
+      918:
+        name: Heart FM
+      919:
+        name: LBC News
+      920:
+        name: World Radio Network
+      921:
+        name: Heart 80s
+      922:
+        name: Classic FM
+      923:
+        name: Gold
+      924:
+        name: Planet Rock
+      927:
+        name: Talksport
+      928:
+        name: Magic Radio
+      930:
+        name: BBC Radio Scotland
+      931:
+        name: BBC Radio Wales
+      932:
+        name: BBC Radio Ulster
+      934:
+        name: BBC Radio nan Gàidheal
+      936:
+        name: BBC Radio Cymru
+      937:
+        name: BBC Local Radio
+      951:
+        name: Absolute Radio 80s
+      952:
+        name: Absolute Classic Rock
+      958:
+        name: Capital FM
+      959:
+        name: Capital XTRA
+      960:
+        name: Radio X
+      963:
+        name: Kiss FM
+      969:
+        name: Adult Previews
+      970:
+        name: Television XNightly
+      971:
+        name: Playboy TV Nightly
+      972:
+        name: Adult Channel
+      973:
+        name: XXX Brits
+      974:
+        name: Xrated 40+
+      975:
+        name: Xrated Couples
+      976:
+        name: Xrated Hook-Ups
+      978:
+        name: Television X
+      979:
+        name: Playboy TV
+      980:
+        name: Adult Channel
+      981:
+        name: Babenation
+      985:
+        name: PIN Protection Help
+      997:
+        name: PIN Protection Help
+      998:
+        name: Virgin Media Previews
+      999:
+        name: Virgin ID
+      990:
+        name: BBC Red Button
+        show: false
       991:
         name: BBC Red Button
+      992:
+        name: BBC Red Button
+        show: false
+      993:
+        name: BBC Red Button
+        show: false
+      994:
+        name: BBC Red Button
+        show: false
+      995:
+        name: BBC Red Button
+        show: false
+      996:
+        name: BBC Red Button
+        show: false
 
