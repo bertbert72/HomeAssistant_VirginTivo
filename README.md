@@ -8,10 +8,10 @@ Features are
 
 + Supports multiple boxes
 + Configurable list of channels
-+ Shows current channel
++ Automatically switch to HD version of channel
++ Show current channel
 + Set channel through dropdown
 + Can restrict channels shown in dropdown
-+ Automatically switch to HD version of channel
 + Switch between +1 and normal version of channel
 + Depending on whether the channel is available on Virgin Go
   + Display programme information
@@ -25,37 +25,53 @@ A sample configuration is in the repository with a full list of Virgin Media cha
 + Edit your configuration file to add the `virgintivo` platform.
 
 # Configuration
-There are 2 required sections: tivos and channels, plus 1 optional section: guide.
+There are two required sections: tivos and channels, plus one optional section: guide.
 
 Platform settings are:
 
 | Name | Default | Description | Example |
 |:---- |:-------:|:------------|:--------|
-| platform | | Must be virgintivo | virgintivo |
-| default_is_show | | Whether all channels default to shown/hidden | true |
-| hdverbydefault | | Whether to switch to HD if available | false |
+| platform _(req)_ | | Must be virgintivo | virgintivo |
+| default_is_show _(opt)_ | true | Channels default to shown/hidden | true |
+| force_hd _(opt)_ | false | Switch to HD if available | false |
 
-The Tivos should be listed under the `tivos:` section.  Each entry has two required settings.
+## tivos
+The Tivos should be listed under the `tivos:` section.  Each entry has two required settings and one optional.
 
-Name | Description | Example
------------- | ------------- | -------------
-name | Friendy name of Tivo box | Virgin Tivo
-host | IP or name of Tivo box | TIVO-C68000012345678
+| Name | Default | Description | Example |
+|:-----|:--------|:------------|:--------|
+| name _(req)_ | | Friendy name of Tivo box | Virgin Tivo |
+| host _(req)_ | | IP or name of Tivo box | TIVO-C68000012345678 |
+| force_hd _(opt)_ | false | Switch to HD if available | false |
 
-Channels come under the `channels:` section.  Each entry has a number of optional settings and one required setting (name).
+## channels
+Channels come under the `channels:` section.  Each entry has a number of optional settings and one required setting (name).  Use next/previous track to switch between the +1 and normal versions of a channel.
 
-Name | Description | Example
------------- | ------------- | -------------
-name | Friendy name of channel | BBC One
-hdver | Channel number of HD version if applicable | 108
-show | Whether or not to show the channel in the sources list | false
-plusone | Not implemented yet | -
+| Name | Default | Description | Example |
+|:-----|:--------|:------------|:--------|
+| name _(req)_ | | Friendy name of channel | BBC One |
+| show _(opt)_ | | Show the channel in the sources list | false |
+| hd_channel _(opt)_ | | HD channel number if applicable | 108 |
+| plusone _(opt)_ | | +1 channel number if applicable | 114 |
+| logo _(opt)_ | | Channel logo to display | http://freeview.com/images/e4.png |
+| target _(opt)_ | | HA entity to change | media_player.main_tv |
+| source _(req)_ | | Source on _target_ to choose | HDMI2 |
 
-Here's an example:
+## guide
+The guide settings come under the `guide:` section.  This section has a number of optional settings.
+
+| Name | Default | Description | Example |
+|:-----|:--------|:------------|:--------|
+| enable_guide _(opt)_ | true | Enable the guide functionality | false |
+| cache_hours _(opt)_ | 12 | How many hours of the guide to preload | 12 |
+| picture_refresh _(opt)_ | 60 | Seconds between screen updates | 60 |
+
+# Example
+
 ```
   - platform: virgintivo
-    showbydefault: false
-    hdverbydefault: true
+    default_is_show: false
+    force_hd: true
     tivos:
       1:
         name: Virgin V6
@@ -68,22 +84,23 @@ Here's an example:
         name: Virgin Media Previews
       101:
         name: BBC One
-        hdver: 108
+        hd_channel: 108
         show: true
       102:
         name: BBC Two
-        hdver: 162
+        hd_channel: 162
         show: true
       103:
         name: ITV
-        hdver: 113
+        hd_channel: 113
         show: true
+        plusone: 114
       104:
         name: Channel 4
-        hdver: 141
-        show: true
+        hd_channel: 141
+        plusone: 142
       105:
         name: Channel 5
-        hdver: 150
-        show: true
+        hd_channel: 150
+        plusone: 155
 ```
