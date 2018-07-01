@@ -35,6 +35,8 @@ Platform settings are:
 | default_is_show _(opt)_ | true | Channels default to shown/hidden | true |
 | force_hd _(opt)_ | false | Switch to HD if available | false |
 
+**NB:** if using the _force_hd_ functionality, it is advisable to set _scan_interval_ to a low value, e.g. 1 to allow the component to change to the HD channel quickly.
+
 ## tivos
 The Tivos should be listed under the `tivos:` section.  Each entry has two required settings and one optional.
 
