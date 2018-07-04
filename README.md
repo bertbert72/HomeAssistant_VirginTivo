@@ -34,6 +34,7 @@ Platform settings are:
 | platform _(req)_ | | Must be virgintivo | virgintivo |
 | default_is_show _(opt)_ | true | Channels default to shown/hidden | true |
 | force_hd _(opt)_ | false | Switch to HD if available | false |
+| keep_connected _(opt)_ | true | Persistent telnet connection to Tivo | false |
 
 **NB:** if using the _force_hd_ functionality, it is advisable to set _scan_interval_ to a low value, e.g. 1 to allow the component to change to the HD channel quickly.
 
@@ -45,6 +46,7 @@ The Tivos should be listed under the `tivos:` section.  Each entry has two requi
 | name _(req)_ | | Friendy name of Tivo box | Virgin Tivo |
 | host _(req)_ | | IP or name of Tivo box | TIVO-C68000012345678 |
 | force_hd _(opt)_ | false | Switch to HD if available | false |
+| keep_connected _(opt)_ | true | Persistent telnet connection to Tivo | false |
 
 ## channels
 Channels come under the `channels:` section.  Each entry has a number of optional settings and one required setting (name).  Use next/previous track to switch between the +1 and normal versions of a channel.
