@@ -17,15 +17,16 @@ import copy
 import voluptuous as vol
 
 from homeassistant.components.media_player import (
-    DOMAIN, MEDIA_PLAYER_SCHEMA, PLATFORM_SCHEMA, SUPPORT_SELECT_SOURCE,
-    MediaPlayerDevice, MEDIA_TYPE_TVSHOW, SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK)
+    DOMAIN, MEDIA_PLAYER_SCHEMA, PLATFORM_SCHEMA, SUPPORT_SELECT_SOURCE, SUPPORT_TURN_OFF, SUPPORT_TURN_ON,
+    MediaPlayerDevice, MEDIA_TYPE_TVSHOW, SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK, SUPPORT_PLAY, SUPPORT_PAUSE)
 from homeassistant.const import (
-    ATTR_ENTITY_ID, CONF_NAME, CONF_HOST, CONF_PORT, STATE_OFF, STATE_ON)
+    ATTR_ENTITY_ID, CONF_NAME, CONF_HOST, CONF_PORT, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
 
-SUPPORT_VIRGINTIVO = SUPPORT_SELECT_SOURCE + SUPPORT_NEXT_TRACK + SUPPORT_PREVIOUS_TRACK
+SUPPORT_VIRGINTIVO = SUPPORT_SELECT_SOURCE | SUPPORT_NEXT_TRACK | SUPPORT_PREVIOUS_TRACK | SUPPORT_TURN_ON \
+                     | SUPPORT_TURN_OFF | SUPPORT_PLAY | SUPPORT_PAUSE
 
 DATA_VIRGINTIVO = 'virgintivo'
 TIVO_PORT = 31339
@@ -49,11 +50,13 @@ CONF_DEFAULTISSHOW = 'default_is_show'    # show all channels in source list by 
 CONF_CACHE_HOURS = 'cache_hours'          # how many hours of guide to load into cache
 CONF_PICTURE_REFRESH = 'picture_refresh'  # how long before updating screen capture
 CONF_ENABLE_GUIDE = 'enable_guide'        # show guide
+CONF_KEEP_CONNECTED = 'keep_connected'    # keep a permanent connection to Tivo boxes
 
 TIVO_SCHEMA = vol.Schema({
     vol.Required(CONF_HOST): cv.string,
     vol.Required(CONF_NAME): cv.string,
     vol.Optional(CONF_FORCEHD, default=False): cv.boolean,
+    vol.Optional(CONF_KEEP_CONNECTED, default=True): cv.boolean,
 })
 
 CHANNEL_SCHEMA = vol.Schema({
@@ -85,6 +88,7 @@ PLATFORM_SCHEMA = vol.All(
         vol.Required(CONF_TIVOS): vol.Schema({TIVO_IDS: TIVO_SCHEMA}),
         vol.Required(CONF_CHANNELS): vol.Schema({CHANNEL_IDS: CHANNEL_SCHEMA}),
         vol.Optional(CONF_GUIDE): vol.Schema(GUIDE_SCHEMA),
+        vol.Optional(CONF_KEEP_CONNECTED, default=True): cv.boolean,
     }))
 
 
@@ -127,9 +131,11 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
         _LOGGER.info("Adding Tivo %d - %s", tivo_id, extra[CONF_NAME])
         unique_id = "{}-{}".format(extra[CONF_HOST], tivo_id)
         force_hd_on_tv = config.get(CONF_FORCEHD) or extra.get(CONF_FORCEHD)
+        keep_connected = config.get(CONF_KEEP_CONNECTED) and extra.get(CONF_KEEP_CONNECTED)
         _LOGGER.debug("Force HD on TV is %s", str(force_hd_on_tv))
         try:
-            device = VirginTivo(extra[CONF_HOST], channels, tivo_id, extra[CONF_NAME], force_hd_on_tv, guide)
+            device = VirginTivo(extra[CONF_HOST], channels, tivo_id, extra[CONF_NAME], force_hd_on_tv, guide,
+                                keep_connected)
             hass.data[DATA_VIRGINTIVO][unique_id] = device
             devices.append(device)
         except socket.gaierror:
@@ -143,8 +149,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
 class VirginTivo(MediaPlayerDevice):
     """Representation of a Virgin Tivo box."""
 
-    def __init__(self, host, channels, tivo_id, tivo_name,
-                 force_hd_on_tv, guide):
+    def __init__(self, host, channels, tivo_id, tivo_name, force_hd_on_tv, guide, keep_connected):
         """Initialize new Tivo."""
         self._host = host
         self._channel_id_name = {k: v[CONF_NAME] for k, v in channels.items()}
@@ -166,9 +171,13 @@ class VirginTivo(MediaPlayerDevice):
         self._guide = guide
         self._guide_channel = None
         self._last_screen_grab = 0
+        self._keep_connected = keep_connected
 
         _LOGGER.debug("%s: initialising connection to [%s]", self._name, self._host)
         self.connect()
+        if not self._keep_connected:
+            self.disconnect()
+
         if self._guide.enable_guide:
             self.get_guide_channels()
 
@@ -223,8 +232,8 @@ class VirginTivo(MediaPlayerDevice):
         plus_one_channel = self._channels[sd_channel][CONF_PLUSONE]
 
         try:
-            if sd_channel not in self._guide.listings \
-                    or self._guide.listings[sd_channel]["next_refresh"] < datetime.now():
+            listings = self._guide.listings
+            if sd_channel not in listings or listings[sd_channel]["next_refresh"] < datetime.now():
                 start_time = int(time.time() - 3600 * 6) * 1000
                 end_time = start_time + (3600 * self._guide.picture_refresh * 1000)
                 ch_id = self._guide.channels[sd_channel]["id"]
@@ -236,7 +245,7 @@ class VirginTivo(MediaPlayerDevice):
                     "next_refresh": 0,
                     "listings": [],
                 }
-                self._guide.listings[sd_channel] = prog_channel
+                listings[sd_channel] = prog_channel
 
                 # _LOGGER.debug("*** url request: [%s]", url);
                 response = requests.get(url, headers=GUIDE_HEADERS)
@@ -277,18 +286,18 @@ class VirginTivo(MediaPlayerDevice):
                         "prog_series_number": prog_series_number,
                     }
 
-                    self._guide.listings[sd_channel]["listings"].append(prog_info)
-                    self._guide.listings[sd_channel]["next_refresh"] = prog_end_time
+                    listings[sd_channel]["listings"].append(prog_info)
+                    listings[sd_channel]["next_refresh"] = prog_end_time
                     _LOGGER.debug("Added [%s] to channel [%d]", prog_title, sd_channel)
 
                 if hd_channel:
-                    self._guide.listings[hd_channel] = prog_channel
+                    listings[hd_channel] = prog_channel
                     _LOGGER.debug("Copied listing [%d] to HD channel [%d]", sd_channel, hd_channel)
 
                 if plus_one_channel:
-                    self._guide.listings[plus_one_channel] = copy.deepcopy(prog_channel)
+                    listings[plus_one_channel] = copy.deepcopy(prog_channel)
                     _LOGGER.debug("Copied listing [%d] to +1 channel [%d]", sd_channel, plus_one_channel)
-                    for prog in self._guide.listings[plus_one_channel]["listings"]:
+                    for prog in listings[plus_one_channel]["listings"]:
                         prog["start_time"] += timedelta(hours=1)
                         prog["end_time"] += timedelta(hours=1)
                     _LOGGER.debug("Updated times for +1 channel [%d]", plus_one_channel)
@@ -342,6 +351,17 @@ class VirginTivo(MediaPlayerDevice):
                 return True
 
         return False
+
+    def tivo_cmd(self, cmd):
+        """Send command to Tivo box"""
+        self.connect()
+        _LOGGER.debug("%s: sending request [%s]", self._name, cmd)
+        try:
+            self._sock.sendall(cmd.encode())
+            if not self._keep_connected:
+                self.disconnect()
+        except socket.timeout:
+            _LOGGER.warning("%s: connection timed out", self._name)
 
     def update(self):
         """Retrieve latest state."""
@@ -401,6 +421,9 @@ class VirginTivo(MediaPlayerDevice):
         if self._guide_channel is not None:
             self.get_guide_listings(self._guide_channel["channel_number"])
 
+        if not self._keep_connected:
+            self.disconnect()
+
     def connect(self):
         bufsize = 1024
         try:
@@ -411,7 +434,7 @@ class VirginTivo(MediaPlayerDevice):
             self._state = STATE_ON
         except socket.timeout:
             # _LOGGER.debug("%s: using existing connection", self._name)
-            self._state = STATE_ON
+            # self._state = STATE_ON
             pass
         except Exception as e:
             try:
@@ -437,6 +460,7 @@ class VirginTivo(MediaPlayerDevice):
 
     def disconnect(self):
         _LOGGER.debug("%s: disconnecting from [%s]", self._name, self._host)
+        time.sleep(0.1)
         # self._sock.shutdown()
         self._sock.close()
 
@@ -576,6 +600,35 @@ class VirginTivo(MediaPlayerDevice):
         if self.is_plus_one_channel(self._channel_id):
             self.select_source(self._channels[self.get_sd_channel(self._channel_id)][CONF_NAME])
 
+    def media_play(self):
+        """Send play command."""
+
+        cmd = "IRCODE PLAY\r"
+        self.tivo_cmd(cmd)
+
+    def media_pause(self):
+        """Send pause command."""
+
+        cmd = "IRCODE PAUSE\r"
+        self.tivo_cmd(cmd)
+
+    def turn_on(self):
+        """Turn the media player on."""
+
+        if self._state == STATE_OFF:
+            cmd = "IRCODE STANDBY\r"
+            self.tivo_cmd(cmd)
+            self._state = STATE_UNKNOWN
+
+
+    def turn_off(self):
+        """Turn the media player off."""
+        if self._state == STATE_ON:
+            cmd = "IRCODE STANDBY\rIRCODE STANDBY\r"
+            self.tivo_cmd(cmd)
+            self._state = STATE_OFF
+
+
     @property
     def source(self):
         """Return the current input channel of the device."""
@@ -596,15 +649,5 @@ class VirginTivo(MediaPlayerDevice):
             _LOGGER.debug("%s: automatically switching to HD channel", self._name)
         _LOGGER.debug("%s: setting channel to [%d]", self._name, idx)
 
-        try:
-            self.connect()
-            cmd = "SETCH " + str(idx) + "\r"
-            _LOGGER.debug("%s: sending request [%s]", self._name, cmd)
-            try:
-                self._sock.sendall(cmd.encode())
-            except socket.timeout:
-                _LOGGER.warning("%s: connection timed out", self._name)
-
-            return
-        except Exception:
-            raise
+        cmd = "SETCH " + str(idx) + "\r"
+        self.tivo_cmd(cmd)
