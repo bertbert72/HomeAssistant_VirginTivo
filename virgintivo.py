@@ -484,7 +484,7 @@ class VirginTivo(MediaPlayerDevice):
         """Return the content type of current playing media."""
         current_prog = self.get_current_prog()
         if current_prog:
-            # MEDIA_TYPE_MOVIE doesn't display as much info
+            # MEDIA_TYPE_MOVIE doesn't display as much info - see prog_type instead
             # return MEDIA_TYPE_MOVIE if current_prog["prog_type"] == "Movie" else MEDIA_TYPE_TVSHOW
             return MEDIA_TYPE_TVSHOW
         else:
@@ -493,7 +493,7 @@ class VirginTivo(MediaPlayerDevice):
     @property
     def media_duration(self):
         """Duration of current playing media in seconds."""
-        # NB: doesn't seem to be functional with TV shows
+        # NB: doesn't seem to be displayed with TV shows
         current_prog = self.get_current_prog()
         if current_prog:
             return int(current_prog["duration"].total_seconds())
@@ -503,7 +503,7 @@ class VirginTivo(MediaPlayerDevice):
     @property
     def media_position(self):
         """Position of current playing media in seconds."""
-        # NB: doesn't seem to be functional with TV shows
+        # NB: doesn't seem to be displayed with TV shows
         current_prog = self.get_current_prog()
         if current_prog:
             return int((datetime.now() - current_prog["start_time"]).total_seconds())
@@ -555,7 +555,7 @@ class VirginTivo(MediaPlayerDevice):
     @property
     def media_season(self):
         """Season of current playing media, TV show only."""
-        # disabled to allow inclusion in media series title
+        # disabled to allow inclusion in media series title - see prog_series_number instead
         # current_prog = self.get_current_prog()
         # if current_prog:
         #     return current_prog["prog_series_number"]
@@ -566,7 +566,7 @@ class VirginTivo(MediaPlayerDevice):
     @property
     def media_episode(self):
         """Episode of current playing media, TV show only."""
-        # disabled to allow inclusion in media series title
+        # disabled to allow inclusion in media series title - see prog_episode_number instead
         # current_prog = self.get_current_prog()
         # if current_prog:
         #     return current_prog["prog_episode_number"]
@@ -578,6 +578,30 @@ class VirginTivo(MediaPlayerDevice):
     def media_title(self):
         """Return the current channel as media title."""
         return self._channel
+
+    def get_prog_info(self, attribute):
+        """Return the current program info"""
+        current_prog = self.get_current_prog()
+        if current_prog:
+            return current_prog[attribute]
+        else:
+            return None
+
+    @property
+    def device_state_attributes(self):
+        """Return the state attributes."""
+        attr = {
+            'prog_title': self.get_prog_info('title'),
+            'prog_description': self.get_prog_info('description'),
+            'prog_start_time': self.get_prog_info('start_time'),
+            'prog_end_time': self.get_prog_info('end_time'),
+            'prog_type': self.get_prog_info('prog_type'),
+            'prog_episode_title': self.get_prog_info('prog_episode_title'),
+            'prog_episode_number': self.get_prog_info('prog_episode_number'),
+            'prog_series_number': self.get_prog_info('prog_series_number'),
+        }
+
+        return attr
 
     def media_previous_track(self):
         """Send previous track command."""
