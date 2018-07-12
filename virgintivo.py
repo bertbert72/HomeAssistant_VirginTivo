@@ -202,20 +202,21 @@ class VirginTivo(MediaPlayerDevice):
                         "logo": next(iter([a["url"] for a in urls if a["assetType"] == "station-logo-large"]), None),
                     }
                     self._guide.channels[ch_number] = ch_info
-                    hd_channel = self._channels[ch_number][CONF_HDCHANNEL]
-                    plus_one_channel = self._channels[ch_number][CONF_PLUSONE]
-                    if hd_channel:
-                        self._guide.channels[hd_channel] = copy.deepcopy(ch_info)
-                        self._guide.channels[hd_channel]["channel_number"] = hd_channel
-                        self._guide.channels[hd_channel]["title"] += " HD"
-                        _LOGGER.debug("Copied channel [%d] to HD channel [%d]", ch_number, hd_channel)
+                    if ch_number in self._channels:
+                        hd_channel = self._channels[ch_number][CONF_HDCHANNEL]
+                        plus_one_channel = self._channels[ch_number][CONF_PLUSONE]
+                        if hd_channel:
+                            self._guide.channels[hd_channel] = copy.deepcopy(ch_info)
+                            self._guide.channels[hd_channel]["channel_number"] = hd_channel
+                            self._guide.channels[hd_channel]["title"] += " HD"
+                            _LOGGER.debug("Copied channel [%d] to HD channel [%d]", ch_number, hd_channel)
 
-                    if plus_one_channel:
-                        self._guide.channels[plus_one_channel] = copy.deepcopy(ch_info)
-                        self._guide.channels[plus_one_channel]["channel_number"] = plus_one_channel
-                        self._guide.channels[plus_one_channel]["title"] += " +1"
-                        self._guide.channels[plus_one_channel]["url"] = None
-                        _LOGGER.debug("Copied channel [%d] to +1 channel [%d]", ch_number, plus_one_channel)
+                        if plus_one_channel:
+                            self._guide.channels[plus_one_channel] = copy.deepcopy(ch_info)
+                            self._guide.channels[plus_one_channel]["channel_number"] = plus_one_channel
+                            self._guide.channels[plus_one_channel]["title"] += " +1"
+                            self._guide.channels[plus_one_channel]["url"] = None
+                            _LOGGER.debug("Copied channel [%d] to +1 channel [%d]", ch_number, plus_one_channel)
 
             else:
                 _LOGGER.debug("Guide already populated")
