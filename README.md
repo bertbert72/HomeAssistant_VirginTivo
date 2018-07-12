@@ -56,7 +56,7 @@ Channels come under the `channels:` section.  Each entry has a number of optiona
 | name _(req)_ | | Friendy name of channel | BBC One |
 | show _(opt)_ | | Show the channel in the sources list | false |
 | hd_channel _(opt)_ | | HD channel number if applicable | 108 |
-| plusone _(opt)_ | | +1 channel number if applicable | 114 |
+| plus_one _(opt)_ | | +1 channel number if applicable | 114 |
 | logo _(opt)_ | | Channel logo to display | http://freeview.com/images/e4.png |
 | target _(opt)_ | | HA entity to change | media_player.main_tv |
 | source _(req)_ | | Source on _target_ to choose | HDMI2 |
@@ -98,13 +98,13 @@ The guide settings come under the `guide:` section.  This section has a number o
         name: ITV
         hd_channel: 113
         show: true
-        plusone: 114
+        plus_one: 114
       104:
         name: Channel 4
         hd_channel: 141
-        plusone: 142
+        plus_one: 142
       105:
         name: Channel 5
         hd_channel: 150
-        plusone: 155
+        plus_one: 155
 ```
