@@ -62,8 +62,8 @@ TIVO_SCHEMA = vol.Schema({
 CHANNEL_SCHEMA = vol.Schema({
     vol.Required(CONF_NAME): cv.string,
     vol.Optional(CONF_LOGO, default=""): cv.string,
-    vol.Optional(CONF_HDCHANNEL, default=None): cv.positive_int,
-    vol.Optional(CONF_PLUSONE, default=None): cv.positive_int,
+    vol.Optional(CONF_HDCHANNEL, default=0): cv.positive_int,
+    vol.Optional(CONF_PLUSONE, default=0): cv.positive_int,
     vol.Optional(CONF_SHOW, default="UNSET"): cv.string,
     vol.Optional(CONF_TARGET, default=""): cv.string,
     vol.Optional(CONF_SOURCE, default=""): cv.string,
@@ -116,8 +116,8 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
         channel_info = {
             CONF_NAME: entry[CONF_NAME],
             CONF_LOGO: entry[CONF_LOGO],
-            CONF_HDCHANNEL: entry[CONF_HDCHANNEL],
-            CONF_PLUSONE: entry[CONF_PLUSONE],
+            CONF_HDCHANNEL: entry[CONF_HDCHANNEL] if entry[CONF_HDCHANNEL] > 0 else None,
+            CONF_PLUSONE: entry[CONF_PLUSONE] if entry[CONF_PLUSONE] > 0 else None,
             CONF_SHOW: (show_by_default or entry[CONF_SHOW] == 'True') and entry[CONF_SHOW] != 'False',
             CONF_TARGET: entry[CONF_TARGET],
             CONF_SOURCE: entry[CONF_SOURCE],
