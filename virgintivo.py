@@ -234,7 +234,7 @@ class VirginTivo(MediaPlayerDevice):
 
         try:
             listings = self._guide.listings
-            if sd_channel not in listings or listings[sd_channel]["next_refresh"] < datetime.now():
+            if sd_channel not in listings or listings[sd_channel]["next_refresh"] <= datetime.now():
                 start_time = int(time.time() - 3600 * 6) * 1000
                 end_time = start_time + (3600 * self._guide.picture_refresh * 1000)
                 ch_id = self._guide.channels[sd_channel]["id"]
@@ -288,7 +288,7 @@ class VirginTivo(MediaPlayerDevice):
                     }
 
                     listings[sd_channel]["listings"].append(prog_info)
-                    listings[sd_channel]["next_refresh"] = prog_end_time
+                    listings[sd_channel]["next_refresh"] = prog_start_time
                     _LOGGER.debug("Added [%s] to channel [%d]", prog_title, sd_channel)
 
                 if hd_channel:
@@ -368,6 +368,9 @@ class VirginTivo(MediaPlayerDevice):
         """Retrieve latest state."""
 
         self.connect()
+        if not self._keep_connected:
+            self.disconnect()
+
         data = self._last_msg
         if data == "":
             _LOGGER.debug("%s: not on live TV", self._name)
@@ -422,9 +425,6 @@ class VirginTivo(MediaPlayerDevice):
         if self._guide_channel is not None:
             self.get_guide_listings(self._guide_channel["channel_number"])
 
-        if not self._keep_connected:
-            self.disconnect()
-
     def connect(self):
         bufsize = 1024
         try:
@@ -460,10 +460,11 @@ class VirginTivo(MediaPlayerDevice):
                 raise
 
     def disconnect(self):
-        _LOGGER.debug("%s: disconnecting from [%s]", self._name, self._host)
-        time.sleep(0.1)
-        # self._sock.shutdown()
-        self._sock.close()
+        if self._sock:
+            _LOGGER.debug("%s: disconnecting from [%s]", self._name, self._host)
+            time.sleep(0.1)
+            # self._sock.shutdown()
+            self._sock.close()
 
     @property
     def name(self):
