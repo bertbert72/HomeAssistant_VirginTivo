@@ -20,7 +20,7 @@ from homeassistant.components.media_player import (
     DOMAIN, MEDIA_PLAYER_SCHEMA, PLATFORM_SCHEMA, SUPPORT_SELECT_SOURCE, SUPPORT_TURN_OFF, SUPPORT_TURN_ON,
     MediaPlayerDevice, MEDIA_TYPE_TVSHOW, SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK, SUPPORT_PLAY, SUPPORT_PAUSE)
 from homeassistant.const import (
-    ATTR_ENTITY_ID, CONF_NAME, CONF_HOST, CONF_PORT, STATE_OFF, STATE_ON, STATE_UNKNOWN)
+    ATTR_ENTITY_ID, CONF_NAME, CONF_HOST, CONF_PORT, STATE_OFF, STATE_PLAYING, STATE_PAUSED, STATE_UNKNOWN)
 import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
@@ -172,6 +172,7 @@ class VirginTivo(MediaPlayerDevice):
         self._guide_channel = None
         self._last_screen_grab = 0
         self._keep_connected = keep_connected
+        self._paused = False
 
         _LOGGER.debug("%s: initialising connection to [%s]", self._name, self._host)
         self.connect()
@@ -432,7 +433,7 @@ class VirginTivo(MediaPlayerDevice):
             # _LOGGER.debug("%s: using existing connection", self._name)
             # _LOGGER.debug("%s: response data [%s]", self._name, data)
             self._last_msg = data
-            self._state = STATE_ON
+            self._state = STATE_PAUSED if self._paused else STATE_PLAYING
         except socket.timeout:
             # _LOGGER.debug("%s: using existing connection", self._name)
             # self._state = STATE_ON
@@ -447,7 +448,7 @@ class VirginTivo(MediaPlayerDevice):
                 data = self._sock.recv(bufsize).decode()
                 _LOGGER.debug("%s: response data [%s]", self._name, data)
                 self._last_msg = data
-                self._state = STATE_ON
+                self._state = STATE_PAUSED if self._paused else STATE_PLAYING
             except socket.timeout:
                 _LOGGER.warning("%s: timeout on connection, will retry", self._name)
                 self._state = STATE_OFF
@@ -632,12 +633,16 @@ class VirginTivo(MediaPlayerDevice):
 
         cmd = "IRCODE PLAY\r"
         self.tivo_cmd(cmd)
+        self._state = STATE_PLAYING
+        self._paused = False
 
     def media_pause(self):
         """Send pause command."""
 
         cmd = "IRCODE PAUSE\r"
         self.tivo_cmd(cmd)
+        self._state = STATE_PAUSED
+        self._paused = True
 
     def turn_on(self):
         """Turn the media player on."""
@@ -647,14 +652,12 @@ class VirginTivo(MediaPlayerDevice):
             self.tivo_cmd(cmd)
             self._state = STATE_UNKNOWN
 
-
     def turn_off(self):
         """Turn the media player off."""
-        if self._state == STATE_ON:
+        if self._state in (STATE_PLAYING, STATE_PAUSED):
             cmd = "IRCODE STANDBY\rIRCODE STANDBY\r"
             self.tivo_cmd(cmd)
             self._state = STATE_OFF
-
 
     @property
     def source(self):
