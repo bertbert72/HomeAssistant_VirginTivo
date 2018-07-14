@@ -601,6 +601,7 @@ class VirginTivo(MediaPlayerDevice):
             'prog_episode_title': self.get_prog_info('prog_episode_title'),
             'prog_episode_number': self.get_prog_info('prog_episode_number'),
             'prog_series_number': self.get_prog_info('prog_series_number'),
+            'base_channel_name': self._channels[self.get_sd_channel(self._channel_id)][CONF_NAME],
         }
 
         return attr
