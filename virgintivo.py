@@ -164,6 +164,7 @@ class VirginTivo(MediaPlayerDevice):
         self._state = STATE_OFF
         self._channel = None
         self._channel_id = None
+        self._last_channel = None
         self._sock = None
         self._port = TIVO_PORT
         self._last_msg = ""
@@ -372,6 +373,7 @@ class VirginTivo(MediaPlayerDevice):
         if not self._keep_connected:
             self.disconnect()
 
+        current_channel = self._channel
         data = self._last_msg
         if data == "":
             _LOGGER.debug("%s: not on live TV", self._name)
@@ -425,6 +427,9 @@ class VirginTivo(MediaPlayerDevice):
         # Check listing each time
         if self._guide_channel is not None:
             self.get_guide_listings(self._guide_channel["channel_number"])
+
+        if current_channel != self._channel:
+            self._last_channel = current_channel
 
     def connect(self):
         bufsize = 1024
@@ -492,7 +497,7 @@ class VirginTivo(MediaPlayerDevice):
             return MEDIA_TYPE_TVSHOW
         else:
             return None
-            
+
     @property
     def media_duration(self):
         """Duration of current playing media in seconds."""
@@ -610,23 +615,20 @@ class VirginTivo(MediaPlayerDevice):
     def media_previous_track(self):
         """Send previous track command."""
 
-        this_channel = self._channel_id
-        plus_one = self._channels[this_channel][CONF_PLUSONE]
-        if plus_one:
-            self.select_source(self._channels[plus_one][CONF_NAME])
-        else:
-            for key, channel in self._channels.items():
-                if channel[CONF_HDCHANNEL] == this_channel:
-                    sd_channel = key
-                    plus_one = self._channels[sd_channel][CONF_PLUSONE]
-                    if plus_one:
-                        self.select_source(self._channels[plus_one][CONF_NAME])
+        if self._last_channel:
+            self.select_source(self._last_channel)
 
     def media_next_track(self):
         """Send next track command."""
 
+        plus_one = self._channels[self.get_sd_channel(self._channel_id)][CONF_PLUSONE]
+        if plus_one and self._channels[plus_one][CONF_HDCHANNEL]:
+            plus_one = self._channels[plus_one][CONF_HDCHANNEL]
+
         if self.is_plus_one_channel(self._channel_id):
             self.select_source(self._channels[self.get_sd_channel(self._channel_id)][CONF_NAME])
+        elif plus_one:
+            self.select_source(self._channels[plus_one][CONF_NAME])
 
     def media_play(self):
         """Send play command."""
