@@ -18,7 +18,8 @@ import voluptuous as vol
 
 from homeassistant.components.media_player import (
     DOMAIN, MEDIA_PLAYER_SCHEMA, PLATFORM_SCHEMA, SUPPORT_SELECT_SOURCE, SUPPORT_TURN_OFF, SUPPORT_TURN_ON,
-    MediaPlayerDevice, MEDIA_TYPE_TVSHOW, SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK, SUPPORT_PLAY, SUPPORT_PAUSE)
+    MediaPlayerDevice, MEDIA_TYPE_TVSHOW, SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK, SUPPORT_PLAY, SUPPORT_PAUSE,
+    SUPPORT_STOP)
 from homeassistant.const import (
     ATTR_ENTITY_ID, CONF_NAME, CONF_HOST, CONF_PORT, STATE_OFF, STATE_PLAYING, STATE_PAUSED, STATE_UNKNOWN)
 import homeassistant.helpers.config_validation as cv
@@ -26,7 +27,7 @@ import homeassistant.helpers.config_validation as cv
 _LOGGER = logging.getLogger(__name__)
 
 SUPPORT_VIRGINTIVO = SUPPORT_SELECT_SOURCE | SUPPORT_NEXT_TRACK | SUPPORT_PREVIOUS_TRACK | SUPPORT_TURN_ON \
-                     | SUPPORT_TURN_OFF | SUPPORT_PLAY | SUPPORT_PAUSE
+                     | SUPPORT_TURN_OFF | SUPPORT_PLAY | SUPPORT_PAUSE | SUPPORT_STOP
 
 DATA_VIRGINTIVO = 'virgintivo'
 TIVO_PORT = 31339
@@ -646,6 +647,14 @@ class VirginTivo(MediaPlayerDevice):
         self._state = STATE_PAUSED
         self._paused = True
 
+    def media_stop(self):
+        """Send stop command."""
+
+        cmd = "IRCODE STOP\r"
+        self.tivo_cmd(cmd)
+        self._state = STATE_PLAYING
+        self._paused = False
+
     def turn_on(self):
         """Turn the media player on."""
 
@@ -683,3 +692,4 @@ class VirginTivo(MediaPlayerDevice):
 
         cmd = "SETCH " + str(idx) + "\r"
         self.tivo_cmd(cmd)
+
