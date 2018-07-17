@@ -168,7 +168,7 @@ class VirginTivo(MediaPlayerDevice):
         self._last_channel = None
         self._sock = None
         self._port = TIVO_PORT
-        self._last_msg = ""
+        self._last_msg = None
         self._force_hd_on_tv = force_hd_on_tv
         self._guide = guide
         self._guide_channel = None
@@ -259,13 +259,11 @@ class VirginTivo(MediaPlayerDevice):
                 for listing in listings_data["listings"]:
                     prog_start_time = datetime.fromtimestamp(listing["startTime"] / 1000)
                     prog_end_time = datetime.fromtimestamp(listing["endTime"] / 1000)
-                    prog_id = listing["stationId"]
                     prog_title = listing["program"]["title"]
                     if "description" in listing["program"]:
                         prog_description = listing["program"]["description"]
                     else:
                         prog_description = listing["program"]["longDescription"]
-                    prog_type = listing["program"]["medium"]
                     if "seriesEpisodeNumber" in listing["program"] and "seriesNumber" in listing["program"]:
                         prog_episode_number = listing["program"]["seriesEpisodeNumber"]
                         prog_series_number = listing["program"]["seriesNumber"]
@@ -280,11 +278,11 @@ class VirginTivo(MediaPlayerDevice):
                     prog_info = {
                         "title": prog_title,
                         "description": prog_description,
-                        "id": prog_id,
+                        "id": listing["stationId"],
                         "start_time": prog_start_time,
                         "end_time": prog_end_time,
                         "duration": prog_end_time - prog_start_time,
-                        "prog_type": prog_type,
+                        "prog_type": listing["program"]["medium"],
                         "prog_episode_title": prog_episode_title,
                         "prog_episode_number": prog_episode_number,
                         "prog_series_number": prog_series_number,
@@ -376,7 +374,9 @@ class VirginTivo(MediaPlayerDevice):
 
         current_channel = self._channel
         data = self._last_msg
-        if data == "":
+        if not data:
+            self._state = STATE_OFF
+        elif data == "":
             _LOGGER.debug("%s: not on live TV", self._name)
         else:
             new_status = re.search('(?<=CH_STATUS )\d+', data)
@@ -457,11 +457,11 @@ class VirginTivo(MediaPlayerDevice):
                 self._state = STATE_PAUSED if self._paused else STATE_PLAYING
             except socket.timeout:
                 _LOGGER.warning("%s: timeout on connection, will retry", self._name)
-                self._state = STATE_OFF
+                self._last_msg = None
                 pass
             except socket.gaierror:
                 _LOGGER.warning("%s: could not find Tivo, will retry", self._name)
-                self._state = STATE_OFF
+                self._last_msg = None
                 pass
             except Exception:
                 raise
@@ -692,4 +692,3 @@ class VirginTivo(MediaPlayerDevice):
 
         cmd = "SETCH " + str(idx) + "\r"
         self.tivo_cmd(cmd)
-
