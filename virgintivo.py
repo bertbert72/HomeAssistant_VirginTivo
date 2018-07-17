@@ -394,7 +394,7 @@ class VirginTivo(MediaPlayerDevice):
 
         current_channel = self._channel
         data = self._last_msg
-        if not data:
+        if data is None:
             self._state = STATE_OFF
         elif data == "":
             _LOGGER.debug("%s: not on live TV", self._name)
