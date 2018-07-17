@@ -19,7 +19,7 @@ import voluptuous as vol
 from homeassistant.components.media_player import (
     DOMAIN, MEDIA_PLAYER_SCHEMA, PLATFORM_SCHEMA, SUPPORT_SELECT_SOURCE, SUPPORT_TURN_OFF, SUPPORT_TURN_ON,
     MediaPlayerDevice, MEDIA_TYPE_TVSHOW, SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK, SUPPORT_PLAY, SUPPORT_PAUSE,
-    SUPPORT_STOP)
+    SUPPORT_STOP, SCAN_INTERVAL)
 from homeassistant.const import (
     ATTR_ENTITY_ID, CONF_NAME, CONF_HOST, CONF_PORT, STATE_OFF, STATE_PLAYING, STATE_PAUSED, STATE_UNKNOWN)
 import homeassistant.helpers.config_validation as cv
@@ -175,6 +175,7 @@ class VirginTivo(MediaPlayerDevice):
         self._last_screen_grab = 0
         self._keep_connected = keep_connected
         self._paused = False
+        self._sdoverride = {'enabled': False, 'channel_id': None, 'refresh_time': 0}
 
         _LOGGER.debug("%s: initialising connection to [%s]", self._name, self._host)
         self.connect()
@@ -354,6 +355,25 @@ class VirginTivo(MediaPlayerDevice):
 
         return False
 
+    def override_channel(self, channel_id):
+        """Change channel to HD version if required"""
+        if self._sdoverride['enabled'] and self._sdoverride['channel_id'] != channel_id:
+            self._sdoverride['enabled'] = False
+            self._sdoverride['channel_id'] = None
+
+        if self._force_hd_on_tv and self._channels[channel_id][CONF_HDCHANNEL] and not self._sdoverride['enabled']:
+            if self._sdoverride['channel_id'] == channel_id and self._sdoverride['refresh_time'] >= time.time():
+                self._sdoverride['enabled'] = True
+            else:
+                self._sdoverride['enabled'] = False
+                self._sdoverride['channel_id'] = channel_id
+                self._sdoverride['refresh_time'] = time.time() + SCAN_INTERVAL.total_seconds() + 5
+
+                channel_id = self._channels[channel_id][CONF_HDCHANNEL]
+                _LOGGER.debug("%s: automatically switching to HD channel", self._name)
+
+        return channel_id
+
     def tivo_cmd(self, cmd):
         """Send command to Tivo box"""
         self.connect()
@@ -406,9 +426,9 @@ class VirginTivo(MediaPlayerDevice):
                             idx = self._channel_name_id[self._channel]
                             self.select_source(self._channel_id_name[idx])
 
-                if self._force_hd_on_tv and self._channels[idx][CONF_HDCHANNEL]:
-                    idx = self._channels[idx][CONF_HDCHANNEL]
-                    _LOGGER.debug("%s: forcing HD channel [%s]", self._name, idx, self._channel_id_name[idx])
+                override_idx = self.override_channel(idx)
+                if override_idx != idx:
+                    idx = override_idx
                     self.select_source(self._channel_id_name[idx])
 
                 # self._state = STATE_ON
@@ -684,10 +704,8 @@ class VirginTivo(MediaPlayerDevice):
         """Set input channel."""
         if channel not in self._channel_name_id:
             return
-        idx = self._channel_name_id[channel]
-        if self._channels[idx][CONF_HDCHANNEL]:
-            idx = self._channels[idx][CONF_HDCHANNEL]
-            _LOGGER.debug("%s: automatically switching to HD channel", self._name)
+
+        idx = self.override_channel(self._channel_name_id[channel])
         _LOGGER.debug("%s: setting channel to [%d]", self._name, idx)
 
         cmd = "SETCH " + str(idx) + "\r"
