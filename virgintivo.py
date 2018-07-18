@@ -57,7 +57,7 @@ TIVO_SCHEMA = vol.Schema({
     vol.Required(CONF_HOST): cv.string,
     vol.Required(CONF_NAME): cv.string,
     vol.Optional(CONF_FORCEHD, default=False): cv.boolean,
-    vol.Optional(CONF_KEEP_CONNECTED, default=True): cv.boolean,
+    vol.Optional(CONF_KEEP_CONNECTED, default=False): cv.boolean,
 })
 
 CHANNEL_SCHEMA = vol.Schema({
@@ -89,7 +89,7 @@ PLATFORM_SCHEMA = vol.All(
         vol.Required(CONF_TIVOS): vol.Schema({TIVO_IDS: TIVO_SCHEMA}),
         vol.Required(CONF_CHANNELS): vol.Schema({CHANNEL_IDS: CHANNEL_SCHEMA}),
         vol.Optional(CONF_GUIDE): vol.Schema(GUIDE_SCHEMA),
-        vol.Optional(CONF_KEEP_CONNECTED, default=True): cv.boolean,
+        vol.Optional(CONF_KEEP_CONNECTED, default=False): cv.boolean,
     }))
 
 
@@ -132,7 +132,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
         _LOGGER.info("Adding Tivo %d - %s", tivo_id, extra[CONF_NAME])
         unique_id = "{}-{}".format(extra[CONF_HOST], tivo_id)
         force_hd_on_tv = config.get(CONF_FORCEHD) or extra.get(CONF_FORCEHD)
-        keep_connected = config.get(CONF_KEEP_CONNECTED) and extra.get(CONF_KEEP_CONNECTED)
+        keep_connected = config.get(CONF_KEEP_CONNECTED) or extra.get(CONF_KEEP_CONNECTED)
         _LOGGER.debug("Force HD on TV is %s", str(force_hd_on_tv))
         try:
             device = VirginTivo(extra[CONF_HOST], channels, tivo_id, extra[CONF_NAME], force_hd_on_tv, guide,
