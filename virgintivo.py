@@ -168,7 +168,7 @@ class VirginTivo(MediaPlayerDevice):
         self._last_channel = None
         self._sock = None
         self._port = TIVO_PORT
-        self._last_msg = None
+        self._last_msg = ""
         self._force_hd_on_tv = force_hd_on_tv
         self._guide = guide
         self._guide_channel = None
