@@ -476,12 +476,14 @@ class VirginTivo(MediaPlayerDevice):
                 self._last_msg = data
                 self._state = STATE_PAUSED if self._paused else STATE_PLAYING
             except socket.timeout:
-                _LOGGER.warning("%s: timeout on connection, will retry", self._name)
-                self._last_msg = None
+                if not self._last_msg is None:
+                    _LOGGER.warning("%s: timeout on connection, will retry", self._name)
+                    self._last_msg = None
                 pass
             except socket.gaierror:
-                _LOGGER.warning("%s: could not find Tivo, will retry", self._name)
-                self._last_msg = None
+                if not self._last_msg is None:
+                    _LOGGER.warning("%s: could not find Tivo, will retry", self._name)
+                    self._last_msg = None
                 pass
             except Exception:
                 raise
