@@ -21,7 +21,8 @@ from homeassistant.components.media_player import (
     MediaPlayerDevice, MEDIA_TYPE_TVSHOW, SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK, SUPPORT_PLAY, SUPPORT_PAUSE,
     SUPPORT_STOP, SCAN_INTERVAL)
 from homeassistant.const import (
-    ATTR_ENTITY_ID, CONF_NAME, CONF_HOST, CONF_PORT, STATE_OFF, STATE_PLAYING, STATE_PAUSED, STATE_UNKNOWN)
+    ATTR_ENTITY_ID, CONF_NAME, CONF_HOST, CONF_PORT, STATE_OFF, STATE_PLAYING, STATE_PAUSED, STATE_UNKNOWN,
+    ATTR_COMMAND)
 import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
@@ -52,6 +53,22 @@ CONF_CACHE_HOURS = 'cache_hours'          # how many hours of guide to load into
 CONF_PICTURE_REFRESH = 'picture_refresh'  # how long before updating screen capture
 CONF_ENABLE_GUIDE = 'enable_guide'        # show guide
 CONF_KEEP_CONNECTED = 'keep_connected'    # keep a permanent connection to Tivo boxes
+
+SERVICE_FIND_REMOTE = DATA_VIRGINTIVO + '_find_remote'
+SERVICE_IRCODE = DATA_VIRGINTIVO + '_ircode'
+SERVICE_KEYBOARD = DATA_VIRGINTIVO + '_keyboard'
+SERVICE_LAST_CHANNEL = DATA_VIRGINTIVO + '_last_channel'
+SERVICE_LIVE_TV = DATA_VIRGINTIVO + '_live_tv'
+SERVICE_PLUS_ONE_OFF = DATA_VIRGINTIVO + '_plus_one_off'
+SERVICE_PLUS_ONE_ON = DATA_VIRGINTIVO + '_plus_one_on'
+SERVICE_SEARCH = DATA_VIRGINTIVO + '_search'
+SERVICE_SUBTITLES_OFF = DATA_VIRGINTIVO + '_subtitles_off'
+SERVICE_SUBTITLES_ON = DATA_VIRGINTIVO + '_subtitles_on'
+SERVICE_TELEPORT = DATA_VIRGINTIVO + '_teleport'
+TIVO_SERVICE_SCHEMA = MEDIA_PLAYER_SCHEMA.extend({
+    vol.Optional(ATTR_ENTITY_ID): cv.entity_id,
+    vol.Optional(ATTR_COMMAND): cv.string,
+})
 
 TIVO_SCHEMA = vol.Schema({
     vol.Required(CONF_HOST): cv.string,
@@ -125,26 +142,67 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
         }
         channels[channel_id] = channel_info
 
-    # _LOGGER.debug("Channel list is [%s]", str(channels))
-
-    devices = []
+    hass.data[DATA_VIRGINTIVO] = []
     for tivo_id, extra in config[CONF_TIVOS].items():
         _LOGGER.info("Adding Tivo %d - %s", tivo_id, extra[CONF_NAME])
-        unique_id = "{}-{}".format(extra[CONF_HOST], tivo_id)
         force_hd_on_tv = config.get(CONF_FORCEHD) or extra.get(CONF_FORCEHD)
         keep_connected = config.get(CONF_KEEP_CONNECTED) or extra.get(CONF_KEEP_CONNECTED)
         _LOGGER.debug("Force HD on TV is %s", str(force_hd_on_tv))
         try:
-            device = VirginTivo(extra[CONF_HOST], channels, tivo_id, extra[CONF_NAME], force_hd_on_tv, guide,
-                                keep_connected)
-            hass.data[DATA_VIRGINTIVO][unique_id] = device
-            devices.append(device)
+            hass.data[DATA_VIRGINTIVO].append(VirginTivo(extra[CONF_HOST], channels, tivo_id, extra[CONF_NAME],
+                                                         force_hd_on_tv, guide, keep_connected))
         except socket.gaierror:
             # Will no longer happen
             _LOGGER.warning("Could not find Tivo %d - %s", tivo_id, extra[CONF_NAME])
             pass
 
-    add_devices(devices, True)
+    add_devices(hass.data[DATA_VIRGINTIVO], True)
+
+    def service_handle(service):
+        """Handle for services."""
+        entity_ids = service.data.get(ATTR_ENTITY_ID)
+        command = service.data.get(ATTR_COMMAND)
+
+        if entity_ids:
+            tivos = [device for device in hass.data[DATA_VIRGINTIVO] if device.entity_id in entity_ids]
+        else:
+            tivos = hass.data[DATA_VIRGINTIVO]
+
+        for tivo in tivos:
+            if service.service == SERVICE_FIND_REMOTE:
+                tivo.find_remote()
+            elif service.service == SERVICE_IRCODE:
+                tivo.ircode(command)
+            elif service.service == SERVICE_KEYBOARD:
+                tivo.keyboard(command)
+            elif service.service == SERVICE_LAST_CHANNEL:
+                tivo.last_channel()
+            elif service.service == SERVICE_LIVE_TV:
+                tivo.live_tv()
+            elif service.service == SERVICE_PLUS_ONE_OFF:
+                tivo.plus_one_off()
+            elif service.service == SERVICE_PLUS_ONE_ON:
+                tivo.plus_one_on()
+            elif service.service == SERVICE_SEARCH:
+                tivo.search(command)
+            elif service.service == SERVICE_SUBTITLES_OFF:
+                tivo.subtitles_off()
+            elif service.service == SERVICE_SUBTITLES_ON:
+                tivo.subtitles_on()
+            elif service.service == SERVICE_TELEPORT:
+                tivo.teleport(command)
+
+    hass.services.register(DOMAIN, SERVICE_FIND_REMOTE, service_handle, schema=TIVO_SERVICE_SCHEMA)
+    hass.services.register(DOMAIN, SERVICE_IRCODE, service_handle, schema=TIVO_SERVICE_SCHEMA)
+    hass.services.register(DOMAIN, SERVICE_KEYBOARD, service_handle, schema=TIVO_SERVICE_SCHEMA)
+    hass.services.register(DOMAIN, SERVICE_LAST_CHANNEL, service_handle, schema=TIVO_SERVICE_SCHEMA)
+    hass.services.register(DOMAIN, SERVICE_LIVE_TV, service_handle, schema=TIVO_SERVICE_SCHEMA)
+    hass.services.register(DOMAIN, SERVICE_PLUS_ONE_OFF, service_handle, schema=TIVO_SERVICE_SCHEMA)
+    hass.services.register(DOMAIN, SERVICE_PLUS_ONE_ON, service_handle, schema=TIVO_SERVICE_SCHEMA)
+    hass.services.register(DOMAIN, SERVICE_SEARCH, service_handle, schema=TIVO_SERVICE_SCHEMA)
+    hass.services.register(DOMAIN, SERVICE_SUBTITLES_OFF, service_handle, schema=TIVO_SERVICE_SCHEMA)
+    hass.services.register(DOMAIN, SERVICE_SUBTITLES_ON, service_handle, schema=TIVO_SERVICE_SCHEMA)
+    hass.services.register(DOMAIN, SERVICE_TELEPORT, service_handle, schema=TIVO_SERVICE_SCHEMA)
 
 
 class VirginTivo(MediaPlayerDevice):
@@ -377,9 +435,10 @@ class VirginTivo(MediaPlayerDevice):
     def tivo_cmd(self, cmd):
         """Send command to Tivo box"""
         self.connect()
-        _LOGGER.debug("%s: sending request [%s]", self._name, cmd)
+        upper_cmd = cmd.upper()
+        _LOGGER.debug("%s: sending request [%s]", self._name, upper_cmd.replace('\r','\\r'))
         try:
-            self._sock.sendall(cmd.encode())
+            self._sock.sendall(upper_cmd.encode())
             if not self._keep_connected:
                 self.disconnect()
         except socket.timeout:
@@ -476,12 +535,12 @@ class VirginTivo(MediaPlayerDevice):
                 self._last_msg = data
                 self._state = STATE_PAUSED if self._paused else STATE_PLAYING
             except socket.timeout:
-                if not self._last_msg is None:
+                if self._last_msg is not None:
                     _LOGGER.warning("%s: timeout on connection, will retry", self._name)
                     self._last_msg = None
                 pass
             except socket.gaierror:
-                if not self._last_msg is None:
+                if self._last_msg is not None:
                     _LOGGER.warning("%s: could not find Tivo, will retry", self._name)
                     self._last_msg = None
                 pass
@@ -635,23 +694,71 @@ class VirginTivo(MediaPlayerDevice):
 
         return attr
 
+    """Custom services"""
+    def find_remote(self):
+        self.tivo_cmd("IRCODE FIND_REMOTE\r")
+
+    def ircode(self, cmd):
+        self.tivo_cmd("IRCODE " + cmd + "\r")
+
+    def keyboard(self, cmd):
+        self.tivo_cmd("KEYBOARD " + cmd + "\r")
+
+    def last_channel(self):
+        if self._last_channel:
+            self.select_source(self._last_channel)
+
+    def live_tv(self):
+        self.tivo_cmd("IRCODE LIVETV\r")
+
+    def plus_one_off(self):
+        if self.is_plus_one_channel(self._channel_id):
+            idx = self.override_channel(self.get_sd_channel(self._channel_id))
+            self.select_source(self._channels[idx][CONF_NAME])
+
+    def plus_one_on(self):
+        plus_one = self._channels[self.get_sd_channel(self._channel_id)][CONF_PLUSONE]
+        if plus_one:
+            if self._channels[plus_one][CONF_HDCHANNEL]:
+                plus_one = self._channels[plus_one][CONF_HDCHANNEL]
+
+            self.select_source(self._channels[plus_one][CONF_NAME])
+
+    def search(self, cmd):
+        self.tivo_cmd("TELEPORT SEARCH\r")
+        time.sleep(0.5)
+        result = ""
+        for character in cmd:
+            char = character.replace(' ','SPACE')
+            result += "KEYBOARD " + char + "\r"
+
+        result += "KEYBOARD RIGHT\r"
+        self.tivo_cmd(result)
+        time.sleep(1)
+        self.tivo_cmd("KEYBOARD SELECT\r")
+
+    def subtitles_off(self):
+        self.tivo_cmd("IRCODE CC_OFF\r")
+
+    def subtitles_on(self):
+        self.tivo_cmd("IRCODE CC_ON\r")
+
+    def teleport(self, cmd):
+        self.tivo_cmd("TELEPORT " + cmd + "\r")
+
+    """Standard services"""
     def media_previous_track(self):
         """Send previous track command."""
 
-        if self._last_channel:
-            self.select_source(self._last_channel)
+        self.last_channel()
 
     def media_next_track(self):
         """Send next track command."""
 
-        plus_one = self._channels[self.get_sd_channel(self._channel_id)][CONF_PLUSONE]
-        if plus_one and self._channels[plus_one][CONF_HDCHANNEL]:
-            plus_one = self._channels[plus_one][CONF_HDCHANNEL]
-
         if self.is_plus_one_channel(self._channel_id):
-            self.select_source(self._channels[self.get_sd_channel(self._channel_id)][CONF_NAME])
-        elif plus_one:
-            self.select_source(self._channels[plus_one][CONF_NAME])
+            self.plus_one_off()
+        else:
+            self.plus_one_on()
 
     def media_play(self):
         """Send play command."""
