@@ -73,7 +73,7 @@ The guide settings come under the `guide:` section.  This section has a number o
 
 # Services
 
-find remote, send IR code, send keyboard command, last channel, live TV, switch to/from +1 channel, search for programme, subtitles on/off, "teleport".
+These can be called by automations, scripts etc.
 
 | Service | Entity | Description | Example Data |
 | :------ | :----- | :---------- | :----------- |
