@@ -17,6 +17,7 @@ Features are
   + Display programme information
   + Display grab of current programme
 + Optionally use Tivo remote to control other media player devices (obscure I know!)
++ Services: find remote, send IR code, send keyboard command, last channel, live TV, switch to/from +1 channel, search for programme, subtitles on/off, "teleport".
 
 A sample configuration is in the repository with a full list of Virgin Media channels.
 
@@ -70,7 +71,30 @@ The guide settings come under the `guide:` section.  This section has a number o
 | cache_hours _(opt)_ | 12 | How many hours of the guide to preload | 12 |
 | picture_refresh _(opt)_ | 60 | Seconds between screen updates | 60 |
 
+# Services
+
+find remote, send IR code, send keyboard command, last channel, live TV, switch to/from +1 channel, search for programme, subtitles on/off, "teleport".
+
+| Service | Entity | Description | Example Data |
+| :------ | :----- | :---------- | :----------- |
+| Find Remote <sup>1</sup> | media_player.virgintivo_find_remote | Causes the remote to beep | {"entity_id": "media_player.virgin_v6"} |
+| Send IR Code | media_player.virgintivo_ircode | Sends an IR command | {"entity_id": "media_player.virgin_v6", "command": "standby"} |
+| Send Keyboard Command | media_player.virgintivo_keyboard | Sends a key entry | {"entity_id": "media_player.virgin_v6", "command": "A"} | Last Channel | media_player.virgintivo_last_channel | Return to previous channel | {"entity_id": "media_player.virgin_v6"} |
+| Live TV | media_player.virgintivo_live_tv | Switch to normal TV mode | {"entity_id": "media_player.virgin_v6"} |
+| Plus One Off | media_player.virgintivo_plus_one_off | Switch to non +1 version of channel | {"entity_id": "media_player.virgin_v6"} |
+| Plus One On | media_player.virgintivo_plus_one_on | Switch to +1 version if available | {"entity_id": "media_player.virgin_v6"} |
+| Search | media_player.virgintivo_search | Search for a programme | {"entity_id": "media_player.virgin_v6", "command": "family guy"} |
+| Subtitles Off | media_player.virgintivo_subtitles_off | Turn off subtitles | {"entity_id": "media_player.virgin_v6"} |
+| Subtitles On | media_player.virgintivo_subtitles_on | Turn on subtitles | {"entity_id": "media_player.virgin_v6"} |
+| Teleport <sup>2</sup> | media_player.virgintivo_teleport | Change mode | {"entity_id": "media_player.virgin_v6", "command": "livetv"} |
+
+<sup>1</sup> Works with the Virgin V6 Bluetooth remote
+
+<sup>2</sup> This forces the Tivo into certain modes.  Known available entries are: TIVO, LIVETV, GUIDE, NOWPLAYING
+
 # Example
+
+This is a truncated example only.  Use example.yaml in the repository for a full set of channels.
 
 ```
   - platform: virgintivo
