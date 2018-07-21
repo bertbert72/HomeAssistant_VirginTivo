@@ -98,31 +98,52 @@
         hd_channel: 206
       123:
         name: Pick
+      # 124:
+        # name: Gold
+        # show: true
+        # plus_one: 190
+      # 125:
+        # name: W
+        # hd_channel: 191
+        # plus_one: 131
+      # 126:
+        # name: alibi
+        # show: true
+        # hd_channel: 200
+        # plus_one: 130
+      # 127:
+        # name: Dave
+        # show: true
+        # hd_channel: 194
+        # plus_one: 211
+      # 128:
+        # name: Drama
+      # 129:
+        # name: Really
+      # 130:
+        # name: alibi +1
+      # 131:
+        # name: W +1
       124:
-        name: Gold
-        show: true
-        plus_one: 190
+        name: Paramount Network HD
       125:
-        name: W
-        hd_channel: 191
-        plus_one: 131
+        name: Lifetime
+        hd_channel: 209
+        plus_one: 246
       126:
-        name: alibi
-        show: true
-        hd_channel: 200
-        plus_one: 130
+        name: True Entertainment
+        plus_one: 190
       127:
-        name: Dave
-        show: true
-        hd_channel: 194
+        name: Premier Sports HD
       128:
-        name: Drama
+        name: Your TV
       129:
-        name: Really
+        name: 4Music
       130:
-        name: alibi +1
+        name: Freesports
       131:
-        name: W +1
+        name: Sky Sports Mix
+        hd_channel: 510
       132:
         name: Comedy Central
         show: true
@@ -163,10 +184,10 @@
         name: E4 HD
       146:
         name: E4 +1
-      147:
-        name: More4
-        show: true
-        hd_channel: 195
+      # 147:
+        # name: More4
+        # show: true
+        # hd_channel: 195
       148:
         name: CBS Reality
         plus_one: 201
@@ -227,6 +248,7 @@
         name: Investigation Discovery +1
       172:
         name: Quest
+        hd_channel: 194
         plus_one: 173
       173:
         name: Quest +1
@@ -256,28 +278,36 @@
         name: 5 USA +1
       186:
         name: 5STAR +1
+      # 190:
+        # name: Gold +1
+      # 191:
+        # name: W HD
       190:
-        name: Gold +1
+        name: True Entertainment +1
       191:
-        name: W HD
+        name: Vice
       192:
         name: CBS Action
       193:
         name: Sony Crime Channel
+      # 194:
+        # name: Dave HD
       194:
-        name: Dave HD
+        name: Quest HD
       195:
         name: More4 HD
-      196:
-        name: More 4 +1
+      # 196:
+        # name: More 4 +1
       197:
         name: CBS Drama
       198:
         name: YouTube
       199:
         name: FOX HD
+      # 200:
+        # name: alibi HD
       200:
-        name: alibi HD
+        name: "C&I HD"
       201:
         name: CBS Reality +1
       202:
@@ -290,15 +320,17 @@
         name: Sky Arts HD
       207:
         name: Real Lives +1
-      208:
-        name: Lifetime
-        hd_channel: 209
+      # 208:
+        # name: Lifetime
+        # hd_channel: 209
       209:
         name: Lifetime HD
       210:
         name: hayu
+      # 211:
+        # name: Dave ja vu
       211:
-        name: Dave ja vu
+        name: Discovery Turbo
       212:
         name: TruTV
       213:
@@ -310,19 +342,30 @@
         name: Quest Red
       216:
         name: Blaze
+      # 245:
+        # name: Yesterday
+        # plus_one: 246
+      # 246:
+        # name: Yesterday +1
+      # 247:
+        # name: Eden
+        # hd_channel: 249
+        # plus_one: 248
+      # 248:
+        # name: Eden +1
+      # 249:
+        # name: Eden HD
       245:
-        name: Yesterday
-        plus_one: 246
+        name: History HD
       246:
-        name: Yesterday +1
+        name: Lifetime +1
       247:
-        name: Eden
-        hd_channel: 249
-        plus_one: 248
+        name: Love Nature HD
       248:
-        name: Eden +1
+        name: Love Nature
+        hd_channel: 247
       249:
-        name: Eden HD
+        name: Together
       250:
         name: Discovery Channel
         hd_channel: 251
@@ -344,8 +387,8 @@
         plus_one: 260
       260:
         name: Discovery Science +1
-      261:
-        name: Discovery Turbo
+      # 261:
+        # name: Discovery Turbo
       262:
         name: Discovery History
         plus_one: 263
@@ -368,6 +411,7 @@
         name: Community Channel
       270:
         name: History
+        hd_channel: 245
         plus_one: 271
       271:
         name: History +1
@@ -382,19 +426,27 @@
         name: PBS America
       277:
         name: Forces TV
+      # 278:
+        # name: Good Food
+        # hd_channel: 280
+        # plus_one: 279
+      # 279:
+        # name: Good Food +1
+      # 280:
+        # name: Good Food HD
+      # 281:
+        # name: Home
+        # plus_one: 282
+      # 282:
+        # name: Home +1
       278:
-        name: Good Food
-        hd_channel: 280
-        plus_one: 279
+        name: "Horse & Country"
       279:
-        name: Good Food +1
-      280:
-        name: Good Food HD
-      281:
-        name: Home
+        name: More4
         plus_one: 282
+        hd_channel: 195
       282:
-        name: Home +1
+        name: More4 +1
       284:
         name: Discovery Home & Health
         plus_one: 285
@@ -434,8 +486,8 @@
         name: The Box
       336:
         name: Box Hits
-      337:
-        name: 4Music
+      # 337:
+        # name: 4Music
       338:
         name: Kiss
       340:
@@ -448,6 +500,8 @@
         name: Vevo
       345:
         name: Clubland TV
+      346:
+        name: Now 80s
       400:
         name: Virgin Movies Previews
       401:
@@ -584,9 +638,9 @@
       519:
         name: Sky Sports News
         hd_channel: 509
-      520:
-        name: Sky Sports Mix
-        hd_channel: 510
+      # 520:
+        # name: Sky Sports Mix
+        # hd_channel: 510
       521:
         name: Eurosport 1 HD
       522:
@@ -633,6 +687,7 @@
         name: BT Sport Freeview
       551:
         name: Premier Sports
+        plus_one: 127
       601:
         name: BBC News
         hd_channel: 604
@@ -966,4 +1021,3 @@
       996:
         name: BBC Red Button
         show: false
-
