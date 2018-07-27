@@ -260,8 +260,10 @@ class VirginTivo(MediaPlayerDevice):
                         "channel_number": ch_number,
                         "id": channel["stationSchedules"][0]["station"]["id"],
                         "title": channel["stationSchedules"][0]["station"]["title"],
-                        "url": next(iter([a["url"] for a in urls if a["assetType"] == "imageStream"]), None),
-                        "logo": next(iter([a["url"] for a in urls if a["assetType"] == "station-logo-large"]), None),
+                        "url": next(iter([a["url"] for a in urls
+                                          if "assetType" in a and a["assetType"] == "imageStream"]), None),
+                        "logo": next(iter([a["url"] for a in urls
+                                           if "assetType" in a and a["assetType"] == "station-logo-large"]), None),
                     }
                     self._guide.channels[ch_number] = ch_info
                     if ch_number in self._channels:
@@ -436,7 +438,7 @@ class VirginTivo(MediaPlayerDevice):
         """Send command to Tivo box"""
         self.connect()
         upper_cmd = cmd.upper()
-        _LOGGER.debug("%s: sending request [%s]", self._name, upper_cmd.replace('\r','\\r'))
+        _LOGGER.debug("%s: sending request [%s]", self._name, upper_cmd.replace('\r', '\\r'))
         try:
             self._sock.sendall(upper_cmd.encode())
             if not self._keep_connected:
@@ -729,7 +731,7 @@ class VirginTivo(MediaPlayerDevice):
         time.sleep(0.5)
         result = ""
         for character in cmd:
-            char = character.replace(' ','SPACE')
+            char = character.replace(' ', 'SPACE')
             result += "KEYBOARD " + char + "\r"
 
         result += "KEYBOARD RIGHT\r"
