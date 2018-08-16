@@ -98,52 +98,31 @@
         hd_channel: 206
       123:
         name: Pick
-      # 124:
-        # name: Gold
-        # show: true
-        # plus_one: 190
-      # 125:
-        # name: W
-        # hd_channel: 191
-        # plus_one: 131
-      # 126:
-        # name: alibi
-        # show: true
-        # hd_channel: 200
-        # plus_one: 130
-      # 127:
-        # name: Dave
-        # show: true
-        # hd_channel: 194
-        # plus_one: 211
-      # 128:
-        # name: Drama
-      # 129:
-        # name: Really
-      # 130:
-        # name: alibi +1
-      # 131:
-        # name: W +1
       124:
-        name: Paramount Network HD
-      125:
-        name: Lifetime
-        hd_channel: 209
-        plus_one: 246
-      126:
-        name: True Entertainment
+        name: Gold
+        show: true
         plus_one: 190
+      125:
+        name: W
+        hd_channel: 191
+        plus_one: 131
+      126:
+        name: alibi
+        show: true
+        hd_channel: 200
+        plus_one: 130
       127:
-        name: Premier Sports HD
+        name: Dave
+        show: true
+        hd_channel: 194
       128:
-        name: Your TV
+        name: Drama
       129:
-        name: 4Music
+        name: Really
       130:
-        name: Freesports
+        name: alibi +1
       131:
-        name: Sky Sports Mix
-        hd_channel: 510
+        name: W +1
       132:
         name: Comedy Central
         show: true
@@ -184,10 +163,10 @@
         name: E4 HD
       146:
         name: E4 +1
-      # 147:
-        # name: More4
-        # show: true
-        # hd_channel: 195
+      147:
+        name: More4
+        show: true
+        hd_channel: 195
       148:
         name: CBS Reality
         plus_one: 201
@@ -248,7 +227,7 @@
         name: Investigation Discovery +1
       172:
         name: Quest
-        hd_channel: 194
+        hd_channel: 217
         plus_one: 173
       173:
         name: Quest +1
@@ -278,36 +257,33 @@
         name: 5 USA +1
       186:
         name: 5STAR +1
-      # 190:
-        # name: Gold +1
-      # 191:
-        # name: W HD
+      187:
+        name: Paramount Network HD
+      189:
+        name: True Entertainment
+        plus_one: 220
       190:
-        name: True Entertainment +1
+        name: Gold +1
       191:
-        name: Vice
+        name: W HD
       192:
         name: CBS Action
       193:
         name: Sony Crime Channel
-      # 194:
-        # name: Dave HD
       194:
-        name: Quest HD
+        name: Dave HD
       195:
         name: More4 HD
-      # 196:
-        # name: More 4 +1
+      196:
+        name: More 4 +1
       197:
         name: CBS Drama
       198:
         name: YouTube
       199:
         name: FOX HD
-      # 200:
-        # name: alibi HD
       200:
-        name: "C&I HD"
+        name: alibi HD
       201:
         name: CBS Reality +1
       202:
@@ -320,17 +296,16 @@
         name: Sky Arts HD
       207:
         name: Real Lives +1
-      # 208:
-        # name: Lifetime
-        # hd_channel: 209
+      208:
+        name: Lifetime
+        hd_channel: 209
+        plus_one: 225
       209:
         name: Lifetime HD
       210:
         name: hayu
-      # 211:
-        # name: Dave ja vu
       211:
-        name: Discovery Turbo
+        name: Dave ja vu
       212:
         name: TruTV
       213:
@@ -342,30 +317,31 @@
         name: Quest Red
       216:
         name: Blaze
-      # 245:
-        # name: Yesterday
-        # plus_one: 246
-      # 246:
-        # name: Yesterday +1
-      # 247:
-        # name: Eden
-        # hd_channel: 249
-        # plus_one: 248
-      # 248:
-        # name: Eden +1
-      # 249:
-        # name: Eden HD
-      245:
-        name: History HD
-      246:
+      217:
+        name: Quest HD
+      218:
+        name: Your TV HD
+      219:
+        name: Vice
+      220:
+        name: True Entertainment +1
+      222:
+        name: Crime + Investigation HD
+      225:
         name: Lifetime +1
+      245:
+        name: Yesterday
+        plus_one: 246
+      246:
+        name: Yesterday +1
       247:
-        name: Love Nature HD
+        name: Eden
+        hd_channel: 249
+        plus_one: 248
       248:
-        name: Love Nature
-        hd_channel: 247
+        name: Eden +1
       249:
-        name: Together
+        name: Eden HD
       250:
         name: Discovery Channel
         hd_channel: 251
@@ -387,8 +363,8 @@
         plus_one: 260
       260:
         name: Discovery Science +1
-      # 261:
-        # name: Discovery Turbo
+      261:
+        name: Discovery Turbo
       262:
         name: Discovery History
         plus_one: 263
@@ -408,10 +384,10 @@
       268:
         name: National Geographic Channel HD
       269:
-        name: Community Channel
+        name: Together
       270:
         name: History
-        hd_channel: 245
+        hd_channel: 299
         plus_one: 271
       271:
         name: History +1
@@ -422,36 +398,29 @@
         name: H2 HD
       275:
         name: Crime + Investigation
+        hd_channel: 222
       276:
         name: PBS America
       277:
         name: Forces TV
-      # 278:
-        # name: Good Food
-        # hd_channel: 280
-        # plus_one: 279
-      # 279:
-        # name: Good Food +1
-      # 280:
-        # name: Good Food HD
-      # 281:
-        # name: Home
-        # plus_one: 282
-      # 282:
-        # name: Home +1
       278:
-        name: "Horse & Country"
+        name: Good Food
+        hd_channel: 280
+        plus_one: 279
       279:
-        name: More4
+        name: Good Food +1
+      280:
+        name: Good Food HD
+      281:
+        name: Home
         plus_one: 282
-        hd_channel: 195
       282:
-        name: More4 +1
+        name: Home +1
       284:
-        name: Discovery Home & Health
+        name: 'Discovery Home & Health'
         plus_one: 285
       285:
-        name: Discovery Home & Health +1
+        name: 'Discovery Home & Health +1'
       286:
         name: Discovery Shed
       287:
@@ -462,6 +431,15 @@
         name: Food Network
       292:
         name: Travel Channel
+      293:
+        name: Love Nature HD
+      294:
+        name: Love Nature
+        hd_channel: 293
+      298:
+        name: 'Horse & Country'
+      299:
+        name: History HD
       300:
         name: VTV Music On Demand
       310:
@@ -486,8 +464,8 @@
         name: The Box
       336:
         name: Box Hits
-      # 337:
-        # name: 4Music
+      337:
+        name: 4Music
       338:
         name: Kiss
       340:
@@ -500,8 +478,6 @@
         name: Vevo
       345:
         name: Clubland TV
-      346:
-        name: Now 80s
       400:
         name: Virgin Movies Previews
       401:
@@ -515,15 +491,15 @@
       406:
         name: Sky Cinema Family HD
       407:
-        name: Sky Cinema Action & Adventure HD
+        name: 'Sky Cinema Action & Adventure HD'
       408:
         name: Sky Cinema Comedy HD
       409:
-        name: Sky Cinema Crime & Thriller HD
+        name: 'Sky Cinema Crime & Thriller HD'
       410:
-        name: Sky Cinema Drama & Romance HD
+        name: 'Sky Cinema Drama & Romance HD'
       411:
-        name: Sky Cinema Sci Fi & Horror HD
+        name: 'Sky Cinema Sci Fi & Horror HD'
       412:
         name: Sky Cinema Select HD
       415:
@@ -572,19 +548,19 @@
         name: Sky Cinema Family
         hd_channel: 406
       437:
-        name: Sky Cinema Action & Adventure
+        name: 'Sky Cinema Action & Adventure'
         hd_channel: 407
       438:
         name: Sky Cinema Comedy
         hd_channel: 408
       439:
-        name: Sky Cinema Crime & Thriller
+        name: 'Sky Cinema Crime & Thriller'
         hd_channel: 409
       440:
-        name: Sky Cinema Drama & Romance
+        name: 'Sky Cinema Drama & Romance'
         hd_channel: 410
       441:
-        name: Sky Cinema Sci Fi & Horror
+        name: 'Sky Cinema Sci Fi & Horror'
         hd_channel: 411
       442:
         name: Sky Cinema Select
@@ -638,9 +614,9 @@
       519:
         name: Sky Sports News
         hd_channel: 509
-      # 520:
-        # name: Sky Sports Mix
-        # hd_channel: 510
+      520:
+        name: Sky Sports Mix
+        hd_channel: 510
       521:
         name: Eurosport 1 HD
       522:
@@ -686,8 +662,9 @@
       548:
         name: BT Sport Freeview
       551:
-        name: Premier Sports
-        plus_one: 127
+        name: Premier Sports HD
+      553:
+        name: Freesports
       601:
         name: BBC News
         hd_channel: 604
@@ -793,6 +770,8 @@
         name: Jewellery Maker
       757:
         name: TJC
+      793:
+        name: ZooMoo
       801:
         name: Star Gold
       802:
@@ -812,7 +791,7 @@
       810:
         name: Zee Cinema
       811:
-        name: '&TV'
+        name: ''&TV''
       812:
         name: Zee Punjabi
       813:
