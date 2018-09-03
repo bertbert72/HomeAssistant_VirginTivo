@@ -78,7 +78,7 @@ These can be called by automations, scripts etc.
 | Service | Entity | Description | Example Data |
 | :------ | :----- | :---------- | :----------- |
 | Find Remote <sup>1</sup> | media_player.virgintivo_find_remote | Causes the remote to beep | {"entity_id": "media_player.virgin_v6"} |
-| Send IR Code | media_player.virgintivo_ircode | Sends an IR command | {"entity_id": "media_player.virgin_v6", "command": "standby"} |
+| Send IR Code | media_player.virgintivo_ircode | Sends an IR command | {"entity_id": "media_player.virgin_v6", "command": "standby"}<br>{"entity_id": "media_player.virgin_v6", "command": "advance", "repeats": 10}|
 | Send Keyboard Command | media_player.virgintivo_keyboard | Sends a key entry | {"entity_id": "media_player.virgin_v6", "command": "A"} | Last Channel | media_player.virgintivo_last_channel | Return to previous channel | {"entity_id": "media_player.virgin_v6"} |
 | Live TV | media_player.virgintivo_live_tv | Switch to normal TV mode | {"entity_id": "media_player.virgin_v6"} |
 | Plus One Off | media_player.virgintivo_plus_one_off | Switch to non +1 version of channel | {"entity_id": "media_player.virgin_v6"} |
