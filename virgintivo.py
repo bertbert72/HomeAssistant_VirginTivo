@@ -65,9 +65,11 @@ SERVICE_SEARCH = DATA_VIRGINTIVO + '_search'
 SERVICE_SUBTITLES_OFF = DATA_VIRGINTIVO + '_subtitles_off'
 SERVICE_SUBTITLES_ON = DATA_VIRGINTIVO + '_subtitles_on'
 SERVICE_TELEPORT = DATA_VIRGINTIVO + '_teleport'
+ATTR_REPEATS = 'repeats'
 TIVO_SERVICE_SCHEMA = MEDIA_PLAYER_SCHEMA.extend({
     vol.Optional(ATTR_ENTITY_ID): cv.entity_id,
     vol.Optional(ATTR_COMMAND): cv.string,
+    vol.Optional(ATTR_REPEATS, default=1): cv.positive_int
 })
 
 TIVO_SCHEMA = vol.Schema({
@@ -162,6 +164,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
         """Handle for services."""
         entity_ids = service.data.get(ATTR_ENTITY_ID)
         command = service.data.get(ATTR_COMMAND)
+        repeats = service.data.get(ATTR_REPEATS)
 
         if entity_ids:
             tivos = [device for device in hass.data[DATA_VIRGINTIVO] if device.entity_id in entity_ids]
@@ -172,7 +175,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
             if service.service == SERVICE_FIND_REMOTE:
                 tivo.find_remote()
             elif service.service == SERVICE_IRCODE:
-                tivo.ircode(command)
+                tivo.ircode(command, repeats)
             elif service.service == SERVICE_KEYBOARD:
                 tivo.keyboard(command)
             elif service.service == SERVICE_LAST_CHANNEL:
@@ -700,8 +703,13 @@ class VirginTivo(MediaPlayerDevice):
     def find_remote(self):
         self.tivo_cmd("IRCODE FIND_REMOTE\r")
 
-    def ircode(self, cmd):
-        self.tivo_cmd("IRCODE " + cmd + "\r")
+    def ircode(self, cmd, repeats):
+        this_count = repeats
+        this_cmd = ""
+        while this_count > 0:
+            this_cmd += "IRCODE " + cmd + "\r"
+            this_count -= 1
+        self.tivo_cmd(this_cmd)
 
     def keyboard(self, cmd):
         self.tivo_cmd("KEYBOARD " + cmd + "\r")
