@@ -326,8 +326,10 @@ class VirginTivo(MediaPlayerDevice):
                     prog_title = listing["program"]["title"]
                     if "description" in listing["program"]:
                         prog_description = listing["program"]["description"]
-                    else:
+                    elif "longDescription" in listing["program"]:
                         prog_description = listing["program"]["longDescription"]
+                    else:
+                        prog_description = ""
                     if "seriesEpisodeNumber" in listing["program"] and "seriesNumber" in listing["program"]:
                         prog_episode_number = listing["program"]["seriesEpisodeNumber"]
                         prog_series_number = listing["program"]["seriesNumber"]
