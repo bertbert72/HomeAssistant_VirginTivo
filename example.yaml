@@ -52,15 +52,15 @@
       108:
         name: BBC One HD
       109:
-        name: Sky 1 HD
+        name: Sky One HD
       110:
-        name: Sky 1
+        name: Sky One
         show: true
         hd_channel: 109
       111:
-        name: Sky Living HD
+        name: Sky Witness HD
       112:
-        name: Sky Living
+        name: Sky Witness
         hd_channel: 111
         plus_one: 140
       113:
@@ -91,7 +91,7 @@
       120:
         name: ITVBe +1
       121:
-        name: Sky 2
+        name: Sky Two
         show: true
       122:
         name: Sky Arts
@@ -99,7 +99,7 @@
       123:
         name: Pick
       124:
-        name: Gold
+        name: Gold HD
         show: true
         plus_one: 190
       125:
@@ -141,17 +141,17 @@
       136:
         name: Syfy +1
       137:
-        name: Universal Channel
+        name: Universal TV
         hd_channel: 164
         plus_one: 138
       138:
-        name: Universal Channel +1
+        name: Universal TV +1
       139:
         name: Challenge
         show: true
         plus_one: 180
       140:
-        name: Sky Living +1
+        name: Sky Witness +1
       141:
         name: Channel 4 HD
       142:
@@ -179,12 +179,12 @@
         name: 5STAR
         plus_one: 186
       152:
-        name: My5
+        name: 5Select
       153:
         name: 5 USA
         plus_one: 185
       154:
-        name: Spike
+        name: 5Spike
       155:
         name: Channel 5 +1
       156:
@@ -196,7 +196,7 @@
       158:
         name: FOX +1
       159:
-        name: Local TV Channel
+        name: Regional Channels
       160:
         name: Real Lives
         plus_one: 207
@@ -207,7 +207,7 @@
       163:
         name: BBC Four HD
       164:
-        name: Universal Channel HD
+        name: Universal TV HD
       165:
         name: Syfy HD
       166:
@@ -259,6 +259,9 @@
         name: 5STAR +1
       187:
         name: Paramount Network HD
+      188:
+        name: Paramount Network
+        hd_channel: 187
       189:
         name: True Entertainment
         plus_one: 220
@@ -275,7 +278,7 @@
       195:
         name: More4 HD
       196:
-        name: More 4 +1
+        name: More4 +1
       197:
         name: CBS Drama
       198:
@@ -320,13 +323,15 @@
       217:
         name: Quest HD
       218:
-        name: Your TV HD
+        name: YourTV
       219:
         name: Vice
       220:
         name: True Entertainment +1
-      222:
-        name: Crime + Investigation HD
+      223:
+        name: Crime + Investigation
+        hd_channel: 227
+        plus_one: 295
       225:
         name: Lifetime +1
       245:
@@ -343,13 +348,13 @@
       249:
         name: Eden HD
       250:
-        name: Discovery Channel
+        name: Discovery
         hd_channel: 251
         plus_one: 252
       251:
-        name: Discovery Channel HD
+        name: Discovery HD
       252:
-        name: Discovery Channel +1
+        name: Discovery +1
       256:
         name: Animal Planet
         hd_channel: 257
@@ -376,13 +381,13 @@
       265:
         name: Nat Geo Wild HD
       266:
-        name: National Geographic Channel
+        name: National Geographic
         hd_channel: 268
         plus_one: 267
       267:
-        name: National Geographic Channel +1
+        name: National Geographic +1
       268:
-        name: National Geographic Channel HD
+        name: National Geographic HD
       269:
         name: Together
       270:
@@ -391,14 +396,13 @@
         plus_one: 271
       271:
         name: History +1
+      272:
+        name: Crime + Investigation HD
       273:
         name: H2
         hd_channel: 274
       274:
         name: H2 HD
-      275:
-        name: Crime + Investigation
-        hd_channel: 222
       276:
         name: PBS America
       277:
@@ -426,7 +430,7 @@
       287:
         name: GOD Channel
       290:
-        name: GINX eSports TV
+        name: GINX
       291:
         name: Food Network
       292:
@@ -436,12 +440,14 @@
       294:
         name: Love Nature
         hd_channel: 293
+      295:
+        name: Crime + Investigation +1
       298:
         name: 'Horse & Country'
       299:
         name: History HD
       300:
-        name: VTV Music On Demand
+        name: VM Music
       310:
         name: MTV Music
       311:
@@ -471,17 +477,19 @@
       340:
         name: Magic
       342:
-        name: Kerrang! TV
-      343:
-        name: Vintage TV
+        name: Kerrang!
       344:
         name: Vevo
       345:
         name: Clubland TV
+      346:
+        name: Now 80s
       400:
         name: Virgin Movies Previews
       401:
         name: Sky Cinema Premiere HD
+      402:
+        name: Sky Cinema Premiere +1
       403:
         name: Sky Cinema Hits HD
       404:
@@ -491,15 +499,15 @@
       406:
         name: Sky Cinema Family HD
       407:
-        name: 'Sky Cinema Action & Adventure HD'
+        name: Sky Cinema Action HD
       408:
         name: Sky Cinema Comedy HD
       409:
-        name: 'Sky Cinema Crime & Thriller HD'
+        name: Sky Cinema Thriller HD
       410:
-        name: 'Sky Cinema Drama & Romance HD'
+        name: Sky Cinema Drama HD
       411:
-        name: 'Sky Cinema Sci Fi & Horror HD'
+        name: 'Sky Cinema Sci-Fi & Horror HD'
       412:
         name: Sky Cinema Select HD
       415:
@@ -512,10 +520,11 @@
         name: TCM +1
       419:
         name: Movies 24
+        plus_one: 420
       420:
-        name: Movies 24+
+        name: Movies 24 + 1
       424:
-        name: True Movies 1
+        name: True Movies
       425:
         name: Sony Movie Channel
       426:
@@ -533,8 +542,6 @@
         name: Sky Cinema Premiere
         hd_channel: 401
         plus_one: 432
-      432:
-        name: Sky Cinema Premiere +1
       433:
         name: Sky Cinema Hits
         hd_channel: 403
@@ -548,19 +555,19 @@
         name: Sky Cinema Family
         hd_channel: 406
       437:
-        name: 'Sky Cinema Action & Adventure'
+        name: Sky Cinema Action
         hd_channel: 407
       438:
         name: Sky Cinema Comedy
         hd_channel: 408
       439:
-        name: 'Sky Cinema Crime & Thriller'
+        name: Sky Cinema Thriller
         hd_channel: 409
       440:
-        name: 'Sky Cinema Drama & Romance'
+        name: Sky Cinema Drama
         hd_channel: 410
       441:
-        name: 'Sky Cinema Sci Fi & Horror'
+        name: 'Sky Cinema Sci-Fi & Horror'
         hd_channel: 411
       442:
         name: Sky Cinema Select
@@ -652,19 +659,19 @@
       535:
         name: At The Races
       536:
-        name: Racing UK
+        name: Racing UK HD
       544:
         name: Liverpool FC TV
-      545:
-        name: Motorsport.tv
       546:
-        name: Box Nation
-      548:
-        name: BT Sport Freeview
+        name: BoxNation
       551:
-        name: Premier Sports HD
+        name: Premier Sports 1 HD
+      552:
+        name: Premier Sports 2
       553:
-        name: Freesports
+        name: FreeSports HD
+      555:
+        name: BT Sport 4K UHD
       601:
         name: BBC News
         hd_channel: 604
@@ -678,11 +685,11 @@
       605:
         name: BBC Parliament
       607:
-        name: CNN International
+        name: CNN
       609:
-        name: Bloomberg
+        name: Bloomberg HD
       613:
-        name: CNBC Europe
+        name: CNBC
       620:
         name: Euronews
       621:
@@ -690,11 +697,11 @@
       622:
         name: Al Jazeera English
       624:
-        name: France 24
+        name: France 24 English HD
       625:
-        name: NHK World HD
+        name: NHKworldHD
       700:
-        name: Virgin Media Kids
+        name: My Virgin TV Kids
       701:
         name: CBBC
         hd_channel: 710
@@ -702,7 +709,7 @@
         name: CBeebies
         hd_channel: 711
       703:
-        name: BabyTV
+        name: Baby TV
       704:
         name: Cartoon Network
         hd_channel: 732
@@ -713,9 +720,6 @@
         name: Cartoonito
       707:
         name: Disney XD
-        plus_one: 708
-      708:
-        name: Disney XD +1
       710:
         name: CBBC HD
       711:
@@ -748,12 +752,12 @@
         name: Cartoon Network HD
       734:
         name: CITV
-      735:
-        name: BabyFirst
       736:
         name: POP
       737:
         name: Tiny Pop
+      739:
+        name: ZooMoo HD
       740:
         name: QVC
       741:
@@ -770,30 +774,26 @@
         name: Jewellery Maker
       757:
         name: TJC
-      793:
-        name: ZooMoo
       801:
-        name: Star Gold
-      802:
-        name: Star Utsav
+        name: Star Gold HD
       803:
-        name: Star Plus
+        name: Star Plus HD
       804:
         name: Star Bharat
       805:
-        name: SET
+        name: SONY TV Asia HD
       806:
-        name: MAX
+        name: SONY Max HD
       807:
-        name: SAB
+        name: SONY SAB
       809:
-        name: Zee TV
+        name: Zee TV HD
       810:
-        name: Zee Cinema
+        name: Zee Cinema HD
       811:
         name: '&TV'
       812:
-        name: Zee Punjabi
+        name: Living Foodz HD
       813:
         name: Zing
       815:
@@ -801,59 +801,55 @@
       816:
         name: B4U Music
       825:
-        name: TV5 MONDE
+        name: TV5MONDE
       826:
-        name: Colors TV
+        name: Colors
       827:
-        name: Rishtey
+        name: Rishtey Europe
       828:
         name: Rishtey Cineplex
       829:
         name: NDTV Good Times
-      830:
-        name: UTV Movies
       831:
         name: Al Jazeera Arabic
       832:
-        name: France 24 French
+        name: France 24 French HD
       833:
         name: Hum Europe
       834:
         name: Worldbox
-      835:
-        name: Nigeria
       836:
         name: NDTV India
       837:
         name: NDTV Spice
       838:
-        name: Islam Channel UK
+        name: Islam Channel
       839:
         name: Islam Channel Urdu
       840:
-        name: Brit Asia TV
+        name: BritAsia TV
       841:
         name: MTV Beats
       842:
-        name: ABN TV
+        name: ABN
       851:
-        name: BBC OneAudio Description
+        name: BBC One AD
       852:
-        name: BBC TwoAudio Description
+        name: BBC Two AD
       853:
-        name: ITVAudio Description
+        name: ITV AD
       854:
-        name: Channel 4Audio Description
+        name: Channel 4 AD
       855:
-        name: Channel 5Audio Description
+        name: Channel 5 AD
       856:
-        name: S4CAudio Description
+        name: S4C AD
       861:
         name: BBC One England
       862:
         name: BBC One Scotland
       863:
-        name: BBC One Northern Ireland
+        name: BBC One NI
       864:
         name: BBC One Wales
       865:
@@ -865,7 +861,7 @@
       876:
         name: RTÉ2
         show: true
-        logo: https://www.freeview.co.uk/app/themes/freeview/assets/images/channels/entertainment/rtetwo.png
+        logo: https://www.freeview.co.uk/app/themes/freeview/assets/images/channels/entertainment/rteone.png
       877:
         name: TG4
       901:
@@ -881,35 +877,33 @@
         target: media_player.family_room
         source: CCTV
       904:
-        name: BBC Radio 4 FM
+        name: BBC Radio 4
       905:
         name: BBC Radio 5 Live
       906:
         name: BBC World Service
       907:
-        name: BBC Radio 1Xtra
+        name: BBC Radio 1 Xtra
       908:
-        name: BBC Radio 5 Live Sports Extra
+        name: BBC Radio 5 Sports Extra
       909:
         name: BBC Radio 6 Music
       910:
         name: BBC Radio 4 Extra
       911:
-        name: BBC Radio 4 Long Wave
+        name: BBC Radio 4 LW
       912:
         name: BBC Asian Network
-      913:
-        name: BBC Local Radio
       915:
         name: Absolute Radio
       916:
         name: Smooth Radio
       917:
-        name: RTÉ Radio
+        name: RTE Radio
       918:
         name: Heart FM
       919:
-        name: LBC News
+        name: LBC
       920:
         name: World Radio Network
       921:
@@ -930,14 +924,16 @@
         name: BBC Radio Wales
       932:
         name: BBC Radio Ulster
+      933:
+        name: BBC Radio Foyle
       934:
-        name: BBC Radio nan Gàidheal
+        name: BBC Radio NanGaidheal
       936:
         name: BBC Radio Cymru
       937:
-        name: BBC Local Radio
+        name: BBC London
       951:
-        name: Absolute Radio 80s
+        name: Absolute 80s
       952:
         name: Absolute Classic Rock
       958:
@@ -948,38 +944,30 @@
         name: Radio X
       963:
         name: Kiss FM
+      968:
+        name: PIN Help
       969:
-        name: Adult Previews
+        name: Adult Preview
       970:
-        name: Television XNightly
-      971:
-        name: Playboy TV Nightly
+        name: Television X
       972:
         name: Adult Channel
       973:
-        name: XXX Brits
+        name: My Ex-Girlfriends Nightly
       974:
-        name: Xrated 40+
+        name: Filth XXX
       975:
-        name: Xrated Couples
+        name: Red Hot XXX
       976:
-        name: Xrated Hook-Ups
+        name: Wives XXX
+      977:
+        name: XXX Mums
       978:
         name: Television X
-      979:
-        name: Playboy TV
       980:
         name: Adult Channel
       981:
-        name: Babenation
-      985:
-        name: PIN Protection Help
-      997:
-        name: PIN Protection Help
-      998:
-        name: Virgin Media Previews
-      999:
-        name: Virgin ID
+        name: Babe Station
       990:
         name: BBC Red Button
         show: false
@@ -1000,3 +988,7 @@
       996:
         name: BBC Red Button
         show: false
+      998:
+        name: Virgin Media Previews
+      999:
+        name: Virgin TV Ultra HD
