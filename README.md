@@ -36,6 +36,7 @@ Platform settings are:
 | default_is_show _(opt)_ | true | Channels default to shown/hidden | true |
 | force_hd _(opt)_ | false | Switch to HD if available | false |
 | keep_connected _(opt)_ | false | Persistent telnet connection to Tivo | false |
+| show_packages _(opt)_ |  | TV packages to show | Free-to-air,Player,Mix,Fun,Full House |
 
 **NB:** if using the _force_hd_ functionality, it is advisable to set _scan_interval_ to a low value, e.g. 1 to allow the component to change to the HD channel quickly.
 
@@ -56,6 +57,7 @@ Channels come under the `channels:` section.  Each entry has a number of optiona
 |:-----|:--------|:------------|:--------|
 | name _(req)_ | | Friendy name of channel | BBC One |
 | show _(opt)_ | | Show the channel in the sources list | false |
+| package _(opt)_ | | TV package | Mix |
 | hd_channel _(opt)_ | | HD channel number if applicable | 108 |
 | plus_one _(opt)_ | | +1 channel number if applicable | 114 |
 | logo _(opt)_ | | Channel logo to display | http://freeview.com/images/e4.png |

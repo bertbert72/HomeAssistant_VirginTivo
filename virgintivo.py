@@ -53,6 +53,8 @@ CONF_CACHE_HOURS = 'cache_hours'          # how many hours of guide to load into
 CONF_PICTURE_REFRESH = 'picture_refresh'  # how long before updating screen capture
 CONF_ENABLE_GUIDE = 'enable_guide'        # show guide
 CONF_KEEP_CONNECTED = 'keep_connected'    # keep a permanent connection to Tivo boxes
+CONF_SHOW_PACKAGES = 'show_packages'      # TV packages to show by default
+CONF_PACKAGE = 'package'                  # TV package channel belongs to
 
 SERVICE_FIND_REMOTE = DATA_VIRGINTIVO + '_find_remote'
 SERVICE_IRCODE = DATA_VIRGINTIVO + '_ircode'
@@ -87,6 +89,7 @@ CHANNEL_SCHEMA = vol.Schema({
     vol.Optional(CONF_SHOW, default="UNSET"): cv.string,
     vol.Optional(CONF_TARGET, default=""): cv.string,
     vol.Optional(CONF_SOURCE, default=""): cv.string,
+    vol.Optional(CONF_PACKAGE, default="UNSET"): cv.string,
 })
 
 GUIDE_SCHEMA = vol.Schema({
@@ -109,6 +112,7 @@ PLATFORM_SCHEMA = vol.All(
         vol.Required(CONF_CHANNELS): vol.Schema({CHANNEL_IDS: CHANNEL_SCHEMA}),
         vol.Optional(CONF_GUIDE): vol.Schema(GUIDE_SCHEMA),
         vol.Optional(CONF_KEEP_CONNECTED, default=False): cv.boolean,
+        vol.Optional(CONF_SHOW_PACKAGES, default="UNSET"): cv.string,
     }))
 
 
@@ -117,7 +121,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     if DATA_VIRGINTIVO not in hass.data:
         hass.data[DATA_VIRGINTIVO] = {}
 
-    show_by_default = config.get(CONF_DEFAULTISSHOW)
+    show_by_default = config.get(CONF_DEFAULTISSHOW) and config.get(CONF_SHOW_PACKAGES) != "UNSET"
 
     guide = types.SimpleNamespace()
     guide.channels = {}
@@ -138,7 +142,8 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
             CONF_LOGO: entry[CONF_LOGO],
             CONF_HDCHANNEL: entry[CONF_HDCHANNEL] if entry[CONF_HDCHANNEL] > 0 else None,
             CONF_PLUSONE: entry[CONF_PLUSONE] if entry[CONF_PLUSONE] > 0 else None,
-            CONF_SHOW: (show_by_default or entry[CONF_SHOW] == 'True') and entry[CONF_SHOW] != 'False',
+            CONF_SHOW: (show_by_default or entry[CONF_SHOW] == 'True' or entry[CONF_PACKAGE] in
+                        config.get(CONF_SHOW_PACKAGES).split(",")) and entry[CONF_SHOW] != 'False',
             CONF_TARGET: entry[CONF_TARGET],
             CONF_SOURCE: entry[CONF_SOURCE],
         }
