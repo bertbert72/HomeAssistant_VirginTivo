@@ -1,3 +1,3 @@
-This folder includes any additional integrations.
+This folder includes example automations.
 
-alexa   Alexa integration, details provided by garywilson4
+  alexa   Alexa automation, details provided by garywilson4
