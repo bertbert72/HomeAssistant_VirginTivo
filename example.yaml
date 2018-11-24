@@ -1,3 +1,4 @@
+media_player:
   - platform: virgintivo
     default_is_show: false
     #show_packages: Free-to-air,Player,Mix,Fun,Full House,Premium,Pay-per-view
