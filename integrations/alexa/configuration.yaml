@@ -1,0 +1,31 @@
+homekit:
+  filter:
+    include_entities:
+      - light.standard_lamp
+      - light.table_lamp
+    exclude_entities: !include exclude.yaml
+
+# emulated_hue:
+#   type: alexa
+#   host_ip: 192.168.0.3
+#   listen_port: 8300
+#   expose_by_default: false
+#   exposed_domains:
+#     - media_player
+#     - switch
+
+# Enables support for tracking state changes over time
+history:
+  exclude:
+    entities: !include exclude.yaml
+
+# View all events in a logbook
+logbook:
+  exclude:
+    entities: !include exclude.yaml
+
+automation: !include automations.yaml
+
+switch: !include switch.yaml
+
+media_player: !include media_player.yaml
