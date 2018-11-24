@@ -25,7 +25,7 @@ Alexa automation hints are provided in the automations/alexa folder by garywilso
 
 # Usage
 + Drop the file into the custom_components/media_player directory.
-+ Edit your configuration file to add the `virgintivo` platform.
++ Edit your configuration file to add the `virgintivo` platform to the `media_player:` section.
 
 # Configuration
 There are two required sections: tivos and channels, plus one optional section: guide.
