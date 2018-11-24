@@ -21,6 +21,8 @@ Features are
 
 A sample configuration is in the repository with a full list of Virgin Media channels.
 
+Alexa automation hints are provided in the automations/alexa folder by garywilson4.
+
 # Usage
 + Drop the file into the custom_components/media_player directory.
 + Edit your configuration file to add the `virgintivo` platform.
