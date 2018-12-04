@@ -22,15 +22,13 @@ media_player:
         name: Virgin Media Previews
         package: Mix
       101:
-        name: BBC One
+        name: BBC One HD
         show: true
         package: Free-to-air
-        hd_channel: 108
       102:
-        name: BBC Two
+        name: BBC Two HD
         show: true
         package: Free-to-air
-        hd_channel: 162
       103:
         name: ITV
         show: true
