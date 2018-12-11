@@ -349,33 +349,33 @@
       - service: homeassistant.turn_off
         entity_id: switch.127_virgin
 
-  - alias: Drama_
-    trigger:
-      - platform: state
-        to: 'on'
-        entity_id: switch.128_virgin
-    action:
-      - service: media_player.select_source
-        data:
-         entity_id: media_player.virgin
-         source: Drama
-      - service: homeassistant.turn_off
-        entity_id: switch.128_virgin
-
   - alias: Really_
     trigger:
       - platform: state
         to: 'on'
-        entity_id: switch.129_virgin
+        entity_id: switch.128_virgin
     action:
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
          source: Really
       - service: homeassistant.turn_off
+        entity_id: switch.128_virgin
+
+  - alias: Yesterday_
+    trigger:
+      - platform: state
+        to: 'on'
+        entity_id: switch.129_virgin
+    action:
+      - service: media_player.select_source
+        data:
+         entity_id: media_player.virgin
+         source: Yesterday
+      - service: homeassistant.turn_off
         entity_id: switch.129_virgin
 
-  - alias: Alibi_+1
+  - alias: Drama_
     trigger:
       - platform: state
         to: 'on'
@@ -384,11 +384,11 @@
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
-         source: alibi +1
+         source: Drama
       - service: homeassistant.turn_off
         entity_id: switch.130_virgin
 
-  - alias: W_+1
+  - alias: Dave_ja_vu
     trigger:
       - platform: state
         to: 'on'
@@ -397,7 +397,7 @@
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
-         source: W +1
+         source: Dave ja vu
       - service: homeassistant.turn_off
         entity_id: switch.131_virgin
 
@@ -1155,7 +1155,7 @@
       - service: homeassistant.turn_off
         entity_id: switch.189_virgin
 
-  - alias: Gold_+1
+  - alias: W_+1
     trigger:
       - platform: state
         to: 'on'
@@ -1164,11 +1164,11 @@
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
-         source: Gold +1
+         source: W +1
       - service: homeassistant.turn_off
         entity_id: switch.190_virgin
 
-  - alias: W_HD
+  - alias: Alibi_+1
     trigger:
       - platform: state
         to: 'on'
@@ -1177,7 +1177,7 @@
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
-         source: W HD
+         source: alibi +1
       - service: homeassistant.turn_off
         entity_id: switch.191_virgin
 
@@ -1207,7 +1207,7 @@
       - service: homeassistant.turn_off
         entity_id: switch.193_virgin
 
-  - alias: Dave_HD
+  - alias: Gold_+1
     trigger:
       - platform: state
         to: 'on'
@@ -1216,7 +1216,7 @@
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
-         source: Dave HD
+         source: Gold +1
       - service: homeassistant.turn_off
         entity_id: switch.194_virgin
 
@@ -1285,7 +1285,7 @@
       - service: homeassistant.turn_off
         entity_id: switch.199_virgin
 
-  - alias: alibi_HD
+  - alias: Yesterday_+1
     trigger:
       - platform: state
         to: 'on'
@@ -1294,7 +1294,7 @@
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
-         source: alibi HD
+         source: Yesterday +1
       - service: homeassistant.turn_off
         entity_id: switch.200_virgin
 
@@ -1428,7 +1428,7 @@
       - service: homeassistant.turn_off
         entity_id: switch.210_virgin
 
-  - alias: Dave_ja_vu
+  - alias: W_HD
     trigger:
       - platform: state
         to: 'on'
@@ -1437,7 +1437,7 @@
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
-         source: Dave ja vu
+         source: W HD
       - service: homeassistant.turn_off
         entity_id: switch.211_virgin
 
@@ -1623,31 +1623,31 @@
       - service: homeassistant.turn_off
         entity_id: switch.225_virgin
 
-  # - alias: 
-  #   trigger:
-  #     - platform: state
-  #       to: 'on'
-  #       entity_id: switch.226_virgin
-  #   action:
-  #     - service: media_player.select_source
-  #       data:
-  #        entity_id: media_player.virgin
-  #        source: 
-  #     - service: homeassistant.turn_off
-  #       entity_id: switch.226_virgin
+  - alias: alibi_HD
+    trigger:
+      - platform: state
+        to: 'on'
+        entity_id: switch.226_virgin
+    action:
+      - service: media_player.select_source
+        data:
+         entity_id: media_player.virgin
+         source: alibi HD
+      - service: homeassistant.turn_off
+        entity_id: switch.226_virgin
 
-  # - alias: 
-  #   trigger:
-  #     - platform: state
-  #       to: 'on'
-  #       entity_id: switch.227_virgin
-  #   action:
-  #     - service: media_player.select_source
-  #       data:
-  #        entity_id: media_player.virgin
-  #        source: 
-  #     - service: homeassistant.turn_off
-  #       entity_id: switch.227_virgin
+  - alias: Dave_HD
+    trigger:
+      - platform: state
+        to: 'on'
+        entity_id: switch.227_virgin
+    action:
+      - service: media_player.select_source
+        data:
+         entity_id: media_player.virgin
+         source: Dave HD
+      - service: homeassistant.turn_off
+        entity_id: switch.227_virgin
 
   # - alias: 
   #   trigger:
@@ -1869,71 +1869,45 @@
   #        source: 
   #     - service: homeassistant.turn_off
   #       entity_id: switch.244_virgin
-
-  - alias: Yesterday_
-    trigger:
-      - platform: state
-        to: 'on'
-        entity_id: switch.245_virgin
-    action:
-      - service: media_player.select_source
-        data:
-         entity_id: media_player.virgin
-         source: Yesterday
-      - service: homeassistant.turn_off
-        entity_id: switch.245_virgin
-
-  - alias: Yesterday_+1
-    trigger:
-      - platform: state
-        to: 'on'
-        entity_id: switch.246_virgin
-    action:
-      - service: media_player.select_source
-        data:
-         entity_id: media_player.virgin
-         source: Yesterday +1
-      - service: homeassistant.turn_off
-        entity_id: switch.246_virgin
 
   - alias: Eden_
     trigger:
       - platform: state
         to: 'on'
-        entity_id: switch.247_virgin
+        entity_id: switch.245_virgin
     action:
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
          source: Eden
       - service: homeassistant.turn_off
-        entity_id: switch.247_virgin
+        entity_id: switch.245_virgin
 
   - alias: Eden_+1
     trigger:
       - platform: state
         to: 'on'
-        entity_id: switch.248_virgin
+        entity_id: switch.246_virgin
     action:
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
          source: Eden +1
       - service: homeassistant.turn_off
-        entity_id: switch.248_virgin
+        entity_id: switch.246_virgin
 
   - alias: Eden_HD
     trigger:
       - platform: state
         to: 'on'
-        entity_id: switch.249_virgin
+        entity_id: switch.247_virgin
     action:
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
          source: Eden HD
       - service: homeassistant.turn_off
-        entity_id: switch.249_virgin
+        entity_id: switch.247_virgin
 
   - alias: Discovery_
     trigger:
@@ -2312,7 +2286,7 @@
       - service: homeassistant.turn_off
         entity_id: switch.278_virgin
 
-  - alias: Good_Food +1
+  - alias: Good_Food HD
     trigger:
       - platform: state
         to: 'on'
@@ -2321,11 +2295,11 @@
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
-         source: Good Food +1
+         source: Good Food HD
       - service: homeassistant.turn_off
         entity_id: switch.279_virgin
 
-  - alias: Good_Food HD
+  - alias: Good_Food +1
     trigger:
       - platform: state
         to: 'on'
@@ -2334,7 +2308,7 @@
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
-         source: Good Food HD
+         source: Good Food +1
       - service: homeassistant.turn_off
         entity_id: switch.280_virgin
 
@@ -5588,7 +5562,7 @@
       - service: homeassistant.turn_off
         entity_id: switch.530_virgin
 
-  - alias: BT Sport One
+  - alias: BT_Sport 4K UHD
     trigger:
       - platform: state
         to: 'on'
@@ -5597,48 +5571,9 @@
       - service: media_player.select_source
         data:
          entity_id: media_player.virgin
-         source: BT Sport 1
+         source: BT Sport 4K UHD
       - service: homeassistant.turn_off
         entity_id: switch.531_virgin
-
-  - alias: BT Sport Two
-    trigger:
-      - platform: state
-        to: 'on'
-        entity_id: switch.532_virgin
-    action:
-      - service: media_player.select_source
-        data:
-         entity_id: media_player.virgin
-         source: BT Sport 2
-      - service: homeassistant.turn_off
-        entity_id: switch.532_virgin
-
-  - alias: BT Sport Three
-    trigger:
-      - platform: state
-        to: 'on'
-        entity_id: switch.533_virgin
-    action:
-      - service: media_player.select_source
-        data:
-         entity_id: media_player.virgin
-         source: BT Sport 3
-      - service: homeassistant.turn_off
-        entity_id: switch.533_virgin
-
-  - alias: BT_Sport ESPN
-    trigger:
-      - platform: state
-        to: 'on'
-        entity_id: switch.534_virgin
-    action:
-      - service: media_player.select_source
-        data:
-         entity_id: media_player.virgin
-         source: BT Sport ESPN
-      - service: homeassistant.turn_off
-        entity_id: switch.534_virgin
 
   - alias: At_The_Races
     trigger:
@@ -5899,19 +5834,6 @@
   #        source: 
   #     - service: homeassistant.turn_off
   #       entity_id: switch.554_virgin
-
-  - alias: BT_Sport 4K UHD
-    trigger:
-      - platform: state
-        to: 'on'
-        entity_id: switch.555_virgin
-    action:
-      - service: media_player.select_source
-        data:
-         entity_id: media_player.virgin
-         source: BT Sport 4K UHD
-      - service: homeassistant.turn_off
-        entity_id: switch.555_virgin
 
   # - alias: 
   #   trigger:

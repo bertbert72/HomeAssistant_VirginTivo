@@ -184,25 +184,25 @@
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: Drama
+       friendly_name: Really
        
       129_virgin:
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: Really
+       friendly_name: Yesterday
        
       130_virgin:
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: alibi +1
+       friendly_name: Drama
        
       131_virgin:
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: W +1
+       friendly_name: Dave ja vu
        
       132_virgin:
        command_on: ''
@@ -550,13 +550,13 @@
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: Gold +1
+       friendly_name: W +1
        
       191_virgin:
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: W HD
+       friendly_name: alibi +1
        
       192_virgin:
        command_on: ''
@@ -574,7 +574,7 @@
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: Dave HD
+       friendly_name: Gold +1
        
       195_virgin:
        command_on: ''
@@ -610,8 +610,8 @@
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: alibi HD
-
+       friendly_name: Yesterday +1
+       
       201_virgin:
        command_on: ''
        command_off: ''
@@ -676,7 +676,7 @@
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: Dave ja vu
+       friendly_name: W HD
        
       212_virgin:
        command_on: ''
@@ -762,17 +762,18 @@
        value_template: ""
        friendly_name: Lifetime +1
        
-    #   226_virgin:
-    #    command_on: ''
-    #    command_off: ''
-    #    value_template: ""
-    #    friendly_name: 
+      226_virgin:
+       command_on: ''
+       command_off: ''
+       value_template: ""
+       friendly_name: alibi HD
        
-    #   227_virgin:
-    #    command_on: ''
-    #    command_off: ''
-    #    value_template: ""
-    #    friendly_name: 
+      227_virgin:
+       command_on: ''
+       command_off: ''
+       value_template: ""
+       friendly_name: Dave HD
+       
        
     #   228_virgin:
     #    command_on: ''
@@ -880,27 +881,15 @@
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: Yesterday
+       friendly_name: Eden
        
       246_virgin:
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: Yesterday +1
-       
-      247_virgin:
-       command_on: ''
-       command_off: ''
-       value_template: ""
-       friendly_name: Eden
-       
-      248_virgin:
-       command_on: ''
-       command_off: ''
-       value_template: ""
        friendly_name: Eden +1
        
-      249_virgin:
+      247_virgin:
        command_on: ''
        command_off: ''
        value_template: ""
@@ -1084,13 +1073,13 @@
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: Good Food +1
+       friendly_name: Good Food HD
        
       280_virgin:
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: Good Food HD
+       friendly_name: Good Food +1
        
       281_virgin:
        command_on: ''
@@ -2596,25 +2585,7 @@
        command_on: ''
        command_off: ''
        value_template: ""
-       friendly_name: BT Sport 1
-       
-      532_virgin:
-       command_on: ''
-       command_off: ''
-       value_template: ""
-       friendly_name: BT Sport 2
-       
-      533_virgin:
-       command_on: ''
-       command_off: ''
-       value_template: ""
-       friendly_name: BT Sport 3
-       
-      534_virgin:
-       command_on: ''
-       command_off: ''
-       value_template: ""
-       friendly_name: BT Sport ESPN
+       friendly_name: BT Sport 4K UHD
        
       535_virgin:
        command_on: ''
@@ -2735,12 +2706,6 @@
       #  command_off: ''
       #  value_template: ""
       #  friendly_name: 
-       
-      555_virgin:
-       command_on: ''
-       command_off: ''
-       value_template: ""
-       friendly_name: BT Sport 4K UHD
        
       # 556_virgin:
       #  command_on: ''
