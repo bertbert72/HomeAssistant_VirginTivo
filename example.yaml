@@ -19,16 +19,16 @@ media_player:
       picture_refresh: 30
     channels:
       100:
-        name: Virgin Media Previews
+        name: Virgin Media Highlights
         package: Mix
       101:
         name: BBC One HD
         show: true
-        package: Free-to-air
+        package: Player
       102:
         name: BBC Two HD
         show: true
-        package: Free-to-air
+        package: Player
       103:
         name: ITV
         show: true
@@ -58,8 +58,8 @@ media_player:
         package: Free-to-air
         hd_channel: 163
       108:
-        name: BBC One HD
-        package: Player
+        name: BBC One HD England
+        package: Free-to-air
       109:
         name: Sky One HD
         package: Full House
@@ -143,13 +143,13 @@ media_player:
         show: true
         package: Player
         hd_channel: 227
+        plus_one: 131
       128:
         name: Really
         package: Player
       129:
         name: Yesterday
         package: Player
-        plus_one: 200
       130:
         name: Drama
         package: Player
@@ -215,6 +215,7 @@ media_player:
         show: true
         package: Player
         hd_channel: 195
+        plus_one: 196
       148:
         name: CBS Reality
         package: Player
@@ -234,7 +235,7 @@ media_player:
         name: 5Select
         package: Player
       153:
-        name: 5 USA
+        name: 5USA
         package: Player
         plus_one: 185
       154:
@@ -256,7 +257,7 @@ media_player:
         package: Mix
       159:
         name: Regional Channels
-        package: Player
+        package: Free-to-air
       160:
         name: Real Lives
         package: Mix
@@ -265,7 +266,7 @@ media_player:
         name: BBC Alba
         package: Free-to-air
       162:
-        name: BBC Two HD
+        name: BBC Two HD Scotland
         package: Player
       163:
         name: BBC Four HD
@@ -339,7 +340,7 @@ media_player:
         name: BET
         package: Player
       185:
-        name: 5 USA +1
+        name: 5USA +1
         package: Player
       186:
         name: 5STAR +1
@@ -359,13 +360,13 @@ media_player:
         name: W +1
         package: Mix
       191:
-        name: alibi +1
+        name: Alibi +1
         package: Mix
       192:
-        name: CBS Action
+        name: CBS Justice
         package: Player
       193:
-        name: Sony Crime Channel
+        name: Sony Crime
         package: Player
       194:
         name: Gold +1
@@ -448,20 +449,29 @@ media_player:
       220:
         name: True Entertainment +1
         package: Player
+      222:
+        name: Crime + Investigation HD
+        package: Full House
+        plus_one: 224
       223:
         name: Crime + Investigation
         package: Full House
-        hd_channel: 227
-        plus_one: 295
+        hd_channel: 222
+        plus_one: 224
+      224:
+        name: Crime + Investigation +1
+        package: Full House
       225:
         name: Lifetime +1
         package: Mix
       226:
-        name: alibi HD
+        name: Alibi HD
         package: Full House
+        plus_one: 191
       227:
         name: Dave HD
         package: Mix
+        plus_one: 131
       245:
         name: Eden
         package: Mix
@@ -473,16 +483,18 @@ media_player:
       247:
         name: Eden HD
         package: Full House
+        plus_one: 246
       250:
-        name: Discovery
+        name: Discovery Channel
         package: Fun
         hd_channel: 251
         plus_one: 252
       251:
         name: Discovery HD
         package: Full House
+        plus_one: 252
       252:
-        name: Discovery +1
+        name: Discovery Channel +1
         package: Fun
       256:
         name: Animal Planet
@@ -520,15 +532,15 @@ media_player:
         name: Nat Geo Wild HD
         package: Full House
       266:
-        name: National Geographic
+        name: National Geographic Channel
         package: Fun
         hd_channel: 268
         plus_one: 267
       267:
-        name: National Geographic +1
+        name: National Geographic Channel +1
         package: Full House
       268:
-        name: National Geographic HD
+        name: National Geographic Channel HD
         package: Full House
       269:
         name: Together
@@ -544,6 +556,7 @@ media_player:
       272:
         name: Crime + Investigation HD
         package: Full House
+        plus_one: 224
       273:
         name: H2
         package: Fun
@@ -551,6 +564,11 @@ media_player:
       274:
         name: H2 HD
         package: Full House
+      275:
+        name: Crime + Investigation
+        package: Full House
+        hd_channel: 222
+        plus_one: 224
       276:
         name: PBS America
         package: Player
@@ -576,20 +594,17 @@ media_player:
         name: Home +1
         package: Player
       284:
-        name: Discovery Home & Health
+        name: 'Discovery Home & Health'
         package: Fun
         plus_one: 285
       285:
-        name: Discovery Home & Health +1
+        name: 'Discovery Home & Health +1'
         package: Fun
       286:
         name: Discovery Shed
         package: Fun
       287:
         name: GOD Channel
-        package: Fun
-      290:
-        name: GINX
         package: Fun
       291:
         name: Food Network
@@ -608,13 +623,13 @@ media_player:
         name: Crime + Investigation +1
         package: Full House
       298:
-        name: Horse & Country
+        name: 'Horse & Country'
         package: Player
       299:
         name: History HD
         package: Full House
       300:
-        name: VM Music
+        name: New Music on Demand
         package: Player
       310:
         name: MTV Music
@@ -629,7 +644,7 @@ media_player:
         name: MTV Base
         package: Fun
       314:
-        name: MTV Dance
+        name: Club MTV
         package: Full House
       315:
         name: MTV Rocks
@@ -665,13 +680,13 @@ media_player:
         name: Vevo
         package: Player
       345:
-        name: Clubland TV
+        name: Clubland
         package: Mix
       346:
         name: Now 80s
         package: Player
       400:
-        name: Virgin Movies Previews
+        name: 'Virgin Movies & Store'
         package: Player
       401:
         name: Sky Cinema Premiere HD
@@ -704,7 +719,7 @@ media_player:
         name: Sky Cinema Drama HD
         package: Premium
       411:
-        name: Sky Cinema Sci-Fi & Horror HD
+        name: 'Sky Cinema Sci Fi & Horror HD'
         package: Premium
       412:
         name: Sky Cinema Select HD
@@ -786,7 +801,7 @@ media_player:
         package: Premium
         hd_channel: 410
       441:
-        name: Sky Cinema Sci-Fi & Horror
+        name: 'Sky Cinema Sci Fi & Horror'
         package: Premium
         hd_channel: 411
       442:
@@ -902,10 +917,10 @@ media_player:
         name: At The Races
         package: Player
       536:
-        name: Racing UK HD
+        name: Racing TV HD
         package: Premium
       544:
-        name: Liverpool FC TV
+        name: LFCTV
         package: Premium
       546:
         name: BoxNation
@@ -937,13 +952,13 @@ media_player:
         name: BBC Parliament
         package: Free-to-air
       607:
-        name: CNN
+        name: CNN International
         package: Player
       609:
-        name: Bloomberg HD
+        name: Bloomberg Television HD
         package: Mix
       613:
-        name: CNBC
+        name: CNBC Europe
         package: Player
       620:
         name: Euronews
@@ -958,10 +973,10 @@ media_player:
         name: France 24 English HD
         package: Mix
       625:
-        name: NHKworldHD
+        name: NHK World HD
         package: Full House
       700:
-        name: My Virgin TV Kids
+        name: Kids TV on Demand
         package: Mix
       701:
         name: CBBC
@@ -972,7 +987,7 @@ media_player:
         package: Free-to-air
         hd_channel: 711
       703:
-        name: Baby TV
+        name: BabyTV
         package: Premium
       704:
         name: Cartoon Network
@@ -997,11 +1012,13 @@ media_player:
       712:
         name: Nickelodeon
         package: Fun
+        hd_channel: 714
+        plus_one: 713
       713:
-        name: Nick +1
+        name: Nickelodeon +1
         package: Fun
       714:
-        name: Nick HD
+        name: Nickelodeon HD
         package: Full House
       715:
         name: Nick Jr.
@@ -1078,7 +1095,7 @@ media_player:
         name: Star Bharat
         package: Premium
       805:
-        name: SONY TV Asia HD
+        name: Sony Entertainment Television Asia HD
         package: Premium
       806:
         name: SONY Max HD
@@ -1108,13 +1125,13 @@ media_player:
         name: B4U Music
         package: Mix
       825:
-        name: TV5MONDE
+        name: TV5MONDE Europe
         package: Full House
       826:
         name: Colors
         package: Mix
       827:
-        name: Rishtey Europe
+        name: Rishtey
         package: Mix
       828:
         name: Rishtey Cineplex
@@ -1147,13 +1164,13 @@ media_player:
         name: Islam Channel Urdu
         package: Mix
       840:
-        name: BritAsia TV
+        name: Brit Asia TV
         package: Mix
       841:
         name: MTV Beats
         package: Mix
       842:
-        name: ABN
+        name: ABN TV
         package: Mix
       851:
         name: BBC One AD
@@ -1173,14 +1190,17 @@ media_player:
       856:
         name: S4C AD
         package: Free-to-air
+      858:
+        name: BBC One
+        package: Player
       861:
-        name: BBC One England
+        name: BBC One London
         package: Player
       862:
         name: BBC One Scotland
         package: Player
       863:
-        name: BBC One NI
+        name: BBC One Northern Ireland
         package: Player
       864:
         name: BBC One Wales
@@ -1188,13 +1208,19 @@ media_player:
       865:
         name: BBC Two England
         package: Player
+      870:
+        name: ITV
+        package: Player
+      871:
+        name: ITV
+        package: Player
       875:
         name: RTÉ One
         show: true
         package: Player
         logo: https://www.freeview.co.uk/app/themes/freeview/assets/images/channels/entertainment/rteone.png
       876:
-        name: RTÉ2
+        name: RTÉ 2
         show: true
         package: Player
         logo: https://www.freeview.co.uk/app/themes/freeview/assets/images/channels/entertainment/rteone.png
@@ -1226,10 +1252,10 @@ media_player:
         name: BBC World Service
         package: Free-to-air
       907:
-        name: BBC Radio 1 Xtra
+        name: BBC Radio 1Xtra
         package: Free-to-air
       908:
-        name: BBC Radio 5 Sports Extra
+        name: BBC Radio 5 Live Sports Extra
         package: Free-to-air
       909:
         name: BBC Radio 6 Music
@@ -1250,16 +1276,16 @@ media_player:
         name: Smooth Radio
         package: Free-to-air
       917:
-        name: RTE Radio
+        name: RTÉ Radio 1
         package: Free-to-air
       918:
-        name: Heart FM
+        name: Heart London
         package: Free-to-air
       919:
         name: LBC
         package: Free-to-air
       920:
-        name: World Radio Network
+        name: WRN Broadcast
         package: Free-to-air
       921:
         name: Heart 80s
@@ -1277,7 +1303,7 @@ media_player:
         name: Talksport
         package: Free-to-air
       928:
-        name: Magic Radio
+        name: Magic
         package: Free-to-air
       930:
         name: BBC Radio Scotland
@@ -1292,7 +1318,7 @@ media_player:
         name: BBC Radio Foyle
         package: Free-to-air
       934:
-        name: BBC Radio NanGaidheal
+        name: BBC Radio nan Gàidheal
         package: Free-to-air
       936:
         name: BBC Radio Cymru
@@ -1307,7 +1333,7 @@ media_player:
         name: Absolute Classic Rock
         package: Free-to-air
       958:
-        name: Capital FM
+        name: Capital London
         package: Free-to-air
       959:
         name: Capital XTRA
@@ -1316,50 +1342,56 @@ media_player:
         name: Radio X
         package: Free-to-air
       963:
-        name: Kiss FM
+        name: Kiss
         package: Free-to-air
       968:
-        name: PIN Help
+        name: A Message for Parents
         package: Player
       969:
-        name: Adult Preview
+        name: Adult Previews
         package: Player
       970:
-        name: Television X
+        name: Television X Nightly
+        package: Pay-per-view
+      971:
+        name: 'Babes & Brazzers'
         package: Pay-per-view
       972:
-        name: Adult Channel
+        name: Adult Channel Nightly
         package: Pay-per-view
       973:
-        name: My Ex-Girlfriends Nightly
+        name: XXX Brits Nightly
         package: Pay-per-view
       974:
-        name: Filth XXX
+        name: xrated40+ Nightly
         package: Pay-per-view
       975:
-        name: Red Hot XXX
+        name: TVXPornstars Nightly
         package: Pay-per-view
       976:
-        name: Wives XXX
-        package: Pay-per-view
-      977:
-        name: XXX Mums
+        name: Television X 2 Nightly
         package: Pay-per-view
       978:
         name: Television X
+        package: Premium
+      979:
+        name: XXX Brits
         package: Premium
       980:
         name: Adult Channel
         package: Premium
       981:
-        name: Babe Station
+        name: Babenation
         package: Premium
+      985:
+        name: A Message for Parents
+        package: Player
       990:
         name: BBC Red Button
         show: false
         package: Player
       991:
-        name: BBC Red Button
+        name: BBC Red Button 1
         package: Player
       992:
         name: BBC Red Button
@@ -1380,6 +1412,9 @@ media_player:
       996:
         name: BBC Red Button
         show: false
+        package: Player
+      997:
+        name: Virgin TV for Newbies
         package: Player
       998:
         name: Virgin Media Previews
