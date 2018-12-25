@@ -441,6 +441,8 @@
   - switch.200_virgin
   - switch.811_virgin
   - switch.210_virgin
+  - switch.226_virgin
+  - switch.227_virgin
   - automation.4seven_hd  
   - automation.5star_1  
   - automation.abn_  
@@ -496,14 +498,10 @@
   - automation.bbc_two_england  
   - automation.bbc_world_service  
   - automation.bet_  
-  - automation.bt_sport_one  
   - automation.bt_sport_one_hd  
-  - automation.bt_sport_three  
   - automation.bt_sport_three_hd  
-  - automation.bt_sport_two  
   - automation.bt_sport_two_hd  
   - automation.bt_sport_4k_uhd  
-  - automation.bt_sport_espn  
   - automation.bt_sport_espn_hd  
   - automation.babe_station  
   - automation.baby_tv  

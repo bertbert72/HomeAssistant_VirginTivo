@@ -126,35 +126,36 @@ media_player:
         name: Gold HD
         show: true
         package: Mix
-        plus_one: 190
+        plus_one: 194
       125:
         name: W
         package: Mix
-        hd_channel: 191
-        plus_one: 131
+        hd_channel: 211
+        plus_one: 190
       126:
         name: alibi
         show: true
         package: Mix
-        hd_channel: 200
-        plus_one: 130
+        hd_channel: 226
+        plus_one: 191
       127:
         name: Dave
         show: true
         package: Player
-        hd_channel: 194
+        hd_channel: 227
       128:
-        name: Drama
-        package: Player
-      129:
         name: Really
         package: Player
+      129:
+        name: Yesterday
+        package: Player
+        plus_one: 200
       130:
-        name: alibi +1
-        package: Mix
+        name: Drama
+        package: Player
       131:
-        name: W +1
-        package: Mix
+        name: Dave ja vu
+        package: Player
       132:
         name: Comedy Central
         show: true
@@ -355,11 +356,11 @@ media_player:
         package: Player
         plus_one: 220
       190:
-        name: Gold +1
+        name: W +1
         package: Mix
       191:
-        name: W HD
-        package: Full House
+        name: alibi +1
+        package: Mix
       192:
         name: CBS Action
         package: Player
@@ -367,7 +368,7 @@ media_player:
         name: Sony Crime Channel
         package: Player
       194:
-        name: Dave HD
+        name: Gold +1
         package: Mix
       195:
         name: More4 HD
@@ -385,8 +386,8 @@ media_player:
         name: FOX HD
         package: Full House
       200:
-        name: alibi HD
-        package: Full House
+        name: Yesterday +1
+        package: Player
       201:
         name: CBS Reality +1
         package: Player
@@ -417,8 +418,8 @@ media_player:
         name: hayu
         package: Full House
       211:
-        name: Dave ja vu
-        package: Player
+        name: W HD
+        package: Full House
       212:
         name: TruTV
         package: Player
@@ -455,22 +456,21 @@ media_player:
       225:
         name: Lifetime +1
         package: Mix
+      226:
+        name: alibi HD
+        package: Full House
+      227:
+        name: Dave HD
+        package: Mix
       245:
-        name: Yesterday
-        package: Player
-        plus_one: 246
-      246:
-        name: Yesterday +1
-        package: Player
-      247:
         name: Eden
         package: Mix
-        hd_channel: 249
-        plus_one: 248
-      248:
+        hd_channel: 247
+        plus_one: 246
+      246:
         name: Eden +1
         package: Mix
-      249:
+      247:
         name: Eden HD
         package: Full House
       250:
@@ -560,14 +560,14 @@ media_player:
       278:
         name: Good Food
         package: Mix
-        hd_channel: 280
-        plus_one: 279
+        hd_channel: 279
+        plus_one: 280
       279:
-        name: Good Food +1
-        package: Mix
-      280:
         name: Good Food HD
         package: Full House
+      280:
+        name: Good Food +1
+        package: Mix
       281:
         name: Home
         package: Player
@@ -896,21 +896,8 @@ media_player:
         name: BT Sport ESPN HD
         package: Full House
       531:
-        name: BT Sport 1
+        name: BT Sport 4K UHD
         package: Full House
-        hd_channel: 527
-      532:
-        name: BT Sport 2
-        package: Full House
-        hd_channel: 528
-      533:
-        name: BT Sport 3
-        package: Full House
-        hd_channel: 529
-      534:
-        name: BT Sport ESPN
-        package: Full House
-        hd_channel: 530
       535:
         name: At The Races
         package: Player
@@ -932,9 +919,6 @@ media_player:
       553:
         name: FreeSports HD
         package: Player
-      555:
-        name: BT Sport 4K UHD
-        package: Full House
       601:
         name: BBC News
         package: Free-to-air
