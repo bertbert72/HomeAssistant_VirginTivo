@@ -594,11 +594,11 @@ media_player:
         name: Home +1
         package: Player
       284:
-        name: Discovery Home & Health
+        name: 'Discovery Home & Health'
         package: Fun
         plus_one: 285
       285:
-        name: Discovery Home & Health +1
+        name: 'Discovery Home & Health +1'
         package: Fun
       286:
         name: Discovery Shed
@@ -623,7 +623,7 @@ media_player:
         name: Crime + Investigation +1
         package: Full House
       298:
-        name: Horse & Country
+        name: 'Horse & Country'
         package: Player
       299:
         name: History HD
@@ -686,7 +686,7 @@ media_player:
         name: Now 80s
         package: Player
       400:
-        name: Virgin Movies & Store
+        name: 'Virgin Movies & Store'
         package: Player
       401:
         name: Sky Cinema Premiere HD
@@ -719,7 +719,7 @@ media_player:
         name: Sky Cinema Drama HD
         package: Premium
       411:
-        name: Sky Cinema Sci Fi & Horror HD
+        name: 'Sky Cinema Sci Fi & Horror HD'
         package: Premium
       412:
         name: Sky Cinema Select HD
@@ -801,7 +801,7 @@ media_player:
         package: Premium
         hd_channel: 410
       441:
-        name: Sky Cinema Sci Fi & Horror
+        name: 'Sky Cinema Sci Fi & Horror'
         package: Premium
         hd_channel: 411
       442:
@@ -1110,7 +1110,7 @@ media_player:
         name: Zee Cinema HD
         package: Premium
       811:
-        name: &TV
+        name: '&TV'
         package: Mix
       812:
         name: Living Foodz HD
@@ -1354,7 +1354,7 @@ media_player:
         name: Television X Nightly
         package: Pay-per-view
       971:
-        name: Babes & Brazzers
+        name: 'Babes & Brazzers'
         package: Pay-per-view
       972:
         name: Adult Channel Nightly
