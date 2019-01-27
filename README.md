@@ -7,7 +7,7 @@ Home Assistant component for control of Virgin Media Tivo boxes
 Features are
 
 + Supports multiple boxes
-+ Configurable list of channels
++ Configurable list of channels (see /resources for a tool to help)
 + Automatically switch to HD version of channel
 + Show current channel
 + Set channel through dropdown
@@ -19,7 +19,7 @@ Features are
 + Optionally use Tivo remote to control other media player devices (obscure I know!)
 + Services: find remote, send IR code, send keyboard command, last channel, live TV, switch to/from +1 channel, search for programme, subtitles on/off, "teleport".
 
-A sample configuration is in the repository with a full list of Virgin Media channels.
+A sample configuration is in the repository with a full list of Virgin Media channels.  Note that a channel scraper has been added in /resources to get the latest channels in a compatible format from https://www.tvchannellists.com.  
 
 Alexa automation hints are provided in the automations/alexa folder by garywilson4.
 
@@ -98,7 +98,7 @@ These can be called by automations, scripts etc.
 
 # Example
 
-This is a truncated example only.  Use example.yaml in the repository for a full set of channels.
+This is a truncated example only.  Use example.yaml in the repository for a full set of channels and /resources for a tool to create this configuration.
 
 ```
   - platform: virgintivo
