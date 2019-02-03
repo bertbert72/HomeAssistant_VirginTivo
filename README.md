@@ -8,6 +8,7 @@ Features are
 
 + Supports multiple boxes
 + Configurable list of channels (see /resources for a tool to help)
++ Optionally update list of channels automatically from TV Channel Lists
 + Automatically switch to HD version of channel
 + Show current channel
 + Set channel through dropdown
@@ -28,7 +29,7 @@ Alexa automation hints are provided in the automations/alexa folder by garywilso
 + Edit your configuration file to add the `virgintivo` platform to the `media_player:` section.
 
 # Configuration
-There are two required sections: tivos and channels, plus one optional section: guide.
+There are is one required section: tivos, two sections of which at least one is required: tvchannellists and channels, plus one optional section: guide.
 
 Platform settings are:
 
@@ -52,6 +53,25 @@ The Tivos should be listed under the `tivos:` section.  Each entry has two requi
 | force_hd _(opt)_ | false | Switch to HD if available | false |
 | keep_connected _(opt)_ | false | Persistent telnet connection to Tivo | false |
 
+## tvchannellists
+This allows automatic updating of the channel lists from the TV Channel Lists site. Overrides are available to customise the list as required.
+
+NB: If both _tvchannellists_ and _channels_ are configured, the site will be tried first and if this fails the local channel configuration will be used.
+
+| Name | Default | Description | Example |
+|:-----|:--------|:------------|:--------|
+| enable _(req)_ | | Enable this functionality | True |
+| url _(opt)_<sup>1</sup> | | URL for channel listing | |
+| ignore_channels _(opt)_ | | Ignore these channels from the site | 0 |
+| show_channels _(opt)_ | | Show the channel in the sources list | 101,102,103,104 |
+| hide_channels _(opt)_ | | Hide the channel in the sources list | 990,991,992,993 |
+| logos _(opt)_ | | Channel logo to display | <pre>101: https://www.mysite.uk/images/bbcone.png</pre> |
+| targets _(opt)_ | | HA entity to change | <pre>901: media_player.family_room</pre> |
+| sources _(opt)_ | | Source on _target_ to choose | <pre>901: Virgin V6</pre> |
+| override _(opt)_ | | Override for a channel | <pre>override:<br>  101:<br>    name: BBC One<br>    package: Player<br>    is_hd: False</pre> |
+
+<sup>1</sup> The built-in URL used is currently https://www.tvchannellists.com/List_of_channels_on_Virgin_Media_(UK).  It is not recommended to change this as the component is unlikely to understand a different site.
+
 ## channels
 Channels come under the `channels:` section.  Each entry has a number of optional settings and one required setting (name).  Use next/previous track to switch between the +1 and normal versions of a channel.
 
@@ -64,7 +84,7 @@ Channels come under the `channels:` section.  Each entry has a number of optiona
 | plus_one _(opt)_ | | +1 channel number if applicable | 114 |
 | logo _(opt)_ | | Channel logo to display | http://freeview.com/images/e4.png |
 | target _(opt)_ | | HA entity to change | media_player.main_tv |
-| source _(req)_ | | Source on _target_ to choose | HDMI2 |
+| source _(opt)_ | | Source on _target_ to choose | HDMI2 |
 
 ## guide
 The guide settings come under the `guide:` section.  This section has a number of optional settings.
