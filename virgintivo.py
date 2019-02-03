@@ -174,8 +174,11 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
             channel_listings = get_channel_listings(config[CONF_CHANNEL_LIST])
 
     if len(channel_listings) == 0:
-        channel_listings = config[CONF_CHANNELS]
-        _LOGGER.info("Using channel list from configuration file")
+        if CONF_CHANNELS in config:
+            channel_listings = config[CONF_CHANNELS]
+            _LOGGER.info("Using channel list from configuration file")
+        else:
+            _LOGGER.error("No channel configuration available")
     else:
         _LOGGER.info("Using automatic channel list")
 
@@ -903,8 +906,8 @@ def get_channel_listings(config):
         else:
             return False
 
-    def base_name(channel_name):
-        return str(channel_name).replace(" +1", "").replace(" ja vu", "").replace(" HD", "")
+    def base_name(name):
+        return str(name).replace(" +1", "").replace(" ja vu", "").replace(" HD", "")
 
     channel_listings = {}
     vc_url = ""
