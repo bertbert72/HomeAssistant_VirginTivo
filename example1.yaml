@@ -12,10 +12,10 @@
       2:
         name: Virgin Tivo
         host: TIVO-CF0010000000000
-        keep_connected: true
+        keep_connected: false
         force_hd: true
     guide:
-      picture_refresh: 10
+      picture_refresh: 60
     tvchannellists:
       enable: True
       #url: https://www.tvchannellists.com/List_of_channels_on_Virgin_Media_(UK)
@@ -50,4 +50,3 @@
           name: Discovery Channel HD
           package: Full House
           is_hd: True
-    channels:
