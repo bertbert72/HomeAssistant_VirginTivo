@@ -118,7 +118,7 @@ These can be called by automations, scripts etc.
 
 # Example
 
-This is a minimal example only.  Use example1.yaml in the repository for an example of setting up the online channel list and example2.yaml for a full set of channels. In /resources there is a tool to create the full channel list from the online source if desired.
+This is a minimal example only and uses the online channel list.  Use example1.yaml in the repository for a fuller example of setting up the online channel list and example2.yaml for a full set of manual channels. In /resources there is a tool to create the full channel list from the online source if desired.
 
 ```
   - platform: virgintivo
