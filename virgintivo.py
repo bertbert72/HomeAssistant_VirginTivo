@@ -154,7 +154,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     if DATA_VIRGINTIVO not in hass.data:
         hass.data[DATA_VIRGINTIVO] = {}
 
-    show_by_default = config.get(CONF_DEFAULTISSHOW) and config.get(CONF_SHOW_PACKAGES) != "UNSET"
+    show_by_default = config.get(CONF_DEFAULTISSHOW) and config.get(CONF_SHOW_PACKAGES) == "UNSET"
 
     guide = types.SimpleNamespace()
     guide.channels = {}
