@@ -118,41 +118,14 @@ These can be called by automations, scripts etc.
 
 # Example
 
-This is a truncated example only.  Use example.yaml in the repository for a full set of channels and /resources for a tool to create this configuration.
+This is a minimal example only.  Use example1.yaml in the repository for an example of setting up the online channel list and example2.yaml for a full set of channels. In /resources there is a tool to create the full channel list from the online source if desired.
 
 ```
   - platform: virgintivo
-    default_is_show: false
-    force_hd: true
     tivos:
       1:
         name: Virgin V6
-        host: TIVO-C68000012345678
-      2:
-        name: Virgin Tivo
-        host: TIVO-CF0000012345678
-    channels:
-      100:
-        name: Virgin Media Previews
-      101:
-        name: BBC One
-        hd_channel: 108
-        show: true
-      102:
-        name: BBC Two
-        hd_channel: 162
-        show: true
-      103:
-        name: ITV
-        hd_channel: 113
-        show: true
-        plus_one: 114
-      104:
-        name: Channel 4
-        hd_channel: 141
-        plus_one: 142
-      105:
-        name: Channel 5
-        hd_channel: 150
-        plus_one: 155
+        host: TIVO-C68000020000000
+    tvchannellists:
+      enable: True
 ```
