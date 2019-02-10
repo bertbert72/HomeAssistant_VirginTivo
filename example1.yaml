@@ -1,0 +1,52 @@
+  - platform: virgintivo
+    default_is_show: false
+    default_is_hd: true
+    scan_interval: 1
+    #show_packages: Mix,Premium
+    tivos:
+      1:
+        name: Virgin V6
+        host: TIVO-C68000020000000
+        force_hd: true
+        #keep_connected: false
+      2:
+        name: Virgin Tivo
+        host: TIVO-CF0010000000000
+        keep_connected: false
+        force_hd: true
+    guide:
+      picture_refresh: 60
+    tvchannellists:
+      enable: True
+      #url: https://www.tvchannellists.com/List_of_channels_on_Virgin_Media_(UK)
+      ignore_channels: 0
+      show_channels: 101,102,103,104,105,106,110,115,117,118,121,124,126,127,132,135,139,147,428,875,876
+      hide_channels: 990,992,993,994,995,996
+      logos:
+        875: https://www.freeview.co.uk/app/themes/freeview/assets/images/channels/entertainment/rteone.png
+        876: https://www.freeview.co.uk/app/themes/freeview/assets/images/channels/entertainment/rtetwo.png
+      targets:
+        901: media_player.family_room_receiver
+        902: media_player.family_room_receiver
+        903: media_player.family_room_receiver
+      sources:
+        901: Virgin V6
+        902: Virgin Tivo
+        903: CCTV
+      override:
+        101:
+          name: BBC One
+          package: Player
+          is_hd: False
+        108:
+          name: BBC One HD
+          package: Player
+          is_hd: True
+        159:
+          name: Liverpool TV
+          package: Player
+          is_hd: False
+        251:
+          name: Discovery Channel HD
+          package: Full House
+          is_hd: True

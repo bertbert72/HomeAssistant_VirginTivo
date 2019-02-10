@@ -1,0 +1,7 @@
+  - platform: virgintivo
+    tivos:
+      1:
+        name: Virgin V6
+        host: TIVO-C68000020000000
+    tvchannellists:
+      enable: True

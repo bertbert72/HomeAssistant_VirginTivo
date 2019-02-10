@@ -16,13 +16,15 @@ import copy
 
 import voluptuous as vol
 
+REQUIREMENTS = ['beautifulsoup4>=4.4.1']
+
 from homeassistant.components.media_player import (
     DOMAIN, MEDIA_PLAYER_SCHEMA, PLATFORM_SCHEMA, SUPPORT_SELECT_SOURCE, SUPPORT_TURN_OFF, SUPPORT_TURN_ON,
     MediaPlayerDevice, MEDIA_TYPE_TVSHOW, SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK, SUPPORT_PLAY, SUPPORT_PAUSE,
     SUPPORT_STOP, SCAN_INTERVAL)
 from homeassistant.const import (
     ATTR_ENTITY_ID, CONF_NAME, CONF_HOST, CONF_PORT, STATE_OFF, STATE_PLAYING, STATE_PAUSED, STATE_UNKNOWN,
-    ATTR_COMMAND)
+    ATTR_COMMAND, CONF_URL)
 import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
@@ -36,10 +38,13 @@ GUIDE_HOST = 'web-api-pepper.horizon.tv'
 GUIDE_PATH = 'oesp/api/GB/eng/web/'
 GUIDE_HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 '
                                'Safari/537.36'}
+CHANNEL_LIST_URL = 'https://www.tvchannellists.com/List_of_channels_on_Virgin_Media_(UK)'
 
 CONF_TIVOS = 'tivos'                      # list of Tivo boxes
 CONF_CHANNELS = 'channels'                # list of channels
 CONF_GUIDE = 'guide'                      # guide parameters
+CONF_CHANNEL_LIST = 'tvchannellists'      # online channel list
+CONF_OVERRIDE = 'override'                # online channel list override
 
 CONF_FORCEHD = 'force_hd'                 # switch to HD channel if available
 CONF_LOGO = 'logo'                        # Logo for channel
@@ -55,6 +60,14 @@ CONF_ENABLE_GUIDE = 'enable_guide'        # show guide
 CONF_KEEP_CONNECTED = 'keep_connected'    # keep a permanent connection to Tivo boxes
 CONF_SHOW_PACKAGES = 'show_packages'      # TV packages to show by default
 CONF_PACKAGE = 'package'                  # TV package channel belongs to
+CONF_ENABLE = 'enable'                    # Online: Use TVChannelLists
+CONF_IGNORE_CHANNELS = 'ignore_channels'  # Online: Channels to ignore
+CONF_SHOW_CHANNELS = 'show_channels'      # Online: Channels to show by default
+CONF_HIDE_CHANNELS = 'hide_channels'      # Online: Channels to hide
+CONF_LOGOS = 'logos'                      # Online: Channel logos
+CONF_TARGETS = 'targets'                  # Online: hass entity to switch
+CONF_SOURCES = 'sources'                  # Online: source to switch to
+CONF_IS_HD = 'is_hd'                      # Online: channel is HD override
 
 SERVICE_FIND_REMOTE = DATA_VIRGINTIVO + '_find_remote'
 SERVICE_IRCODE = DATA_VIRGINTIVO + '_ircode'
@@ -68,6 +81,13 @@ SERVICE_SUBTITLES_OFF = DATA_VIRGINTIVO + '_subtitles_off'
 SERVICE_SUBTITLES_ON = DATA_VIRGINTIVO + '_subtitles_on'
 SERVICE_TELEPORT = DATA_VIRGINTIVO + '_teleport'
 ATTR_REPEATS = 'repeats'
+
+# Valid tivo ids: 1-9
+TIVO_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=9))
+
+# Valid channel ids: 1-999
+CHANNEL_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=999))
+
 TIVO_SERVICE_SCHEMA = MEDIA_PLAYER_SCHEMA.extend({
     vol.Optional(ATTR_ENTITY_ID): cv.entity_id,
     vol.Optional(ATTR_COMMAND): cv.string,
@@ -98,18 +118,31 @@ GUIDE_SCHEMA = vol.Schema({
     vol.Optional(CONF_ENABLE_GUIDE, default=True): cv.boolean,
 })
 
-# Valid tivo ids: 1-9
-TIVO_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=9))
+OVERRIDE_CHANNEL_SCHEMA = vol.Schema({
+    vol.Required(CONF_NAME): cv.string,
+    vol.Optional(CONF_PACKAGE, default="UNSET"): cv.string,
+    vol.Optional(CONF_IS_HD, default=False): cv.boolean,
+})
 
-# Valid channel ids: 1-999
-CHANNEL_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=999))
+CHANNEL_LIST_SCHEMA = vol.Schema({
+    vol.Required(CONF_ENABLE, default=True): cv.boolean,
+    vol.Optional(CONF_URL, default=CHANNEL_LIST_URL): cv.string,
+    vol.Optional(CONF_IGNORE_CHANNELS): cv.string,
+    vol.Optional(CONF_SHOW_CHANNELS): cv.string,
+    vol.Optional(CONF_HIDE_CHANNELS): cv.string,
+    vol.Optional(CONF_LOGOS): vol.Schema({CHANNEL_IDS: cv.string}),
+    vol.Optional(CONF_TARGETS): vol.Schema({CHANNEL_IDS: cv.string}),
+    vol.Optional(CONF_SOURCES): vol.Schema({CHANNEL_IDS: cv.string}),
+    vol.Optional(CONF_OVERRIDE): vol.Schema({CHANNEL_IDS: OVERRIDE_CHANNEL_SCHEMA}),
+})
 
 PLATFORM_SCHEMA = vol.All(
     PLATFORM_SCHEMA.extend({
         vol.Optional(CONF_DEFAULTISSHOW, default=True): cv.boolean,
         vol.Optional(CONF_FORCEHD, default=False): cv.boolean,
         vol.Required(CONF_TIVOS): vol.Schema({TIVO_IDS: TIVO_SCHEMA}),
-        vol.Required(CONF_CHANNELS): vol.Schema({CHANNEL_IDS: CHANNEL_SCHEMA}),
+        vol.Optional(CONF_CHANNEL_LIST): vol.Schema(CHANNEL_LIST_SCHEMA),
+        vol.Optional(CONF_CHANNELS): vol.Schema({CHANNEL_IDS: CHANNEL_SCHEMA}),
         vol.Optional(CONF_GUIDE): vol.Schema(GUIDE_SCHEMA),
         vol.Optional(CONF_KEEP_CONNECTED, default=False): cv.boolean,
         vol.Optional(CONF_SHOW_PACKAGES, default="UNSET"): cv.string,
@@ -121,7 +154,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     if DATA_VIRGINTIVO not in hass.data:
         hass.data[DATA_VIRGINTIVO] = {}
 
-    show_by_default = config.get(CONF_DEFAULTISSHOW) and config.get(CONF_SHOW_PACKAGES) != "UNSET"
+    show_by_default = config.get(CONF_DEFAULTISSHOW) and config.get(CONF_SHOW_PACKAGES) == "UNSET"
 
     guide = types.SimpleNamespace()
     guide.channels = {}
@@ -135,15 +168,30 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
         guide.picture_refresh = 60
         guide.enable_guide = True
 
+    channel_listings = {}
+    if CONF_CHANNEL_LIST in config:
+        if config[CONF_CHANNEL_LIST][CONF_ENABLE]:
+            channel_listings = get_channel_listings(config[CONF_CHANNEL_LIST])
+
+    if len(channel_listings) == 0:
+        if CONF_CHANNELS in config:
+            channel_listings = config[CONF_CHANNELS]
+            _LOGGER.info("Using channel list from configuration file")
+        else:
+            _LOGGER.error("No channel configuration available")
+    else:
+        _LOGGER.info("Using automatic channel list")
+
     channels = {}
-    for channel_id, entry in config[CONF_CHANNELS].items():
+    for channel_id, entry in channel_listings.items():
+        show = entry[CONF_SHOW].lower()
         channel_info = {
             CONF_NAME: entry[CONF_NAME],
             CONF_LOGO: entry[CONF_LOGO],
             CONF_HDCHANNEL: entry[CONF_HDCHANNEL] if entry[CONF_HDCHANNEL] > 0 else None,
             CONF_PLUSONE: entry[CONF_PLUSONE] if entry[CONF_PLUSONE] > 0 else None,
-            CONF_SHOW: (show_by_default or entry[CONF_SHOW] == 'True' or entry[CONF_PACKAGE] in
-                        config.get(CONF_SHOW_PACKAGES).split(",")) and entry[CONF_SHOW] != 'False',
+            CONF_SHOW: (show_by_default or show == 'true' or entry[CONF_PACKAGE] in
+                        config.get(CONF_SHOW_PACKAGES).split(",")) and show != 'false',
             CONF_TARGET: entry[CONF_TARGET],
             CONF_SOURCE: entry[CONF_SOURCE],
         }
@@ -832,3 +880,154 @@ class VirginTivo(MediaPlayerDevice):
 
         cmd = "SETCH " + str(idx) + "\r"
         self.tivo_cmd(cmd)
+
+
+def get_channel_listings(config):
+    from bs4 import BeautifulSoup
+
+    class ChannelListing:
+        def __init__(self, channel_id, channel_name, package, is_hd):
+            self.channel_id = channel_id
+            self.channel_name = channel_name
+            self.package = package
+            self.is_hd = is_hd
+            self.is_plus_one = False
+            self.base_name = ""
+            self.show = ""
+            self.hd_ver = ""
+            self.plus_one_ver = ""
+            self.logo = ""
+            self.target = ""
+            self.source = ""
+
+    def contains(this_cell, this_string):
+        if this_string in this_cell:
+            return True
+        else:
+            return False
+
+    def base_name(name):
+        return str(name).replace(" +1", "").replace(" ja vu", "").replace(" HD", "")
+
+    channel_listings = {}
+    vc_url = ""
+
+    try:
+        all_channels = {}
+        ignore_channels = []
+        hide_channels = []
+        show_channels = []
+        logos = {}
+        targets = {}
+        sources = {}
+
+        # The URL for the TV channels page
+        vc_url = config[CONF_URL]
+        # Channels to ignore
+        if CONF_IGNORE_CHANNELS in config:
+            ignore_channels = str(config[CONF_IGNORE_CHANNELS]).split(',')
+        # Channels to be shown in drop down (when default_is_show = False)
+        if CONF_SHOW_CHANNELS in config:
+            show_channels = str(config[CONF_SHOW_CHANNELS]).split(',')
+        # Channels to be shown in drop down (when default_is_show = True)
+        if CONF_HIDE_CHANNELS in config:
+            hide_channels = str(config[CONF_HIDE_CHANNELS]).split(',')
+        # Channel logos
+        if CONF_LOGOS in config:
+            logos = config[CONF_LOGOS]
+        # Targets
+        if CONF_TARGETS in config:
+            targets = config[CONF_TARGETS]
+        # Sources
+        if CONF_SOURCES in config:
+            sources = config[CONF_SOURCES]
+        # Channel overrides
+        if CONF_OVERRIDE in config:
+            for channel_id, override_conf in config[CONF_OVERRIDE].items():
+                str_channel_id = str(channel_id)
+                channel_name = override_conf[CONF_NAME].strip()
+                channel_name = "'{}'".format(channel_name) if "&" in channel_name else channel_name
+                package = override_conf[CONF_PACKAGE].strip()
+                is_hd = override_conf[CONF_IS_HD]
+                ignore_channels.append(str_channel_id)
+                all_channels[str_channel_id] = ChannelListing(str_channel_id, channel_name, package, is_hd)
+                if "+1" in channel_name or "ja vu" in channel_name:
+                    all_channels[str_channel_id].is_plus_one = True
+                if base_name(channel_name) != channel_name:
+                    all_channels[str_channel_id].base_name = base_name(channel_name)
+
+        res = requests.get(vc_url)
+        soup = BeautifulSoup(res.text, "html.parser")
+
+        for table in soup.find_all(class_=["wikitable sortable"]):
+            for row in table.findAll("tr"):
+                cells = row.findAll(["td"])
+                if len(cells) >= 6:
+                    if cells[1].find(text=True).strip() == "Local TV":
+                        cells[5] = BeautifulSoup("Player", "html.parser")
+                        cells[6] = BeautifulSoup("SDTV", "html.parser")
+                    if cells[6].find(text=True) is not None:
+                        channel_id = cells[0].find(text=True).strip()
+                        if channel_id not in ignore_channels:
+                            channel_name = cells[1].find(text=True).split('/')[0].strip()
+                            channel_name = "'{}'".format(channel_name) if "&" in channel_name else channel_name
+                            package = cells[5].find(text=True).strip()
+                            is_hd = contains(cells[6].find(text=True), "HDTV")
+                            ignore_channels.append(channel_id)
+                            all_channels[channel_id] = ChannelListing(channel_id, channel_name, package, is_hd)
+                            if "+1" in channel_name or "ja vu" in channel_name:
+                                all_channels[channel_id].is_plus_one = True
+                            all_channels[channel_id].base_name = base_name(channel_name)
+
+        for channel in all_channels.values():
+            if not channel.is_hd and not channel.is_plus_one:
+                hd_id = next((hd_id for hd_id, hd_ch in all_channels.items()
+                              if hd_ch.base_name == channel.base_name and hd_ch.is_hd), None)
+                if hd_id is not None:
+                    channel.hd_ver = hd_id
+            if not channel.is_plus_one:
+                plus_one_id = next((plus_one_id for plus_one_id, plus_one_ch in all_channels.items()
+                                    if plus_one_ch.base_name == channel.base_name and plus_one_ch.is_plus_one), None)
+                if plus_one_id is not None:
+                    channel.plus_one_ver = plus_one_id
+
+        for channel_id in show_channels:
+            if channel_id in all_channels:
+                all_channels[channel_id].show = "true"
+
+        for channel_id in hide_channels:
+            if channel_id in all_channels:
+                all_channels[channel_id].show = "false"
+
+        for channel_id, logo_url in logos.items():
+            if str(channel_id) in all_channels:
+                all_channels[str(channel_id)].logo = logo_url
+
+        for channel_id, source_name in sources.items():
+            if str(channel_id) in all_channels:
+                all_channels[str(channel_id)].source = source_name
+
+        for channel_id, target_name in targets.items():
+            if str(channel_id) in all_channels:
+                all_channels[str(channel_id)].target = target_name
+
+        for channel_id, channel in sorted(all_channels.items()):
+            channel_listing = {
+                CONF_NAME: channel.channel_name,
+                CONF_LOGO: channel.logo if channel.logo != "" else "",
+                CONF_HDCHANNEL: int(channel.hd_ver) if channel.hd_ver != "" else 0,
+                CONF_PLUSONE: int(channel.plus_one_ver) if channel.plus_one_ver != "" else 0,
+                CONF_SHOW: channel.show if channel.show != "" else "UNSET",
+                CONF_TARGET: channel.target if channel.target != "" else "",
+                CONF_SOURCE: channel.source if channel.source != "" else "",
+                CONF_PACKAGE: channel.package if channel.package != "" else "UNSET",
+            }
+
+            channel_listings[int(channel_id)] = channel_listing
+
+        _LOGGER.debug(str(channel_listings))
+
+    except Exception as e:
+        _LOGGER.error("Could not fetch channel listings from %s, error %s", vc_url, str(e))
+
+    return channel_listings
