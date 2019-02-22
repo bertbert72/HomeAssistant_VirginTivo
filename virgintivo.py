@@ -19,12 +19,13 @@ import voluptuous as vol
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
 from homeassistant.components.media_player import (
-    DOMAIN, MEDIA_PLAYER_SCHEMA, PLATFORM_SCHEMA, SUPPORT_SELECT_SOURCE, SUPPORT_TURN_OFF, SUPPORT_TURN_ON,
-    MediaPlayerDevice, MEDIA_TYPE_TVSHOW, SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK, SUPPORT_PLAY, SUPPORT_PAUSE,
-    SUPPORT_STOP, SCAN_INTERVAL)
+    MediaPlayerDevice, MEDIA_PLAYER_SCHEMA, PLATFORM_SCHEMA)
+from homeassistant.components.media_player.const import (
+    DOMAIN, SUPPORT_SELECT_SOURCE, SUPPORT_TURN_OFF, SUPPORT_TURN_ON, MEDIA_TYPE_TVSHOW,
+    SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK, SUPPORT_PLAY, SUPPORT_PAUSE, SUPPORT_STOP)
 from homeassistant.const import (
     ATTR_ENTITY_ID, CONF_NAME, CONF_HOST, CONF_PORT, STATE_OFF, STATE_PLAYING, STATE_PAUSED, STATE_UNKNOWN,
-    ATTR_COMMAND, CONF_URL)
+    ATTR_COMMAND, CONF_URL, CONF_SCAN_INTERVAL)
 import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
@@ -485,7 +486,8 @@ class VirginTivo(MediaPlayerDevice):
             else:
                 self._sdoverride['enabled'] = False
                 self._sdoverride['channel_id'] = channel_id
-                self._sdoverride['refresh_time'] = time.time() + SCAN_INTERVAL.total_seconds() + 5
+                # self._sdoverride['refresh_time'] = time.time() + SCAN_INTERVAL.total_seconds() + 5
+                self._sdoverride['refresh_time'] = time.time() + 1 + 5
 
                 channel_id = self._channels[channel_id][CONF_HDCHANNEL]
                 _LOGGER.debug("%s: automatically switching to HD channel", self._name)
