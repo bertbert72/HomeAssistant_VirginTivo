@@ -28,6 +28,8 @@ Alexa automation hints are provided in the automations/alexa folder by garywilso
 + Drop the file into the custom_components/media_player directory.
 + Edit your configuration file to add the `virgintivo` platform to the `media_player:` section.
 
+Note: Ensure you have enabled Network Remote Control on your Tivo box!
+
 # Configuration
 There are is one required section: tivos, two sections of which at least one is required: tvchannellists and channels, plus one optional section: guide.
 
