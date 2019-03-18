@@ -955,8 +955,7 @@ def get_channel_listings(config):
                 all_channels[str_channel_id] = ChannelListing(str_channel_id, channel_name, package, is_hd)
                 if "+1" in channel_name or "ja vu" in channel_name:
                     all_channels[str_channel_id].is_plus_one = True
-                if base_name(channel_name) != channel_name:
-                    all_channels[str_channel_id].base_name = base_name(channel_name)
+                all_channels[str_channel_id].base_name = base_name(channel_name)
 
         res = requests.get(vc_url)
         soup = BeautifulSoup(res.text, "html.parser")
