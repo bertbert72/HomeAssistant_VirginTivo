@@ -324,13 +324,14 @@ class VirginTivo(MediaPlayerDevice):
                     }
                     self._guide.channels[ch_number] = ch_info
                     if ch_number in self._channels:
-                        hd_channel = self._channels[ch_number][CONF_HDCHANNEL]
                         plus_one_channel = self._channels[ch_number][CONF_PLUSONE]
-                        if hd_channel:
-                            self._guide.channels[hd_channel] = copy.deepcopy(ch_info)
-                            self._guide.channels[hd_channel]["channel_number"] = hd_channel
-                            self._guide.channels[hd_channel]["title"] += " HD"
-                            _LOGGER.debug("Copied channel [%d] to HD channel [%d]", ch_number, hd_channel)
+                        for related_channel in self.get_related_channels(ch_number):
+                            if related_channel != ch_number:
+                                self._guide.channels[related_channel] = copy.deepcopy(ch_info)
+                                self._guide.channels[related_channel]["channel_number"] = related_channel
+                                if self._channels[related_channel][CONF_HDCHANNEL]:
+                                    self._guide.channels[related_channel]["title"] += " HD"
+                                _LOGGER.debug("Copied channel [%d] to channel [%d]", ch_number, related_channel)
 
                         if plus_one_channel:
                             self._guide.channels[plus_one_channel] = copy.deepcopy(ch_info)
@@ -346,23 +347,18 @@ class VirginTivo(MediaPlayerDevice):
             _LOGGER.debug("Error getting guide channel list [%s]", str(e))
             raise
 
-    def get_listing_channel(self, channel_id, listings):
-        related_channels = [channel_id]
+    def get_related_channels(self, channel_id):
+        related_channels = {channel_id}
         base_channel_name = self._channels[channel_id][CONF_NAME].replace(' HD', '')
         for key, channel in self._channels.items():
-            if channel[CONF_HDCHANNEL] == channel_id:
-                related_channels.append(key)
-            elif channel[CONF_NAME].replace(' HD', '') == base_channel_name:
-                related_channels.append(key)
+            if channel[CONF_HDCHANNEL] == channel_id or channel[CONF_NAME].replace(' HD', '') == base_channel_name:
+                related_channels.add(key)
         print("Related channels: " + str(related_channels))
-        for channel in related_channels:
-            if channel in listings:
-                print("Found listing for channel: " + str(channel))
 
     def get_guide_listings(self, channel_id):
         """Retrieve list of programs for a channel"""
 
-        self.get_listing_channel(channel_id, self._guide.listings)
+        self.get_related_channels(channel_id)
 
         sd_channel = self.get_sd_channel(channel_id)
         hd_channel = self._channels[sd_channel][CONF_HDCHANNEL]
