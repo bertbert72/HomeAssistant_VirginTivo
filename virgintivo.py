@@ -354,11 +354,10 @@ class VirginTivo(MediaPlayerDevice):
             if channel[CONF_HDCHANNEL] == channel_id or channel[CONF_NAME].replace(' HD', '') == base_channel_name:
                 related_channels.add(key)
         print("Related channels: " + str(related_channels))
+        return related_channels
 
     def get_guide_listings(self, channel_id):
         """Retrieve list of programs for a channel"""
-
-        self.get_related_channels(channel_id)
 
         sd_channel = self.get_sd_channel(channel_id)
         hd_channel = self._channels[sd_channel][CONF_HDCHANNEL]
