@@ -291,6 +291,7 @@ class VirginTivo(MediaPlayerDevice):
         self._keep_connected = keep_connected
         self._paused = False
         self._sdoverride = {'enabled': False, 'channel_id': None, 'refresh_time': 0}
+        self._connected = False
 
         _LOGGER.debug("%s: initialising connection to [%s]", self._name, self._host)
         self.connect()
@@ -350,7 +351,7 @@ class VirginTivo(MediaPlayerDevice):
             if channel[CONF_HDCHANNEL] == channel_id or channel[CONF_PLUSONE] == channel_id \
                     or channel[CONF_NAME].replace(' HD', '').replace(' +1', '') == base_channel_name:
                 related_channels.add(key)
-        print("Related channels: " + str(related_channels))
+        _LOGGER.debug("Related channels: " + str(related_channels))
         return related_channels
 
     def get_guide_listings(self, channel_id):
@@ -473,7 +474,7 @@ class VirginTivo(MediaPlayerDevice):
         return False
 
     def is_hd_channel(self, channel_id):
-        """Check if channel is +1"""
+        """Check if channel is HD"""
 
         for key, channel in self._channels.items():
             if channel[CONF_HDCHANNEL] == channel_id:
@@ -583,14 +584,21 @@ class VirginTivo(MediaPlayerDevice):
     def connect(self):
         bufsize = 1024
         try:
+            if not self._connected:
+                self._sock = socket.socket()
+                self._sock.settimeout(1)
+                self._sock.connect((self._host, self._port))
+                self._connected = True
             data = self._sock.recv(bufsize).decode()
             # _LOGGER.debug("%s: using existing connection", self._name)
             # _LOGGER.debug("%s: response data [%s]", self._name, data)
             self._last_msg = data
             self._state = STATE_PAUSED if self._paused else STATE_PLAYING
+            self._connected = True
         except socket.timeout:
             # _LOGGER.debug("%s: using existing connection", self._name)
             # self._state = STATE_ON
+            self._connected = False
             pass
         except Exception as e:
             try:
@@ -599,6 +607,7 @@ class VirginTivo(MediaPlayerDevice):
                 self._sock = socket.socket()
                 self._sock.settimeout(1)
                 self._sock.connect((self._host, self._port))
+                self._connected = True
                 data = self._sock.recv(bufsize).decode()
                 _LOGGER.debug("%s: response data [%s]", self._name, data)
                 self._last_msg = data
@@ -618,6 +627,7 @@ class VirginTivo(MediaPlayerDevice):
             time.sleep(0.1)
             # self._sock.shutdown()
             self._sock.close()
+        self._connected = False
 
     @property
     def name(self):
