@@ -329,16 +329,12 @@ class VirginTivo(MediaPlayerDevice):
                             if related_channel != ch_number:
                                 self._guide.channels[related_channel] = copy.deepcopy(ch_info)
                                 self._guide.channels[related_channel]["channel_number"] = related_channel
-                                if self._channels[related_channel][CONF_HDCHANNEL]:
+                                if self.is_hd_channel(related_channel):
                                     self._guide.channels[related_channel]["title"] += " HD"
+                                if self.is_plus_one_channel(related_channel):
+                                    self._guide.channels[related_channel]["title"] += " +1"
+                                    self._guide.channels[related_channel]["url"] = None
                                 _LOGGER.debug("Copied channel [%d] to channel [%d]", ch_number, related_channel)
-
-                        if plus_one_channel:
-                            self._guide.channels[plus_one_channel] = copy.deepcopy(ch_info)
-                            self._guide.channels[plus_one_channel]["channel_number"] = plus_one_channel
-                            self._guide.channels[plus_one_channel]["title"] += " +1"
-                            self._guide.channels[plus_one_channel]["url"] = None
-                            _LOGGER.debug("Copied channel [%d] to +1 channel [%d]", ch_number, plus_one_channel)
 
             else:
                 _LOGGER.debug("Guide already populated")
@@ -351,7 +347,8 @@ class VirginTivo(MediaPlayerDevice):
         related_channels = {channel_id}
         base_channel_name = self._channels[channel_id][CONF_NAME].replace(' HD', '')
         for key, channel in self._channels.items():
-            if channel[CONF_HDCHANNEL] == channel_id or channel[CONF_NAME].replace(' HD', '') == base_channel_name:
+            if channel[CONF_HDCHANNEL] == channel_id or channel[CONF_PLUSONE] == channel_id \
+                    or channel[CONF_NAME].replace(' HD', '').replace(' +1', '') == base_channel_name:
                 related_channels.add(key)
         print("Related channels: " + str(related_channels))
         return related_channels
