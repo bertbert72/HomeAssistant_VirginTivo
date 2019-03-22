@@ -346,8 +346,23 @@ class VirginTivo(MediaPlayerDevice):
             _LOGGER.debug("Error getting guide channel list [%s]", str(e))
             raise
 
+    def get_listing_channel(self, channel_id, listings):
+        related_channels = [channel_id]
+        base_channel_name = self._channels[channel_id][CONF_NAME].replace(' HD', '')
+        for key, channel in self._channels.items():
+            if channel[CONF_HDCHANNEL] == channel_id:
+                related_channels.append(key)
+            elif channel[CONF_NAME].replace(' HD', '') == base_channel_name:
+                related_channels.append(key)
+        print("Related channels: " + str(related_channels))
+        for channel in related_channels:
+            if channel in listings:
+                print("Found listing for channel: " + str(channel))
+
     def get_guide_listings(self, channel_id):
         """Retrieve list of programs for a channel"""
+
+        self.get_listing_channel(channel_id, self._guide.listings)
 
         sd_channel = self.get_sd_channel(channel_id)
         hd_channel = self._channels[sd_channel][CONF_HDCHANNEL]
