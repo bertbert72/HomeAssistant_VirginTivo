@@ -325,7 +325,6 @@ class VirginTivo(MediaPlayerDevice):
                     }
                     self._guide.channels[ch_number] = ch_info
                     if ch_number in self._channels:
-                        plus_one_channel = self._channels[ch_number][CONF_PLUSONE]
                         for related_channel in self.get_related_channels(ch_number):
                             if related_channel != ch_number:
                                 self._guide.channels[related_channel] = copy.deepcopy(ch_info)
@@ -357,16 +356,12 @@ class VirginTivo(MediaPlayerDevice):
     def get_guide_listings(self, channel_id):
         """Retrieve list of programs for a channel"""
 
-        sd_channel = self.get_sd_channel(channel_id)
-        hd_channel = self._channels[sd_channel][CONF_HDCHANNEL]
-        plus_one_channel = self._channels[sd_channel][CONF_PLUSONE]
-
         try:
             listings = self._guide.listings
-            if sd_channel not in listings or listings[sd_channel]["next_refresh"] <= datetime.now():
+            if channel_id not in listings or listings[channel_id]["next_refresh"] <= datetime.now():
                 start_time = int(time.time() - 3600 * 6) * 1000
                 end_time = start_time + (3600 * self._guide.picture_refresh * 1000)
-                ch_id = self._guide.channels[sd_channel]["id"]
+                ch_id = self._guide.channels[channel_id]["id"]
                 _LOGGER.debug("%s: retrieving guide for channel %s", self._name, str(ch_id))
                 url = "https://{0}/{1}/listings?byStationId={2}&byStartTime={3}~{4}&sort=startTime"\
                     .format(GUIDE_HOST, GUIDE_PATH, ch_id, start_time, end_time)
@@ -375,7 +370,7 @@ class VirginTivo(MediaPlayerDevice):
                     "next_refresh": 0,
                     "listings": [],
                 }
-                listings[sd_channel] = prog_channel
+                listings[channel_id] = prog_channel
 
                 # _LOGGER.debug("*** url request: [%s]", url);
                 response = requests.get(url, headers=GUIDE_HEADERS)
@@ -416,23 +411,17 @@ class VirginTivo(MediaPlayerDevice):
                         "prog_series_number": prog_series_number,
                     }
 
-                    listings[sd_channel]["listings"].append(prog_info)
-                    listings[sd_channel]["next_refresh"] = prog_start_time
-                    _LOGGER.debug("Added [%s] to channel [%d]", prog_title, sd_channel)
+                    listings[channel_id]["listings"].append(prog_info)
+                    listings[channel_id]["next_refresh"] = prog_start_time
+                    _LOGGER.debug("Added [%s] to channel [%d]", prog_title, channel_id)
 
-                if hd_channel:
-                    listings[hd_channel] = prog_channel
-                    _LOGGER.debug("Copied listing [%d] to HD channel [%d]", sd_channel, hd_channel)
-
-                if plus_one_channel:
-                    listings[plus_one_channel] = copy.deepcopy(prog_channel)
-                    _LOGGER.debug("Copied listing [%d] to +1 channel [%d]", sd_channel, plus_one_channel)
-                    for prog in listings[plus_one_channel]["listings"]:
+                if self.is_plus_one_channel(channel_id):
+                    for prog in listings[channel_id]["listings"]:
                         prog["start_time"] += timedelta(hours=1)
                         prog["end_time"] += timedelta(hours=1)
-                    _LOGGER.debug("Updated times for +1 channel [%d]", plus_one_channel)
+                    _LOGGER.debug("Updated times for +1 channel [%d]", channel_id)
 
-                _LOGGER.debug("Next refresh for channel [%d]: %s", sd_channel, prog_end_time.strftime('%Y-%m-%d %H:%M'))
+                _LOGGER.debug("Next refresh for channel [%d]: %s", channel_id, prog_end_time.strftime('%Y-%m-%d %H:%M'))
 
         except Exception as e:
             _LOGGER.debug("Error getting listings [%s]", str(e))
