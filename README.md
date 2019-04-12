@@ -25,7 +25,8 @@ A sample configuration is in the repository with a full list of Virgin Media cha
 Alexa automation hints are provided in the automations/alexa folder by garywilson4.
 
 # Usage
-+ Drop the file into the custom_components/media_player directory.
++ Create a folder called custom_components/virgintivo.
++ Drop the file media_player.py into the custom_components/virgintivo directory.
 + Edit your configuration file to add the `virgintivo` platform to the `media_player:` section.
 
 # Configuration
