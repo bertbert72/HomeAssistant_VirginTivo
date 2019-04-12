@@ -25,13 +25,14 @@ A sample configuration is in the repository with a full list of Virgin Media cha
 Alexa automation hints are provided in the automations/alexa folder by garywilson4.
 
 # Usage
-+ Drop the file into the custom_components/media_player directory.
++ Create a folder called custom_components/virgintivo.
++ Drop the file media_player.py into the custom_components/virgintivo directory.
 + Edit your configuration file to add the `virgintivo` platform to the `media_player:` section.
 
-Note: Ensure you have enabled Network Remote Control on your Tivo box!
+Note: Ensure you have enabled Network Remote Control on your Tivo box
 
 # Configuration
-There are is one required section: tivos, two sections of which at least one is required: tvchannellists and channels, plus one optional section: guide.
+There is one required section: tivos, plus two sections of which at least one is required: tvchannellists and channels, plus one optional section: guide.
 
 Platform settings are:
 
