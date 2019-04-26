@@ -44,7 +44,9 @@ Platform settings are:
 | keep_connected _(opt)_ | false | Persistent telnet connection to Tivo | false |
 | show_packages _(opt)_ |  | TV packages to show | Free-to-air,Player,Mix,Fun,Full House |
 
-**NB:** if using the _force_hd_ functionality, it is advisable to set _scan_interval_ to a low value, e.g. 1 to allow the component to change to the HD channel quickly.
+**NB:** 
+1. If using the _force_hd_ functionality, it is advisable to set _scan_interval_ to a low value, e.g. 1 to allow the component to change to the HD channel quickly.
+1. To temporarily suspend the HD switching function, switch back to the SD channel within a few seconds of the automatic change.  It won't change to the HD version again until you move away from the channel.
 
 ## tivos
 The Tivos should be listed under the `tivos:` section.  Each entry has two required settings and one optional.
