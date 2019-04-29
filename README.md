@@ -26,7 +26,7 @@ Alexa automation hints are provided in the automations/alexa folder by garywilso
 
 # Usage
 + Create a folder called custom_components/virgintivo.
-+ Drop the file media_player.py into the custom_components/virgintivo directory.
++ Drop both the media_player.py and manifest.json files into the custom_components/virgintivo directory.
 + Edit your configuration file to add the `virgintivo` platform to the `media_player:` section.
 
 Note: Ensure you have enabled Network Remote Control on your Tivo box
