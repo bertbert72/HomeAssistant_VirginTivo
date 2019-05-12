@@ -494,14 +494,17 @@ class VirginTivo(MediaPlayerDevice):
     def tivo_cmd(self, cmd):
         """Send command to Tivo box"""
         self.connect()
-        upper_cmd = cmd.upper()
-        _LOGGER.debug("%s: sending request [%s]", self._name, upper_cmd.replace('\r', '\\r'))
-        try:
-            self._sock.sendall(upper_cmd.encode())
-            if not self._keep_connected:
-                self.disconnect()
-        except socket.timeout:
-            _LOGGER.warning("%s: connection timed out", self._name)
+        if self._connected:
+            upper_cmd = cmd.upper()
+            _LOGGER.debug("%s: sending request [%s]", self._name, upper_cmd.replace('\r', '\\r'))
+            try:
+                self._sock.sendall(upper_cmd.encode())
+                if not self._keep_connected:
+                    self.disconnect()
+            except socket.timeout:
+                _LOGGER.warning("%s: connection timed out", self._name)
+        else:
+            _LOGGER.warning("%s: cannot send command when not connected", self._name)
 
     def update(self):
         """Retrieve latest state."""
@@ -513,9 +516,11 @@ class VirginTivo(MediaPlayerDevice):
         current_channel = self._channel
         data = self._last_msg
         if data is None:
-            self._state = STATE_OFF
+            # se.lf._state = STATE_OFF
+            True
         elif data == "":
             _LOGGER.debug("%s: not on live TV", self._name)
+            # self._state = STATE_OFF
         else:
             new_status = re.search('(?<=CH_STATUS )\d+', data)
             if new_status is None:
@@ -577,17 +582,20 @@ class VirginTivo(MediaPlayerDevice):
                 self._sock = socket.socket()
                 self._sock.settimeout(1)
                 self._sock.connect((self._host, self._port))
+                _LOGGER.debug("%s: connected OK", self._name)
                 self._connected = True
             data = self._sock.recv(bufsize).decode()
             # _LOGGER.debug("%s: using existing connection", self._name)
-            # _LOGGER.debug("%s: response data [%s]", self._name, data)
+            _LOGGER.debug("%s: response data [%s]", self._name, data)
             self._last_msg = data
             self._state = STATE_PAUSED if self._paused else STATE_PLAYING
-            self._connected = True
+            # self._connected = True
         except socket.timeout:
+            _LOGGER.debug("%s: socket timeout in 'connect'", self._name)
+            self._state = STATE_OFF
             # _LOGGER.debug("%s: using existing connection", self._name)
             # self._state = STATE_ON
-            self._connected = False
+            # self._connected = False
             pass
         except Exception as e:
             try:
@@ -606,6 +614,8 @@ class VirginTivo(MediaPlayerDevice):
                     _LOGGER.warning("%s: %s, will retry", self._name, str(e))
                     self._last_msg = None
                 self.disconnect()
+                _LOGGER.debug("%s: general socket error in 'connect'", self._name)
+                # self._state = STATE_OFF
                 pass
             except Exception:
                 raise
