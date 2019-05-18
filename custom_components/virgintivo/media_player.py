@@ -292,6 +292,10 @@ class VirginTivo(MediaPlayerDevice):
         self._paused = False
         self._sdoverride = {'enabled': False, 'channel_id': None, 'refresh_time': 0}
         self._connected = False
+        self._running_command = False
+        self._running_update = False
+        self._turning_off = False
+        self._turning_on = False
 
         _LOGGER.debug("%s: initialising connection to [%s]", self._name, self._host)
         self.connect()
@@ -493,34 +497,36 @@ class VirginTivo(MediaPlayerDevice):
 
     def tivo_cmd(self, cmd):
         """Send command to Tivo box"""
+        self._running_command = True
         self.connect()
         if self._connected:
             upper_cmd = cmd.upper()
             _LOGGER.debug("%s: sending request [%s]", self._name, upper_cmd.replace('\r', '\\r'))
             try:
                 self._sock.sendall(upper_cmd.encode())
+                self._running_command = False
                 if not self._keep_connected:
                     self.disconnect()
             except socket.timeout:
                 _LOGGER.warning("%s: connection timed out", self._name)
         else:
             _LOGGER.warning("%s: cannot send command when not connected", self._name)
+        self._running_command = False
 
     def update(self):
         """Retrieve latest state."""
 
-        self.connect()
-        if not self._keep_connected:
-            self.disconnect()
+        if not self._turning_off and not self._turning_on:
+            self._running_update = True
+            self.connect()
+            self._running_update = False
+            if not self._keep_connected:
+                self.disconnect()
 
         current_channel = self._channel
         data = self._last_msg
-        if data is None:
-            # se.lf._state = STATE_OFF
-            True
-        elif data == "":
+        if data is None or data == "":
             _LOGGER.debug("%s: not on live TV", self._name)
-            # self._state = STATE_OFF
         else:
             new_status = re.search('(?<=CH_STATUS )\d+', data)
             if new_status is None:
@@ -579,23 +585,20 @@ class VirginTivo(MediaPlayerDevice):
         bufsize = 1024
         try:
             if not self._connected:
+                _LOGGER.debug("%s: connecting to socket", self._name)
                 self._sock = socket.socket()
                 self._sock.settimeout(1)
                 self._sock.connect((self._host, self._port))
                 _LOGGER.debug("%s: connected OK", self._name)
                 self._connected = True
+            _LOGGER.debug("%s: reading data from socket", self._name)
             data = self._sock.recv(bufsize).decode()
-            # _LOGGER.debug("%s: using existing connection", self._name)
             _LOGGER.debug("%s: response data [%s]", self._name, data)
             self._last_msg = data
             self._state = STATE_PAUSED if self._paused else STATE_PLAYING
-            # self._connected = True
         except socket.timeout:
             _LOGGER.debug("%s: socket timeout in 'connect'", self._name)
             self._state = STATE_OFF
-            # _LOGGER.debug("%s: using existing connection", self._name)
-            # self._state = STATE_ON
-            # self._connected = False
             pass
         except Exception as e:
             try:
@@ -615,18 +618,22 @@ class VirginTivo(MediaPlayerDevice):
                     self._last_msg = None
                 self.disconnect()
                 _LOGGER.debug("%s: general socket error in 'connect'", self._name)
-                # self._state = STATE_OFF
                 pass
             except Exception:
                 raise
 
     def disconnect(self):
-        if self._sock:
-            _LOGGER.debug("%s: disconnecting from [%s]", self._name, self._host)
-            time.sleep(0.1)
-            # self._sock.shutdown()
-            self._sock.close()
-        self._connected = False
+        if self._running_update or self._running_command:
+            _LOGGER.debug("%s: not disconnecting from [%s] due to update running", self._name, self._host)
+        elif self._running_command:
+            _LOGGER.debug("%s: not disconnecting from [%s] due to command running", self._name, self._host)
+        else:
+            if self._sock:
+                _LOGGER.debug("%s: disconnecting from [%s]", self._name, self._host)
+                time.sleep(0.1)
+                # self._sock.shutdown()
+                self._sock.close()
+            self._connected = False
 
     @property
     def name(self):
@@ -867,16 +874,22 @@ class VirginTivo(MediaPlayerDevice):
         """Turn the media player on."""
 
         if self._state == STATE_OFF:
+            self._turning_on = True
             cmd = "IRCODE STANDBY\r"
             self.tivo_cmd(cmd)
-            self._state = STATE_UNKNOWN
+            time.sleep(0.5)
+            # self._state = STATE_UNKNOWN
+            self._turning_on = False
 
     def turn_off(self):
         """Turn the media player off."""
         if self._state in (STATE_PLAYING, STATE_PAUSED):
+            self._turning_off = True
             cmd = "IRCODE STANDBY\rIRCODE STANDBY\r"
             self.tivo_cmd(cmd)
             self._state = STATE_OFF
+            time.sleep(0.5)
+            self._turning_off = False
 
     @property
     def source(self):
