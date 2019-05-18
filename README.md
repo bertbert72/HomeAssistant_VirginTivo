@@ -19,6 +19,7 @@ Features are
   + Display grab of current programme
 + Optionally use Tivo remote to control other media player devices (obscure I know!)
 + Services: find remote, send IR code, send keyboard command, last channel, live TV, switch to/from +1 channel, search for programme, subtitles on/off, "teleport".
++ Supports automated component updating via _custom_updater_ (https://custom-components.github.io/custom_updater/)
 
 A sample configuration is in the repository with a full list of Virgin Media channels.  Note that a channel scraper has been added in /resources to get the latest channels in a compatible format from https://www.tvchannellists.com.  
 
@@ -120,6 +121,20 @@ These can be called by automations, scripts etc.
 <sup>1</sup> Works with the Virgin V6 Bluetooth remote
 
 <sup>2</sup> This forces the Tivo into certain modes.  Known available entries are: TIVO, LIVETV, GUIDE, NOWPLAYING
+
+# Custom_Updater
+
+The component can be kept up-to-date using the optional _custom_updater_ integration.  To use this, add the line in bold to your _custom_updater_ configuration.
+
+<pre>
+custom_updater:
+  track:
+    - components
+  component_urls:
+    <b>- https://raw.githubusercontent.com/bertbert72/HomeAssistant_VirginTivo/master/custom_updater.json</b>
+</pre>
+
+For more information on _custom_updater_, refer to the documentation at https://custom-components.github.io/custom_updater/
 
 # Example
 
