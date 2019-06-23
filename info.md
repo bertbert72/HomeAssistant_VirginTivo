@@ -1,4 +1,4 @@
-![Screenshot](img/HA-VT03.png "Screenshot")
+![Screenshot](https://raw.githubusercontent.com/bertbert72/HomeAssistant_VirginTivo/master/img/HA-VT03.png "Screenshot")
 
 ##  Features
 
