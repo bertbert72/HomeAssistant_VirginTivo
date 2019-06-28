@@ -18,7 +18,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.1'
+VERSION = '0.1.3'
 
 from homeassistant.components.media_player import (
     MediaPlayerDevice, MEDIA_PLAYER_SCHEMA, PLATFORM_SCHEMA)
@@ -42,6 +42,7 @@ GUIDE_PATH = 'oesp/api/GB/eng/web/'
 GUIDE_HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 '
                                'Safari/537.36'}
 CHANNEL_LIST_URL = 'https://www.tvchannellists.com/List_of_channels_on_Virgin_Media_(UK)'
+MIN_PICTURE_REFRESH = 10
 
 CONF_TIVOS = 'tivos'                      # list of Tivo boxes
 CONF_CHANNELS = 'channels'                # list of channels
@@ -164,7 +165,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     guide.listings = {}
     if CONF_GUIDE in config:
         guide.cache_hours = config[CONF_GUIDE][CONF_CACHE_HOURS]
-        guide.picture_refresh = config[CONF_GUIDE][CONF_PICTURE_REFRESH]
+        guide.picture_refresh = max(config[CONF_GUIDE][CONF_PICTURE_REFRESH], MIN_PICTURE_REFRESH)
         guide.enable_guide = config[CONF_GUIDE][CONF_ENABLE_GUIDE]
     else:
         guide.cache_hours = 12
@@ -517,8 +518,7 @@ class VirginTivo(MediaPlayerDevice):
 
     def update(self):
         """Retrieve latest state."""
-
-        if not self._turning_off and not self._turning_on:
+        if not self._turning_off and not self._turning_on and not self._running_update:
             self._running_update = True
             self.connect()
             self._running_update = False
@@ -909,11 +909,11 @@ class VirginTivo(MediaPlayerDevice):
             return
 
         idx = self.override_channel(self._channel_name_id[channel])
+        self._last_screen_grab = time.time() - self._guide.picture_refresh
         _LOGGER.debug("%s: setting channel to [%d]", self._name, idx)
 
         cmd = "SETCH " + str(idx) + "\r"
         self.tivo_cmd(cmd)
-
 
 def get_channel_listings(config):
     from bs4 import BeautifulSoup
