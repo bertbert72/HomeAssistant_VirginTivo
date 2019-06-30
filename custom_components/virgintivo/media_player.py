@@ -18,7 +18,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.3'
+VERSION = '0.1.4'
 
 from homeassistant.components.media_player import (
     MediaPlayerDevice, MEDIA_PLAYER_SCHEMA, PLATFORM_SCHEMA)
@@ -165,7 +165,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     guide.listings = {}
     if CONF_GUIDE in config:
         guide.cache_hours = config[CONF_GUIDE][CONF_CACHE_HOURS]
-        guide.picture_refresh = max(config[CONF_GUIDE][CONF_PICTURE_REFRESH], MIN_PICTURE_REFRESH)
+        guide.picture_refresh = config[CONF_GUIDE][CONF_PICTURE_REFRESH]
         guide.enable_guide = config[CONF_GUIDE][CONF_ENABLE_GUIDE]
     else:
         guide.cache_hours = 12
@@ -281,9 +281,10 @@ class VirginTivo(MediaPlayerDevice):
         self._tivo_id = tivo_id
         self._name = tivo_name
         self._state = STATE_OFF
-        self._channel = None
+        self._channel_name = None
         self._channel_id = None
         self._last_channel = None
+        self._channel_pic_url = None
         self._sock = None
         self._port = TIVO_PORT
         self._last_msg = ""
@@ -291,9 +292,10 @@ class VirginTivo(MediaPlayerDevice):
         self._guide = guide
         self._guide_channel = None
         self._last_screen_grab = 0
+        self._last_pic_url_update = 0
         self._keep_connected = keep_connected
         self._paused = False
-        self._sdoverride = {'enabled': False, 'channel_id': None, 'refresh_time': 0}
+        self._sdoverride = {'enabled': False, 'channel_id': None, 'refresh_time': time.time()}
         self._connected = False
         self._running_command = False
         self._running_update = False
@@ -525,14 +527,14 @@ class VirginTivo(MediaPlayerDevice):
             if not self._keep_connected:
                 self.disconnect()
 
-        current_channel = self._channel
+        current_channel_name = self._channel_name
         data = self._last_msg
         if data is None or data == "":
             _LOGGER.debug("%s: not on live TV", self._name)
         else:
-            new_status = re.search('(?<=CH_STATUS )\d+', data)
+            new_status = re.search(r'(?<=CH_STATUS )(\d+)', data)
             if new_status is None:
-                new_status = re.search('(?<=CH_FAILED )\w+', data)
+                new_status = re.search(r'(?<=CH_FAILED )(\w+)', data)
                 if new_status is not None:
                     new_status = new_status.group(0)
                     _LOGGER.warning("%s: failure message is [%s]", self._name, new_status)
@@ -540,48 +542,54 @@ class VirginTivo(MediaPlayerDevice):
                         self.disconnect()
             else:
                 new_status = new_status.group(0)
-                idx = int(new_status)
-                if self._channel is not None and idx != self._channel_name_id[self._channel]:
-                    _LOGGER.debug("%s: changing to channel [%s]", self._name, new_status)
+                new_channel_id = int(new_status)
 
-                if idx in self._target_ids:
-                    _LOGGER.debug("%s: switcher source triggered %s,%s,%s", self._name, str(idx), self._sources[idx],
-                                  self._target_ids[idx])
-                    state = self.hass.states.get(self._target_ids[idx])
+                if current_channel_name is not None:
+                    current_channel_id = self._channel_name_id[current_channel_name]
+                    if new_channel_id != current_channel_id:
+                        _LOGGER.debug("%s: changing to channel [%s]", self._name, new_status)
+                else:
+                    current_channel_id = -1
+
+                if new_channel_id in self._target_ids:
+                    _LOGGER.debug("%s: switcher source triggered %s,%s,%s", self._name, str(new_channel_id),
+                                  self._sources[new_channel_id], self._target_ids[new_channel_id])
+                    state = self.hass.states.get(self._target_ids[new_channel_id])
                     if state is not None:
-                        service_data = dict([("entity_id", self._target_ids[idx]), ("source", self._sources[idx])])
+                        service_data = dict([("entity_id", self._target_ids[new_channel_id]),
+                                             ("source", self._sources[new_channel_id])])
                         self.hass.services.call('media_player', 'select_source', service_data)
-                        if self._channel is not None:
-                            _LOGGER.debug("%s: reset channel back to [%d]",
-                                          self._name, self._channel_name_id[self._channel])
-                            idx = self._channel_name_id[self._channel]
-                            self.select_source(self._channel_id_name[idx])
+                        if current_channel_name is not None:
+                            _LOGGER.debug("%s: reset channel back to [%d]", self._name, current_channel_id)
+                            new_channel_id = current_channel_id
+                            self.select_source(self._channel_id_name[new_channel_id])
 
-                override_idx = self.override_channel(idx)
-                if override_idx != idx:
-                    idx = override_idx
-                    self.select_source(self._channel_id_name[idx])
+                override_idx = self.override_channel(new_channel_id)
+                if override_idx != new_channel_id:
+                    new_channel_id = override_idx
+                    self.select_source(self._channel_id_name[new_channel_id])
 
-                # self._state = STATE_ON
-                if idx in self._channel_id_name:
-                    self._channel = self._channel_id_name[idx]
-                    self._channel_id = idx
+                if new_channel_id != current_channel_id:
+                    if new_channel_id in self._channel_id_name:
+                        self._channel_name = self._channel_id_name[new_channel_id]
+                        self._channel_id = new_channel_id
+                    else:
+                        self._channel_name = None
+
+                if new_channel_id in self._guide.channels:
+                    _LOGGER.debug("%s: guide found for channel %d (%d)", self._name, new_channel_id, new_channel_id)
+                    self._guide_channel = self._guide.channels[new_channel_id]
                 else:
-                    self._channel = None
-
-                if idx in self._guide.channels:
-                    _LOGGER.debug("%s: guide found for channel %d (%d)", self._name, idx, idx)
-                    self._guide_channel = self._guide.channels[idx]
-                else:
-                    _LOGGER.debug("%s: no guide found for channel %d", self._name, idx)
+                    _LOGGER.debug("%s: no guide found for channel %d", self._name, new_channel_id)
                     self._guide_channel = None
 
         # Check listing each time
         if self._guide_channel is not None:
             self.get_guide_listings(self._guide_channel["channel_number"])
 
-        if current_channel != self._channel:
-            self._last_channel = current_channel
+        if current_channel_name != self._channel_name:
+            self._last_channel = current_channel_name
+            self._last_screen_grab = 0
 
     def connect(self):
         bufsize = 1024
@@ -686,18 +694,23 @@ class VirginTivo(MediaPlayerDevice):
     @property
     def media_image_url(self):
         """Image url of current playing media."""
-        pic_url = None
+        pic_url = self._channel_pic_url
         if self._channel_id and (self._last_screen_grab + self._guide.picture_refresh) <= time.time():
-            if self._guide_channel:
-                pic_url = self._guide_channel["url"]
-                if not pic_url:
-                    pic_url = self._guide_channel["logo"]
-                if "?" not in pic_url and "Channel_Logos" not in pic_url:
-                    pic_url = pic_url + "?" + str(int(time.time()))
-            else:
-                if self._channels[self._channel_id][CONF_LOGO] != "":
-                    pic_url = self._channels[self._channel_id][CONF_LOGO]
-
+            # Workaround for issue with image caching
+            if self._last_pic_url_update + MIN_PICTURE_REFRESH <= time.time():
+                self._last_screen_grab = time.time()
+                if self._guide_channel:
+                    pic_url = self._guide_channel["url"]
+                    if not pic_url:
+                        pic_url = self._guide_channel["logo"]
+                    if "?" not in pic_url and "Channel_Logos" not in pic_url:
+                        pic_url = pic_url + "?" + str(int(time.time()))
+                else:
+                    if self._channels[self._channel_id][CONF_LOGO] != "":
+                        pic_url = self._channels[self._channel_id][CONF_LOGO]
+                if self._channel_pic_url != pic_url:
+                    self._last_pic_url_update = time.time()
+                    self._channel_pic_url = pic_url
         return pic_url
 
     @property
@@ -750,7 +763,7 @@ class VirginTivo(MediaPlayerDevice):
     @property
     def media_title(self):
         """Return the current channel as media title."""
-        return self._channel
+        return self._channel_name
 
     def get_prog_info(self, attribute):
         """Return the current program info"""
@@ -801,8 +814,8 @@ class VirginTivo(MediaPlayerDevice):
 
     def plus_one_off(self):
         if self.is_plus_one_channel(self._channel_id):
-            idx = self.override_channel(self.get_sd_channel(self._channel_id))
-            self.select_source(self._channels[idx][CONF_NAME])
+            channel_id = self.override_channel(self.get_sd_channel(self._channel_id))
+            self.select_source(self._channels[channel_id][CONF_NAME])
 
     def plus_one_on(self):
         plus_one = self._channels[self.get_sd_channel(self._channel_id)][CONF_PLUSONE]
@@ -896,7 +909,7 @@ class VirginTivo(MediaPlayerDevice):
     @property
     def source(self):
         """Return the current input channel of the device."""
-        return self._channel
+        return self._channel_name
 
     @property
     def source_list(self):
@@ -908,12 +921,13 @@ class VirginTivo(MediaPlayerDevice):
         if channel not in self._channel_name_id:
             return
 
-        idx = self.override_channel(self._channel_name_id[channel])
-        self._last_screen_grab = time.time() - self._guide.picture_refresh
-        _LOGGER.debug("%s: setting channel to [%d]", self._name, idx)
+        channel_id = self.override_channel(self._channel_name_id[channel])
+        self._last_screen_grab = 0
+        _LOGGER.debug("%s: setting channel to [%d]", self._name, channel_id)
 
-        cmd = "SETCH " + str(idx) + "\r"
+        cmd = "SETCH " + str(channel_id) + "\r"
         self.tivo_cmd(cmd)
+
 
 def get_channel_listings(config):
     from bs4 import BeautifulSoup
