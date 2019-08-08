@@ -18,10 +18,10 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.4'
+VERSION = '0.1.5'
 
 from homeassistant.components.media_player import (
-    MediaPlayerDevice, MEDIA_PLAYER_SCHEMA, PLATFORM_SCHEMA)
+    MediaPlayerDevice, PLATFORM_SCHEMA)
 from homeassistant.components.media_player.const import (
     DOMAIN, SUPPORT_SELECT_SOURCE, SUPPORT_TURN_OFF, SUPPORT_TURN_ON, MEDIA_TYPE_TVSHOW,
     SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK, SUPPORT_PLAY, SUPPORT_PAUSE, SUPPORT_STOP)
@@ -34,6 +34,10 @@ _LOGGER = logging.getLogger(__name__)
 
 SUPPORT_VIRGINTIVO = SUPPORT_SELECT_SOURCE | SUPPORT_NEXT_TRACK | SUPPORT_PREVIOUS_TRACK | SUPPORT_TURN_ON \
                      | SUPPORT_TURN_OFF | SUPPORT_PLAY | SUPPORT_PAUSE | SUPPORT_STOP
+
+MEDIA_PLAYER_SCHEMA = vol.Schema({
+    ATTR_ENTITY_ID: cv.comp_entity_ids,
+})
 
 DATA_VIRGINTIVO = 'virgintivo'
 TIVO_PORT = 31339
