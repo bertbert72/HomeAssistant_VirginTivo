@@ -18,7 +18,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.5'
+VERSION = '0.1.6'
 
 from homeassistant.components.media_player import (
     MediaPlayerDevice, PLATFORM_SCHEMA)
@@ -369,13 +369,14 @@ class VirginTivo(MediaPlayerDevice):
     def get_guide_listings(self, channel_id):
         """Retrieve list of programs for a channel"""
 
+        listings = self._guide.listings
         try:
-            listings = self._guide.listings
+            _LOGGER.debug("Channel [%s] in listings: %s", str(channel_id), str(channel_id in listings))
             if channel_id not in listings or listings[channel_id]["next_refresh"] <= datetime.now():
                 start_time = int(time.time() - 3600 * 6) * 1000
                 end_time = start_time + (3600 * self._guide.picture_refresh * 1000)
                 ch_id = self._guide.channels[channel_id]["id"]
-                _LOGGER.debug("%s: retrieving guide for channel %s", self._name, str(ch_id))
+                _LOGGER.debug("%s: retrieving guide for channel %s [%s]", self._name, channel_id, str(ch_id))
                 url = "https://{0}/{1}/listings?byStationId={2}&byStartTime={3}~{4}&sort=startTime"\
                     .format(GUIDE_HOST, GUIDE_PATH, ch_id, start_time, end_time)
 
@@ -390,6 +391,7 @@ class VirginTivo(MediaPlayerDevice):
                 listings_data = json.loads(response.text)
                 # _LOGGER.debug("*** response: [%s]", str(response.text))
                 prog_end_time = datetime.now()
+                listings[channel_id]["next_refresh"] = datetime.now() + timedelta(minutes=1)
                 for listing in listings_data["listings"]:
                     prog_start_time = datetime.fromtimestamp(listing["startTime"] / 1000)
                     prog_end_time = datetime.fromtimestamp(listing["endTime"] / 1000)
@@ -425,7 +427,8 @@ class VirginTivo(MediaPlayerDevice):
                     }
 
                     listings[channel_id]["listings"].append(prog_info)
-                    listings[channel_id]["next_refresh"] = prog_start_time
+                    if listings[channel_id]["next_refresh"] < prog_start_time:
+                        listings[channel_id]["next_refresh"] = prog_start_time
                     _LOGGER.debug("Added [%s] to channel [%d]", prog_title, channel_id)
 
                 if self.is_plus_one_channel(channel_id):
@@ -434,10 +437,12 @@ class VirginTivo(MediaPlayerDevice):
                         prog["end_time"] += timedelta(hours=1)
                     _LOGGER.debug("Updated times for +1 channel [%d]", channel_id)
 
-                _LOGGER.debug("Next refresh for channel [%d]: %s", channel_id, prog_end_time.strftime('%Y-%m-%d %H:%M'))
+                _LOGGER.debug("Next refresh for channel [%d]: %s", channel_id, listings[channel_id]["next_refresh"].strftime('%Y-%m-%d %H:%M'))
 
         except Exception as e:
-            _LOGGER.debug("Error getting listings [%s]", str(e))
+            _LOGGER.warning("Error getting listings [%s]", str(e))
+            listings[channel_id]["next_refresh"] = datetime.now() + timedelta(minutes=1)
+            _LOGGER.warning("Resetting next_refresh to %s", str(listings[channel_id]["next_refresh"]))
 
     def get_current_prog(self):
         """Determine currently running program"""
