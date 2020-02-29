@@ -373,12 +373,12 @@ class VirginTivo(MediaPlayerDevice):
         try:
             _LOGGER.debug("Channel [%s] in listings: %s", str(channel_id), str(channel_id in listings))
             if channel_id not in listings or listings[channel_id]["next_refresh"] <= datetime.now():
-                start_time = int(time.time() - 3600 * 6) * 1000
-                end_time = start_time + (3600 * self._guide.picture_refresh * 1000)
+                start_time = int(time.time()) * 1000
+                end_time = start_time + (3600 * self._guide.cache_hours * 1000)
                 ch_id = self._guide.channels[channel_id]["id"]
-                _LOGGER.debug("%s: retrieving guide for channel %s [%s]", self._name, channel_id, str(ch_id))
-                url = "https://{0}/{1}/listings?byStationId={2}&byStartTime={3}~{4}&sort=startTime"\
+                url = "https://{0}/{1}/listings?byStationId={2}&byEndTime={3}~{4}&sort=startTime"\
                     .format(GUIDE_HOST, GUIDE_PATH, ch_id, start_time, end_time)
+                _LOGGER.debug("%s: retrieving guide for channel %s [%s]", self._name, channel_id, url)
 
                 prog_channel = {
                     "next_refresh": 0,
@@ -429,7 +429,7 @@ class VirginTivo(MediaPlayerDevice):
                     listings[channel_id]["listings"].append(prog_info)
                     if listings[channel_id]["next_refresh"] < prog_start_time:
                         listings[channel_id]["next_refresh"] = prog_start_time
-                    _LOGGER.debug("Added [%s] to channel [%d]", prog_title, channel_id)
+                    _LOGGER.debug("Added [%s] [%s - %s] to channel [%d]", prog_title, str(prog_start_time), str(prog_end_time), channel_id)
 
                 if self.is_plus_one_channel(channel_id):
                     for prog in listings[channel_id]["listings"]:
