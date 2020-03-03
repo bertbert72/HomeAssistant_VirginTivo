@@ -18,7 +18,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.7'
+VERSION = '0.1.8'
 
 from homeassistant.components.media_player import (
     MediaPlayerDevice, PLATFORM_SCHEMA)
@@ -332,9 +332,9 @@ class VirginTivo(MediaPlayerDevice):
                         "id": channel["stationSchedules"][0]["station"]["id"],
                         "title": channel["stationSchedules"][0]["station"]["title"],
                         "url": next(iter([a["url"] for a in urls
-                                          if "assetType" in a and a["assetType"] == "imageStream"]), None),
+                                          if "url" in a and "assetType" in a and a["assetType"] == "imageStream"]), None),
                         "logo": next(iter([a["url"] for a in urls
-                                           if "assetType" in a and a["assetType"] == "station-logo-large"]), None),
+                                           if "url" in a and "assetType" in a and a["assetType"] == "station-logo-large"]), None),
                     }
                     self._guide.channels[ch_number] = ch_info
                     if ch_number in self._channels:
