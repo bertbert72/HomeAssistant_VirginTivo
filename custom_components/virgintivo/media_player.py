@@ -18,7 +18,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.9'
+VERSION = '0.1.10'
 
 from homeassistant.components.media_player import (
     MediaPlayerDevice, PLATFORM_SCHEMA)
@@ -1043,22 +1043,22 @@ def get_channel_listings(config):
                         if not package:
                             package = cells[CELL_PACKAGESD].find(text=True).strip()
 
+                        channel_id = cells[CELL_HD].find(text=True).strip()
+                        if channel_id and channel_id not in ignore_channels:
+                            ignore_channels.append(channel_id)
+                            all_channels[channel_id] = ChannelListing(channel_id, channel_name + " HD", package, is_hd=True,
+                                                                      is_plus_one=False, base_name=channel_name)
+
                         channel_id = cells[CELL_SD].find(text=True).strip()
                         if channel_id and channel_id not in ignore_channels:
                             ignore_channels.append(channel_id)
                             all_channels[channel_id] = ChannelListing(channel_id, channel_name, package, is_hd=False,
                                                                       is_plus_one=False, base_name=channel_name)
 
-                        channel_id = cells[CELL_HD].find(text=True).strip()
-                        if channel_id and channel_id not in ignore_channels:
-                            ignore_channels.append(channel_id)
-                            all_channels[channel_id] = ChannelListing(channel_id, channel_name, package, is_hd=True,
-                                                                      is_plus_one=False, base_name=channel_name)
-
                         channel_id = cells[CELL_PLUSONE].find(text=True).strip()
                         if channel_id and channel_id not in ignore_channels:
                             ignore_channels.append(channel_id)
-                            all_channels[channel_id] = ChannelListing(channel_id, channel_name, package, is_hd=False,
+                            all_channels[channel_id] = ChannelListing(channel_id, channel_name + " +1", package, is_hd=False,
                                                                       is_plus_one=True, base_name=channel_name)
                 else:
                     header = False
