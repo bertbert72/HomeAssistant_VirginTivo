@@ -18,7 +18,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.10'
+VERSION = '0.1.11'
 
 from homeassistant.components.media_player import (
     MediaPlayerDevice, PLATFORM_SCHEMA)
@@ -495,7 +495,7 @@ class VirginTivo(MediaPlayerDevice):
             self._sdoverride['enabled'] = False
             self._sdoverride['channel_id'] = None
 
-        if self._force_hd_on_tv and self._channels[channel_id][CONF_HDCHANNEL] and not self._sdoverride['enabled']:
+        if self._force_hd_on_tv and channel_id in self._channels and self._channels[channel_id][CONF_HDCHANNEL] and not self._sdoverride['enabled']:
             if self._sdoverride['channel_id'] == channel_id and self._sdoverride['refresh_time'] >= time.time():
                 self._sdoverride['enabled'] = True
             else:
@@ -555,10 +555,13 @@ class VirginTivo(MediaPlayerDevice):
 
                 if current_channel_name is not None:
                     current_channel_id = self._channel_name_id[current_channel_name]
-                    if new_channel_id != current_channel_id:
-                        _LOGGER.debug("%s: changing to channel [%s]", self._name, new_status)
                 else:
                     current_channel_id = -1
+
+                if new_channel_id != current_channel_id:
+                    _LOGGER.debug("%s: changing to channel [%s]", self._name, new_status)
+                    if new_channel_id not in self._channels:
+                        _LOGGER.warning("%s: incorrect channel configuration for channel [%d]", self.name, new_channel_id)
 
                 if new_channel_id in self._target_ids:
                     _LOGGER.debug("%s: switcher source triggered %s,%s,%s", self._name, str(new_channel_id),
