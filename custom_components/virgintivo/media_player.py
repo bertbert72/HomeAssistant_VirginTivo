@@ -20,8 +20,12 @@ REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
 VERSION = '0.1.11'
 
-from homeassistant.components.media_player import (
-    MediaPlayerDevice, PLATFORM_SCHEMA)
+try:
+    from homeassistant.components.media_player import MediaPlayerEntity
+except ImportError:
+    from homeassistant.components.media_player import MediaPlayerDevice as MediaPlayerEntity
+from homeassistant.components.media_player import PLATFORM_SCHEMA
+
 from homeassistant.components.media_player.const import (
     DOMAIN, SUPPORT_SELECT_SOURCE, SUPPORT_TURN_OFF, SUPPORT_TURN_ON, MEDIA_TYPE_TVSHOW,
     SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK, SUPPORT_PLAY, SUPPORT_PAUSE, SUPPORT_STOP)
@@ -269,7 +273,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     hass.services.register(DOMAIN, SERVICE_TELEPORT, service_handle, schema=TIVO_SERVICE_SCHEMA)
 
 
-class VirginTivo(MediaPlayerDevice):
+class VirginTivo(MediaPlayerEntity):
     """Representation of a Virgin Tivo box."""
 
     def __init__(self, host, channels, tivo_id, tivo_name, force_hd_on_tv, guide, keep_connected):
