@@ -1,6 +1,6 @@
 {
     "media_player.virgintivo": {
-        "version": "0.1.11",
+        "version": "0.1.12",
         "local_location": "/custom_components/virgintivo/media_player.py",
         "remote_location": "https://raw.githubusercontent.com/bertbert72/HomeAssistant_VirginTivo/master/custom_components/virgintivo/media_player.py",
         "visit_repo": "https://github.com/bertbert72/HomeAssistant_VirginTivo",
