@@ -18,7 +18,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.12'
+VERSION = '0.1.13'
 
 try:
     from homeassistant.components.media_player import MediaPlayerEntity
@@ -1044,7 +1044,8 @@ def get_channel_listings(config):
                         CELL_PACKAGESD = 5
 
                     if cells[CELL_CHANNELNAME].find(text=True) is not None:
-                        channel_name = cells[CELL_CHANNELNAME].find(text=True).split('/')[0].strip()
+                        channel_name = cells[CELL_CHANNELNAME].get_text().lstrip().split('\n')[0]
+                        channel_name = re.sub(' e$', '', channel_name)
                         channel_name = "'{}'".format(channel_name) if "&" in channel_name else channel_name
                         package = cells[CELL_PACKAGEHD].find(text=True).strip()
                         if not package:
