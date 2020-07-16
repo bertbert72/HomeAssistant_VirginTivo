@@ -18,7 +18,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.13'
+VERSION = '0.1.14'
 
 try:
     from homeassistant.components.media_player import MediaPlayerEntity
@@ -1021,14 +1021,17 @@ def get_channel_listings(config):
         res = requests.get(vc_url)
         soup = BeautifulSoup(res.text, "html.parser")
 
-
-
         for table in soup.find_all(class_=["wikitable sortable"]):
             header = True
+            headers = table.findAll(["th"])
+            if headers[0].get_text().strip() == "HD":
+                is_tv_table = True
+            else:
+                is_tv_table = False
             for row in table.findAll("tr"):
                 cells = row.findAll(["td"])
                 if len(cells) >= 6 and not header:
-                    if len(cells) > 6:  # TV Channels
+                    if is_tv_table:  # TV Channels
                         CELL_HD = 0
                         CELL_SD = 1
                         CELL_PLUSONE = 2
@@ -1040,8 +1043,8 @@ def get_channel_listings(config):
                         CELL_SD = 0
                         CELL_PLUSONE = 0
                         CELL_CHANNELNAME = 1
-                        CELL_PACKAGEHD = 5
-                        CELL_PACKAGESD = 5
+                        CELL_PACKAGEHD = 7
+                        CELL_PACKAGESD = 7
 
                     if cells[CELL_CHANNELNAME].find(text=True) is not None:
                         channel_name = cells[CELL_CHANNELNAME].get_text().lstrip().split('\n')[0]
