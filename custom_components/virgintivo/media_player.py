@@ -13,12 +13,13 @@ import requests
 import json
 from datetime import datetime, timedelta
 import copy
+import pickle
 
 import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.14'
+VERSION = '0.1.15'
 
 try:
     from homeassistant.components.media_player import MediaPlayerEntity
@@ -737,7 +738,7 @@ class VirginTivo(MediaPlayerEntity):
             title = current_prog["title"]
 
             season = current_prog["prog_series_number"]
-            if season:
+            if season and int(season) < 1000:
                 title += " S " + season + ", Ep " + current_prog["prog_episode_number"]
 
             episode_title = current_prog["prog_episode_title"]
@@ -945,23 +946,26 @@ class VirginTivo(MediaPlayerEntity):
         self.tivo_cmd(cmd)
 
 
+class ChannelListing:
+    def __init__(self, channel_id, channel_name, package, is_hd, is_plus_one = False, base_name = ""):
+        self.channel_id = channel_id
+        self.channel_name = channel_name
+        self.package = package
+        self.is_hd = is_hd
+        self.is_plus_one = is_plus_one
+        self.base_name = base_name
+        self.show = ""
+        self.hd_ver = ""
+        self.plus_one_ver = ""
+        self.logo = ""
+        self.target = ""
+        self.source = ""
+
+
 def get_channel_listings(config):
     from bs4 import BeautifulSoup
 
-    class ChannelListing:
-        def __init__(self, channel_id, channel_name, package, is_hd, is_plus_one = False, base_name = ""):
-            self.channel_id = channel_id
-            self.channel_name = channel_name
-            self.package = package
-            self.is_hd = is_hd
-            self.is_plus_one = is_plus_one
-            self.base_name = base_name
-            self.show = ""
-            self.hd_ver = ""
-            self.plus_one_ver = ""
-            self.logo = ""
-            self.target = ""
-            self.source = ""
+    cache_file = 'virgin_tivo.pickle'
 
     def contains(this_cell, this_string):
         if this_string in this_cell:
@@ -1021,6 +1025,7 @@ def get_channel_listings(config):
         res = requests.get(vc_url)
         soup = BeautifulSoup(res.text, "html.parser")
 
+        parsed = False
         for table in soup.find_all(class_=["wikitable sortable"]):
             header = True
             headers = table.findAll(["th"])
@@ -1055,6 +1060,7 @@ def get_channel_listings(config):
                             package = cells[CELL_PACKAGESD].find(text=True).strip()
 
                         channel_id = cells[CELL_HD].find(text=True).strip()
+                        parsed = True
                         if channel_id and channel_id not in ignore_channels:
                             ignore_channels.append(channel_id)
                             all_channels[channel_id] = ChannelListing(channel_id, channel_name + " HD", package, is_hd=True,
@@ -1073,6 +1079,17 @@ def get_channel_listings(config):
                                                                       is_plus_one=True, base_name=channel_name)
                 else:
                     header = False
+
+        if not parsed:
+            _LOGGER.error("Unable to load channels from [%s] code [%s], trying cache", str(vc_url), str(res.status_code))
+            try:
+                all_channels = pickle.load(open(cache_file, 'rb'))
+            except (OSError, IOError) as e:
+                _LOGGER.error("Could not load cached version")
+                raise
+        else:
+            _LOGGER.debug("Writing channels cache")
+            pickle.dump(all_channels, open(cache_file, 'wb'))
 
         for channel in all_channels.values():
             if not channel.is_hd and not channel.is_plus_one:
