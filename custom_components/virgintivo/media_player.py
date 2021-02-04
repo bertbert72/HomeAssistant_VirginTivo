@@ -19,7 +19,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.15'
+VERSION = '0.1.16'
 
 try:
     from homeassistant.components.media_player import MediaPlayerEntity
@@ -1041,8 +1041,8 @@ def get_channel_listings(config):
                         CELL_SD = 1
                         CELL_PLUSONE = 2
                         CELL_CHANNELNAME = 3
-                        CELL_PACKAGEHD = 7
-                        CELL_PACKAGESD = 8
+                        CELL_PACKAGEHD = 9
+                        CELL_PACKAGESD = 10
                     else:  # Radio Channels
                         CELL_HD = 0
                         CELL_SD = 0
