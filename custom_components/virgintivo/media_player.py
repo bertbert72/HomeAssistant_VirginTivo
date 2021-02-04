@@ -19,7 +19,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.16'
+VERSION = '0.1.17'
 
 try:
     from homeassistant.components.media_player import MediaPlayerEntity
@@ -1061,7 +1061,7 @@ def get_channel_listings(config):
 
                         channel_id = cells[CELL_HD].find(text=True).strip()
                         parsed = True
-                        if channel_id and channel_id not in ignore_channels:
+                        if is_tv_table and channel_id and channel_id not in ignore_channels:
                             ignore_channels.append(channel_id)
                             all_channels[channel_id] = ChannelListing(channel_id, channel_name + " HD", package, is_hd=True,
                                                                       is_plus_one=False, base_name=channel_name)
