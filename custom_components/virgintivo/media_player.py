@@ -964,8 +964,11 @@ class ChannelListing:
 
 def get_channel_listings(config):
     from bs4 import BeautifulSoup
-
-    cache_file = 'virgin_tivo.pickle'
+    from homeassistant.config import get_default_config_dir
+    import os
+    
+    cfg_dir = get_default_config_dir()
+    cache_file = os.path.join(cfg_dir, 'virgin_tivo.pickle')
 
     def contains(this_cell, this_string):
         if this_string in this_cell:
