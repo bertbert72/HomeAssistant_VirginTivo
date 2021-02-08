@@ -184,7 +184,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     channel_listings = {}
     if CONF_CHANNEL_LIST in config:
         if config[CONF_CHANNEL_LIST][CONF_ENABLE]:
-            channel_listings = get_channel_listings(config[CONF_CHANNEL_LIST])
+            channel_listings = get_channel_listings(config[CONF_CHANNEL_LIST], hass.config.config_dir)
 
     if len(channel_listings) == 0:
         if CONF_CHANNELS in config:
@@ -964,8 +964,9 @@ class ChannelListing:
 
 def get_channel_listings(config):
     from bs4 import BeautifulSoup
+    import os
 
-    cache_file = 'virgin_tivo.pickle'
+    cache_file = os.path.join(cfg_dir, 'virgin_tivo.pickle')
 
     def contains(this_cell, this_string):
         if this_string in this_cell:
@@ -1089,7 +1090,10 @@ def get_channel_listings(config):
                 raise
         else:
             _LOGGER.debug("Writing channels cache")
-            pickle.dump(all_channels, open(cache_file, 'wb'))
+            try:
+                pickle.dump(all_channels, open(cache_file, 'wb'))
+            except Exception as e:
+                _LOGGER.error("Could not create cached version, skipping: %s", str(e))
 
         for channel in all_channels.values():
             if not channel.is_hd and not channel.is_plus_one:
