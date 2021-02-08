@@ -19,7 +19,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.17'
+VERSION = '0.1.18'
 
 try:
     from homeassistant.components.media_player import MediaPlayerEntity
@@ -962,7 +962,7 @@ class ChannelListing:
         self.source = ""
 
 
-def get_channel_listings(config):
+def get_channel_listings(config, cfg_dir):
     from bs4 import BeautifulSoup
     import os
 
