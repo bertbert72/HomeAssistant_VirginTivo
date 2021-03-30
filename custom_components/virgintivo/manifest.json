@@ -4,5 +4,6 @@
   "documentation": "https://github.com/bertbert72/HomeAssistant_VirginTivo/blob/master/README.md",
   "dependencies": [],
   "codeowners": ["@bertbert72"],
-  "requirements": []
+  "requirements": [],
+  "version": "0.0.0"
 }
