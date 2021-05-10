@@ -1138,8 +1138,11 @@ def get_channel_listings(config, cfg_dir):
                 CONF_SOURCE: channel.source if channel.source != "" else "",
                 CONF_PACKAGE: channel.package if channel.package != "" else "UNSET",
             }
-
-            channel_listings[int(channel_id)] = channel_listing
+     
+            try:
+                channel_listings[int(channel_id)] = channel_listing
+            except:
+                _LOGGER.debug("unexpected channel_id: %s (%s)", channel_id, channel.channel_name)
 
         _LOGGER.debug(str(channel_listings))
 
