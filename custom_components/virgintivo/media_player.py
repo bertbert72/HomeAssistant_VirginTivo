@@ -1032,8 +1032,11 @@ def get_channel_listings(config, cfg_dir):
             headers = table.findAll(["th"])
             if headers[0].get_text().strip() == "HD":
                 is_tv_table = True
-            else:
+            elif headers[0].get_text().strip() == "SD":
                 is_tv_table = False
+            else:
+                _LOGGER.debug("Ignoring unknown table found in channel lists")
+                break
             for row in table.findAll("tr"):
                 cells = row.findAll(["td"])
                 if len(cells) >= 6 and not header:
