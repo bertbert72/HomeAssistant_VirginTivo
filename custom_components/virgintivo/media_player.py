@@ -19,7 +19,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.20'
+VERSION = '0.1.21'
 
 try:
     from homeassistant.components.media_player import MediaPlayerEntity
