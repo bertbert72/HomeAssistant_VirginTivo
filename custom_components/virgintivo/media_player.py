@@ -19,7 +19,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.21'
+VERSION = '0.1.22'
 
 try:
     from homeassistant.components.media_player import MediaPlayerEntity
@@ -50,7 +50,7 @@ GUIDE_HOST = 'web-api-pepper.horizon.tv'
 GUIDE_PATH = 'oesp/api/GB/eng/web/'
 GUIDE_HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 '
                                'Safari/537.36'}
-CHANNEL_LIST_URL = 'https://www.tvchannellists.com/List_of_channels_on_Virgin_Media_(UK)_-_New_Packages'
+CHANNEL_LIST_URL = 'https://raw.githubusercontent.com/bertbert72/HomeAssistant_VirginTivo/master/custom_updater.json'
 MIN_PICTURE_REFRESH = 10
 
 CONF_TIVOS = 'tivos'                      # list of Tivo boxes
