@@ -19,7 +19,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.23'
+VERSION = '0.1.24'
 
 try:
     from homeassistant.components.media_player import MediaPlayerEntity
@@ -791,7 +791,7 @@ class VirginTivo(MediaPlayerEntity):
             return None
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         """Return the state attributes."""
         attr = {
             'prog_title': self.get_prog_info('title'),
