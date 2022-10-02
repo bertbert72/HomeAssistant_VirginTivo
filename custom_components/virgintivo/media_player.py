@@ -19,7 +19,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.24'
+VERSION = '0.1.25'
 
 try:
     from homeassistant.components.media_player import MediaPlayerEntity
@@ -943,6 +943,13 @@ class VirginTivo(MediaPlayerEntity):
         _LOGGER.debug("%s: setting channel to [%d]", self._name, channel_id)
 
         cmd = "SETCH " + str(channel_id) + "\r"
+        cmd = "SETCH " + str(channel_id) + "\r"             
+        strchannel = str(channel_id)
+        cmd = "IRCODE NUM" + strchannel[0] + "\r"
+        self.tivo_cmd(cmd)
+        cmd = "IRCODE NUM" + strchannel[1] + "\r" 
+        self.tivo_cmd(cmd)
+        cmd = "IRCODE NUM" + strchannel[2] + "\r"
         self.tivo_cmd(cmd)
 
 
