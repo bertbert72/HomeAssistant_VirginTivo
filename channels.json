@@ -1,0 +1,2054 @@
+{
+    "0":{
+        "name":"Live Events Channel",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Pay-per-view"
+    },
+    "100":{
+        "name":"Virgin Media Previews HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "101":{
+        "name":"BBC One HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "102":{
+        "name":"BBC Two HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "103":{
+        "name":"ITV HD",
+        "hd_channel":0,
+        "plus_one":114,
+        "package":"Mixit"
+    },
+    "104":{
+        "name":"Channel 4 HD",
+        "hd_channel":0,
+        "plus_one":142,
+        "package":"Mixit"
+    },
+    "105":{
+        "name":"Channel 5 HD",
+        "hd_channel":0,
+        "plus_one":155,
+        "package":"Mixit"
+    },
+    "106":{
+        "name":"E4",
+        "hd_channel":145,
+        "plus_one":146,
+        "package":"Entertainment"
+    },
+    "107":{
+        "name":"BBC Four HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "108":{
+        "name":"BBC Scotland HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "109":{
+        "name":"Sky One HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "110":{
+        "name":"Sky One",
+        "hd_channel":109,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "111":{
+        "name":"Sky Witness HD",
+        "hd_channel":0,
+        "plus_one":180,
+        "package":"Maxit"
+    },
+    "112":{
+        "name":"Sky Witness",
+        "hd_channel":111,
+        "plus_one":180,
+        "package":"Maxit"
+    },
+    "113":{
+        "name":"ITV",
+        "hd_channel":103,
+        "plus_one":114,
+        "package":"Mixit"
+    },
+    "114":{
+        "name":"ITV +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "115":{
+        "name":"ITV2",
+        "hd_channel":176,
+        "plus_one":116,
+        "package":"Entertainment"
+    },
+    "116":{
+        "name":"ITV2 +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Entertainment"
+    },
+    "117":{
+        "name":"ITV3",
+        "hd_channel":177,
+        "plus_one":174,
+        "package":"Entertainment"
+    },
+    "118":{
+        "name":"ITV4",
+        "hd_channel":178,
+        "plus_one":175,
+        "package":"Entertainment"
+    },
+    "119":{
+        "name":"ITVBe",
+        "hd_channel":179,
+        "plus_one":120,
+        "package":"Entertainment"
+    },
+    "120":{
+        "name":"ITVBe +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Entertainment"
+    },
+    "121":{
+        "name":"Sky Comedy HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "122":{
+        "name":"Sky Comedy",
+        "hd_channel":121,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "123":{
+        "name":"Sky Arts",
+        "hd_channel":156,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "124":{
+        "name":"Gold HD",
+        "hd_channel":0,
+        "plus_one":194,
+        "package":"Entertainment"
+    },
+    "125":{
+        "name":"W",
+        "hd_channel":211,
+        "plus_one":190,
+        "package":"Drama"
+    },
+    "126":{
+        "name":"Alibi",
+        "hd_channel":212,
+        "plus_one":191,
+        "package":"Drama"
+    },
+    "127":{
+        "name":"Dave",
+        "hd_channel":227,
+        "plus_one":131,
+        "package":"Entertainment"
+    },
+    "128":{
+        "name":"Really",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "129":{
+        "name":"Yesterday",
+        "hd_channel":0,
+        "plus_one":200,
+        "package":"Mixit"
+    },
+    "130":{
+        "name":"Drama",
+        "hd_channel":0,
+        "plus_one":226,
+        "package":"Mixit"
+    },
+    "131":{
+        "name":"Dave +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Entertainment"
+    },
+    "132":{
+        "name":"Comedy Central HD",
+        "hd_channel":0,
+        "plus_one":133,
+        "package":"Entertainment"
+    },
+    "133":{
+        "name":"Comedy Central +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Entertainment"
+    },
+    "134":{
+        "name":"MTV HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "135":{
+        "name":"Sky Crime HD",
+        "hd_channel":0,
+        "plus_one":207,
+        "package":"Maxit"
+    },
+    "136":{
+        "name":"Sky Crime",
+        "hd_channel":135,
+        "plus_one":207,
+        "package":"Maxit"
+    },
+    "137":{
+        "name":"Syfy HD",
+        "hd_channel":0,
+        "plus_one":229,
+        "package":"Maxit"
+    },
+    "138":{
+        "name":"Syfy",
+        "hd_channel":137,
+        "plus_one":229,
+        "package":"Maxit"
+    },
+    "139":{
+        "name":"E! HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "140":{
+        "name":"E!",
+        "hd_channel":139,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "142":{
+        "name":"Channel 4 +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "143":{
+        "name":"4seven",
+        "hd_channel":203,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "145":{
+        "name":"E4 HD",
+        "hd_channel":0,
+        "plus_one":146,
+        "package":"Entertainment"
+    },
+    "146":{
+        "name":"E4 +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Entertainment"
+    },
+    "147":{
+        "name":"More4",
+        "hd_channel":195,
+        "plus_one":196,
+        "package":"Entertainment"
+    },
+    "148":{
+        "name":"CBS Reality",
+        "hd_channel":0,
+        "plus_one":201,
+        "package":"Mixit"
+    },
+    "149":{
+        "name":"Horror Channel",
+        "hd_channel":0,
+        "plus_one":202,
+        "package":"Mixit"
+    },
+    "150":{
+        "name":"Paramount Network HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "151":{
+        "name":"5STAR",
+        "hd_channel":0,
+        "plus_one":186,
+        "package":"Mixit"
+    },
+    "152":{
+        "name":"5SELECT",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "153":{
+        "name":"5USA",
+        "hd_channel":0,
+        "plus_one":185,
+        "package":"Mixit"
+    },
+    "154":{
+        "name":"Channel 5",
+        "hd_channel":105,
+        "plus_one":155,
+        "package":"Mixit"
+    },
+    "155":{
+        "name":"Channel 5 +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "156":{
+        "name":"Sky Arts HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "159":{
+        "name":"Regional channels",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "160":{
+        "name":"Sky Replay",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Drama"
+    },
+    "164":{
+        "name":"Challenge",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "165":{
+        "name":"Pick",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "167":{
+        "name":"TLC HD",
+        "hd_channel":0,
+        "plus_one":172,
+        "package":"Lifestyle"
+    },
+    "168":{
+        "name":"Investigation Discovery",
+        "hd_channel":0,
+        "plus_one":173,
+        "package":"Documentaries"
+    },
+    "169":{
+        "name":"Quest HD",
+        "hd_channel":0,
+        "plus_one":213,
+        "package":"Mixit"
+    },
+    "170":{
+        "name":"Quest Red",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "171":{
+        "name":"DMAX",
+        "hd_channel":0,
+        "plus_one":214,
+        "package":"Documentaries"
+    },
+    "172":{
+        "name":"TLC +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "173":{
+        "name":"Investigation Discovery +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "174":{
+        "name":"ITV3 +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Entertainment"
+    },
+    "175":{
+        "name":"ITV4 +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Entertainment"
+    },
+    "176":{
+        "name":"ITV2 HD",
+        "hd_channel":0,
+        "plus_one":116,
+        "package":"Entertainment"
+    },
+    "177":{
+        "name":"ITV3 HD",
+        "hd_channel":0,
+        "plus_one":174,
+        "package":"Entertainment"
+    },
+    "178":{
+        "name":"ITV4 HD",
+        "hd_channel":0,
+        "plus_one":175,
+        "package":"Entertainment"
+    },
+    "179":{
+        "name":"ITVBe HD",
+        "hd_channel":0,
+        "plus_one":120,
+        "package":"Entertainment"
+    },
+    "180":{
+        "name":"Sky Witness +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "181":{
+        "name":"Comedy Central",
+        "hd_channel":132,
+        "plus_one":133,
+        "package":"Entertainment"
+    },
+    "182":{
+        "name":"Comedy Central Extra",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "183":{
+        "name":"MTV",
+        "hd_channel":134,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "185":{
+        "name":"5USA +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "186":{
+        "name":"5STAR +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "187":{
+        "name":"Paramount Network",
+        "hd_channel":150,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "189":{
+        "name":"GREAT! tv",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "190":{
+        "name":"W +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Drama"
+    },
+    "191":{
+        "name":"Alibi +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Drama"
+    },
+    "192":{
+        "name":"CBS Justice",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "194":{
+        "name":"Gold +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Entertainment"
+    },
+    "195":{
+        "name":"More4 HD",
+        "hd_channel":0,
+        "plus_one":196,
+        "package":"Entertainment"
+    },
+    "196":{
+        "name":"More4 +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Entertainment"
+    },
+    "197":{
+        "name":"CBS Drama",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "200":{
+        "name":"Yesterday +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "201":{
+        "name":"CBS Reality +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "202":{
+        "name":"Horror Channel +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "203":{
+        "name":"4seven HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "204":{
+        "name":"Netflix",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Premium"
+    },
+    "205":{
+        "name":"Amazon Prime",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Premium"
+    },
+    "207":{
+        "name":"Sky Crime +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "209":{
+        "name":"Crime + Investigation HD",
+        "hd_channel":0,
+        "plus_one":222,
+        "package":"Documentaries"
+    },
+    "211":{
+        "name":"W HD",
+        "hd_channel":0,
+        "plus_one":190,
+        "package":"Drama"
+    },
+    "212":{
+        "name":"Alibi HD",
+        "hd_channel":0,
+        "plus_one":191,
+        "package":"Drama"
+    },
+    "213":{
+        "name":"Quest +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "214":{
+        "name":"DMAX +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "216":{
+        "name":"Blaze",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "222":{
+        "name":"Crime + Investigation +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "226":{
+        "name":"Drama +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "227":{
+        "name":"Dave HD",
+        "hd_channel":0,
+        "plus_one":131,
+        "package":"Entertainment"
+    },
+    "228":{
+        "name":"Virgin TV Ultra HD HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "229":{
+        "name":"Syfy +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "245":{
+        "name":"Eden",
+        "hd_channel":247,
+        "plus_one":246,
+        "package":"Documentaries"
+    },
+    "246":{
+        "name":"Eden +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "247":{
+        "name":"Eden HD",
+        "hd_channel":0,
+        "plus_one":246,
+        "package":"Documentaries"
+    },
+    "250":{
+        "name":"Discovery HD",
+        "hd_channel":0,
+        "plus_one":258,
+        "package":"Documentaries"
+    },
+    "251":{
+        "name":"Animal Planet HD",
+        "hd_channel":0,
+        "plus_one":259,
+        "package":"Documentaries"
+    },
+    "252":{
+        "name":"Discovery Science",
+        "hd_channel":0,
+        "plus_one":260,
+        "package":"Documentaries"
+    },
+    "256":{
+        "name":"Discovery Turbo",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "257":{
+        "name":"Discovery History",
+        "hd_channel":0,
+        "plus_one":261,
+        "package":"Documentaries"
+    },
+    "258":{
+        "name":"Discovery +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "259":{
+        "name":"Animal Planet +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "260":{
+        "name":"Discovery Science +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "261":{
+        "name":"Discovery History +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "265":{
+        "name":"Nat Geo Wild HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "266":{
+        "name":"National Geographic Channel",
+        "hd_channel":268,
+        "plus_one":267,
+        "package":"Documentaries"
+    },
+    "267":{
+        "name":"National Geographic Channel +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "268":{
+        "name":"National Geographic Channel HD",
+        "hd_channel":0,
+        "plus_one":267,
+        "package":"Documentaries"
+    },
+    "269":{
+        "name":"Together",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "270":{
+        "name":"Sky History HD",
+        "hd_channel":0,
+        "plus_one":271,
+        "package":"Documentaries"
+    },
+    "271":{
+        "name":"Sky History +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "272":{
+        "name":"Sky History2 HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Documentaries"
+    },
+    "273":{
+        "name":"PBS America",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "274":{
+        "name":"Forces TV",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "276":{
+        "name":"Smithsonian Channel HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "277":{
+        "name":"Sky Documentaries HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "278":{
+        "name":"Sky Documentaries",
+        "hd_channel":277,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "279":{
+        "name":"Sky Nature HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "280":{
+        "name":"Sky Nature",
+        "hd_channel":279,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "285":{
+        "name":"Food Network",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "286":{
+        "name":"HGTV",
+        "hd_channel":0,
+        "plus_one":290,
+        "package":"Mixit"
+    },
+    "290":{
+        "name":"HGTV +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "292":{
+        "name":"God Channel",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "300":{
+        "name":"New Music on Demand",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "310":{
+        "name":"MTV Music",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "311":{
+        "name":"MTV Live HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "312":{
+        "name":"MTV Hits",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "313":{
+        "name":"MTV Base",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "316":{
+        "name":"MTV Pride e (MTV Classic)",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "335":{
+        "name":"The Box",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "336":{
+        "name":"Box Hits",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "337":{
+        "name":"4Music",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "338":{
+        "name":"Kiss",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "340":{
+        "name":"Magic",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "342":{
+        "name":"Kerrang!",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Lifestyle"
+    },
+    "344":{
+        "name":"Vevo",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "345":{
+        "name":"Clubland TV",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "346":{
+        "name":"NOW 70s",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "347":{
+        "name":"NOW 80s",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "348":{
+        "name":"NOW 90s",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "400":{
+        "name":"'Virgin Movies & Store'",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "401":{
+        "name":"Sky Cinema Premiere HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Cinema"
+    },
+    "402":{
+        "name":"Sky Cinema Feel Good e  (Sky Cinema Select) HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Cinema"
+    },
+    "403":{
+        "name":"Sky Cinema Back to School e (Sky Cinema Hits) HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Cinema"
+    },
+    "404":{
+        "name":"Sky Cinema Greats HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Cinema"
+    },
+    "406":{
+        "name":"Sky Cinema Family HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Cinema"
+    },
+    "407":{
+        "name":"Sky Cinema Action HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Cinema"
+    },
+    "408":{
+        "name":"Sky Cinema Comedy HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Cinema"
+    },
+    "409":{
+        "name":"Sky Cinema Thriller HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Cinema"
+    },
+    "410":{
+        "name":"Sky Cinema Drama HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Cinema"
+    },
+    "411":{
+        "name":"'Sky Cinema Sci Fi & Horror' HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Cinema"
+    },
+    "412":{
+        "name":"Sky Cinema Animation HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Cinema"
+    },
+    "415":{
+        "name":"TCM Movies",
+        "hd_channel":416,
+        "plus_one":417,
+        "package":"Drama"
+    },
+    "416":{
+        "name":"TCM Movies HD",
+        "hd_channel":0,
+        "plus_one":417,
+        "package":"Drama"
+    },
+    "417":{
+        "name":"TCM Movies +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Drama"
+    },
+    "419":{
+        "name":"Movies 24",
+        "hd_channel":0,
+        "plus_one":420,
+        "package":"Drama"
+    },
+    "420":{
+        "name":"Movies 24 +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Drama"
+    },
+    "424":{
+        "name":"GREAT! movies classic",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "425":{
+        "name":"GREAT! movies",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "426":{
+        "name":"GREAT! movies action",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "428":{
+        "name":"Film4",
+        "hd_channel":429,
+        "plus_one":430,
+        "package":"Entertainment"
+    },
+    "429":{
+        "name":"Film4 HD",
+        "hd_channel":0,
+        "plus_one":430,
+        "package":"Entertainment"
+    },
+    "430":{
+        "name":"Film4 +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Entertainment"
+    },
+    "445":{
+        "name":"Talking Pictures TV",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "501":{
+        "name":"Sky Sports Main Event HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "502":{
+        "name":"Sky Sports Premier League HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "503":{
+        "name":"Sky Sports Football HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "504":{
+        "name":"Sky Sports Cricket HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "505":{
+        "name":"Sky Sports Golf HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "506":{
+        "name":"Sky Sports F1 HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "507":{
+        "name":"Sky Sports Action HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "508":{
+        "name":"Sky Sports Arena HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "509":{
+        "name":"Sky Sports News HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "510":{
+        "name":"Sky Sports Mix HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "511":{
+        "name":"Sky Sports Main Event",
+        "hd_channel":501,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "512":{
+        "name":"Sky Sports Premier League",
+        "hd_channel":502,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "513":{
+        "name":"Sky Sports Football",
+        "hd_channel":503,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "514":{
+        "name":"Sky Sports Cricket",
+        "hd_channel":504,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "515":{
+        "name":"Sky Sports Golf",
+        "hd_channel":505,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "516":{
+        "name":"Sky Sports F1",
+        "hd_channel":506,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "517":{
+        "name":"Sky Sports Action",
+        "hd_channel":507,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "518":{
+        "name":"Sky Sports Arena",
+        "hd_channel":508,
+        "plus_one":0,
+        "package":"Sky Sports HD"
+    },
+    "519":{
+        "name":"Sky Sports News",
+        "hd_channel":509,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "520":{
+        "name":"Sky Sports Mix",
+        "hd_channel":510,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "521":{
+        "name":"Eurosport 1 HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sport Lite"
+    },
+    "522":{
+        "name":"Eurosport 2 HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Sport Lite"
+    },
+    "526":{
+        "name":"MUTV",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Premium"
+    },
+    "527":{
+        "name":"BT Sport 1 HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "528":{
+        "name":"BT Sport 2 HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "529":{
+        "name":"BT Sport 3 HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "530":{
+        "name":"BT Sport ESPN HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "531":{
+        "name":"BT Sport Ultimate HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "535":{
+        "name":"Sky Sports Racing HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "536":{
+        "name":"Racing TV HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Premium"
+    },
+    "544":{
+        "name":"LFCTV HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Premium"
+    },
+    "546":{
+        "name":"BoxNation",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Premium"
+    },
+    "551":{
+        "name":"Premier Sports 1 HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Premium"
+    },
+    "552":{
+        "name":"Premier Sports 2 HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Premium"
+    },
+    "553":{
+        "name":"FreeSports HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "554":{
+        "name":"LaLiga TV HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Premium"
+    },
+    "601":{
+        "name":"BBC News HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "602":{
+        "name":"Sky News HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "603":{
+        "name":"Sky News",
+        "hd_channel":602,
+        "plus_one":0,
+        "package":"Maxit"
+    },
+    "605":{
+        "name":"BBC Parliament",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "607":{
+        "name":"CNN International",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "609":{
+        "name":"Bloomberg Television HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "613":{
+        "name":"CNBC Europe",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "620":{
+        "name":"Euronews",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "621":{
+        "name":"NDTV 24x7",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "622":{
+        "name":"Al Jazeera English",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "624":{
+        "name":"France 24 English HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "625":{
+        "name":"NHK World-Japan HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "626":{
+        "name":"GB News HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "700":{
+        "name":"Kids TV on Demand",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "701":{
+        "name":"CBBC HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "702":{
+        "name":"CBeebies HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "703":{
+        "name":"BabyTV",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Premium"
+    },
+    "704":{
+        "name":"Cartoon Network",
+        "hd_channel":732,
+        "plus_one":705,
+        "package":"Kids"
+    },
+    "705":{
+        "name":"Cartoon Network +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Kids"
+    },
+    "706":{
+        "name":"Cartoonito",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Kids"
+    },
+    "712":{
+        "name":"Nickelodeon",
+        "hd_channel":714,
+        "plus_one":713,
+        "package":"Kids"
+    },
+    "713":{
+        "name":"Nickelodeon +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Kids"
+    },
+    "714":{
+        "name":"Nickelodeon HD",
+        "hd_channel":0,
+        "plus_one":713,
+        "package":"Kids"
+    },
+    "715":{
+        "name":"Nick Jr.",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Kids"
+    },
+    "716":{
+        "name":"Nick Jr. Paw Patrol e  (Nick Jr. Too)",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Kids"
+    },
+    "717":{
+        "name":"Nicktoons",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Kids"
+    },
+    "730":{
+        "name":"Boomerang",
+        "hd_channel":0,
+        "plus_one":731,
+        "package":"Kids"
+    },
+    "731":{
+        "name":"Boomerang +1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Kids"
+    },
+    "732":{
+        "name":"Cartoon Network HD",
+        "hd_channel":0,
+        "plus_one":705,
+        "package":"Kids"
+    },
+    "734":{
+        "name":"CITV",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "736":{
+        "name":"Pop",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "737":{
+        "name":"Tiny Pop",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "740":{
+        "name":"QVC",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "741":{
+        "name":"QVC Beauty",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "742":{
+        "name":"QVC Style",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "743":{
+        "name":"QVC Extra",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "747":{
+        "name":"Ideal World",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "748":{
+        "name":"Create and Craft",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "755":{
+        "name":"Gems TV",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "756":{
+        "name":"Jewellery Maker",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "757":{
+        "name":"TJC HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "800":{
+        "name":"Desi Entertainment",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "801":{
+        "name":"Utsav Gold HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "802":{
+        "name":"Utsav Bharat",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "803":{
+        "name":"Utsav Plus HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "805":{
+        "name":"Sony Entertainment Television HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "806":{
+        "name":"Sony Max HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "807":{
+        "name":"Sony SAB",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "808":{
+        "name":"Sony Max 2",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "809":{
+        "name":"Zee TV",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "810":{
+        "name":"Zee Cinema HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "815":{
+        "name":"B4U Movies",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "816":{
+        "name":"B4U Music",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "825":{
+        "name":"Colors Gujarati",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "826":{
+        "name":"Colors HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "827":{
+        "name":"Colors Rishtey",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "828":{
+        "name":"Colors Cineplex",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "829":{
+        "name":"NDTV Good Times",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Asian Mela"
+    },
+    "831":{
+        "name":"Al Jazeera Arabic",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "838":{
+        "name":"Islam Channel",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "839":{
+        "name":"Islam Channel Urdu",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "851":{
+        "name":"BBC One",
+        "hd_channel":101,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "852":{
+        "name":"BBC Two",
+        "hd_channel":102,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "853":{
+        "name":"ITV",
+        "hd_channel":103,
+        "plus_one":114,
+        "package":"Mixit"
+    },
+    "854":{
+        "name":"Channel 4",
+        "hd_channel":104,
+        "plus_one":142,
+        "package":"Mixit"
+    },
+    "855":{
+        "name":"Channel 5",
+        "hd_channel":105,
+        "plus_one":155,
+        "package":"Mixit"
+    },
+    "856":{
+        "name":"S4C",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "858":{
+        "name":"BBC One",
+        "hd_channel":101,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "861":{
+        "name":"BBC One",
+        "hd_channel":101,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "862":{
+        "name":"BBC One",
+        "hd_channel":101,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "863":{
+        "name":"BBC One",
+        "hd_channel":101,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "864":{
+        "name":"BBC One",
+        "hd_channel":101,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "865":{
+        "name":"BBC Two",
+        "hd_channel":102,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "870":{
+        "name":"ITV HD",
+        "hd_channel":0,
+        "plus_one":114,
+        "package":"Mixit"
+    },
+    "875":{
+        "name":"RTÉ One",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "876":{
+        "name":"RTÉ2",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "877":{
+        "name":"TG4",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "901":{
+        "name":"BBC Radio 1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "902":{
+        "name":"BBC Radio 2",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "903":{
+        "name":"BBC Radio 3",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "904":{
+        "name":"BBC Radio 4",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "905":{
+        "name":"BBC Radio 5 Live",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "906":{
+        "name":"BBC World Service",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "907":{
+        "name":"BBC Radio 1Xtra",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "908":{
+        "name":"BBC Radio 5 Live Extra",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "909":{
+        "name":"BBC Radio 6 Music",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "910":{
+        "name":"BBC Radio 4 Extra",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "911":{
+        "name":"BBC Radio 4 LW",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "912":{
+        "name":"BBC Asian Network",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "913":{
+        "name":"BBC Radio Cymru 2",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "915":{
+        "name":"Absolute Radio",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "916":{
+        "name":"Smooth Radio",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "917":{
+        "name":"RTÉ Radio 1",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "918":{
+        "name":"Heart London",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "919":{
+        "name":"LBC 97.3",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "920":{
+        "name":"World Radio Network (WRN Radio)",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "921":{
+        "name":"Heart 80s",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "922":{
+        "name":"Classic FM",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "923":{
+        "name":"Gold Radio",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "924":{
+        "name":"Planet Rock",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "927":{
+        "name":"Talksport",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "928":{
+        "name":"Magic",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "930":{
+        "name":"BBC Radio Scotland",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "931":{
+        "name":"BBC Radio Wales",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "932":{
+        "name":"BBC Radio Ulster",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "933":{
+        "name":"BBC Radio Foyle",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "934":{
+        "name":"BBC Radio nan Gàidheal",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "936":{
+        "name":"BBC Radio Cymru",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "937":{
+        "name":"BBC London",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "951":{
+        "name":"Absolute 80s",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "952":{
+        "name":"Absolute Classic Rock",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "958":{
+        "name":"Capital London",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "959":{
+        "name":"Capital Xtra",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "960":{
+        "name":"Radio X",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "963":{
+        "name":"Kiss FM",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "968":{
+        "name":"For Parents",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "969":{
+        "name":"Adult Previews",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "970":{
+        "name":"Television X",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Pay-per-view"
+    },
+    "971":{
+        "name":"'Babes & Brazzers'",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Pay-per-view"
+    },
+    "972":{
+        "name":"Adult Channel",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Pay-per-view"
+    },
+    "973":{
+        "name":"XXX Girl Girl",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Pay-per-view"
+    },
+    "974":{
+        "name":"TVX 40+",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Pay-per-view"
+    },
+    "981":{
+        "name":"Babenation",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Premium"
+    },
+    "982":{
+        "name":"Meet the Babes",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Premium"
+    },
+    "983":{
+        "name":"Pure Babes HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Pay-per-view"
+    },
+    "990":{
+        "name":"BBC Red Button HD/1 HD",
+        "hd_channel":0,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "991":{
+        "name":"BBC Red Button HD/1",
+        "hd_channel":990,
+        "plus_one":0,
+        "package":"Mixit"
+    },
+    "998":{
+        "name":"Virgin Media Previews",
+        "hd_channel":100,
+        "plus_one":0,
+        "package":"Mixit"
+    }
+}
