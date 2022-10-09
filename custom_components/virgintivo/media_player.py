@@ -19,7 +19,7 @@ import voluptuous as vol
 
 REQUIREMENTS = ['beautifulsoup4>=4.4.1']
 
-VERSION = '0.1.25'
+VERSION = '0.1.26'
 
 try:
     from homeassistant.components.media_player import MediaPlayerEntity
@@ -50,7 +50,7 @@ GUIDE_HOST = 'web-api-pepper.horizon.tv'
 GUIDE_PATH = 'oesp/api/GB/eng/web/'
 GUIDE_HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 '
                                'Safari/537.36'}
-CHANNEL_LIST_URL = 'https://raw.githubusercontent.com/bertbert72/HomeAssistant_VirginTivo/master/channels.html'
+CHANNEL_LIST_URL = 'https://raw.githubusercontent.com/bertbert72/HomeAssistant_VirginTivo/master/channels/channels.csv'
 MIN_PICTURE_REFRESH = 10
 
 CONF_TIVOS = 'tivos'                      # list of Tivo boxes
@@ -59,6 +59,7 @@ CONF_GUIDE = 'guide'                      # guide parameters
 CONF_CHANNEL_LIST = 'tvchannellists'      # online channel list
 CONF_OVERRIDE = 'override'                # online channel list override
 
+CONF_REGION = 'region'                    # Programme region
 CONF_FORCEHD = 'force_hd'                 # switch to HD channel if available
 CONF_LOGO = 'logo'                        # Logo for channel
 CONF_HDCHANNEL = 'hd_channel'             # HD version of channel
@@ -147,6 +148,7 @@ CHANNEL_LIST_SCHEMA = vol.Schema({
     vol.Optional(CONF_TARGETS): vol.Schema({CHANNEL_IDS: cv.string}),
     vol.Optional(CONF_SOURCES): vol.Schema({CHANNEL_IDS: cv.string}),
     vol.Optional(CONF_OVERRIDE): vol.Schema({CHANNEL_IDS: OVERRIDE_CHANNEL_SCHEMA}),
+    vol.Optional(CONF_REGION, default="E"): cv.string,
 })
 
 PLATFORM_SCHEMA = vol.All(
@@ -184,7 +186,10 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     channel_listings = {}
     if CONF_CHANNEL_LIST in config:
         if config[CONF_CHANNEL_LIST][CONF_ENABLE]:
-            channel_listings = get_channel_listings(config[CONF_CHANNEL_LIST], hass.config.config_dir)
+            if "csv" in config[CONF_CHANNEL_LIST][CONF_URL]:
+                channel_listings = get_channel_listings_csv(config[CONF_CHANNEL_LIST], hass.config.config_dir)
+            else:
+                channel_listings = get_channel_listings(config[CONF_CHANNEL_LIST], hass.config.config_dir)
 
     if len(channel_listings) == 0:
         if CONF_CHANNELS in config:
@@ -936,22 +941,21 @@ class VirginTivo(MediaPlayerEntity):
     def select_source(self, channel):
         """Set input channel."""
         if channel not in self._channel_name_id:
-            return
+            if channel + " HD" not in self._channel_name_id:
+                return
+            else:
+                channel = channel + " HD"
 
         channel_id = self.override_channel(self._channel_name_id[channel])
         self._last_screen_grab = 0
         _LOGGER.debug("%s: setting channel to [%d]", self._name, channel_id)
 
-        cmd = "SETCH " + str(channel_id) + "\r"
-        cmd = "SETCH " + str(channel_id) + "\r"             
-        strchannel = str(channel_id)
-        cmd = "IRCODE NUM" + strchannel[0] + "\r"
-        self.tivo_cmd(cmd)
-        cmd = "IRCODE NUM" + strchannel[1] + "\r" 
-        self.tivo_cmd(cmd)
-        cmd = "IRCODE NUM" + strchannel[2] + "\r"
-        self.tivo_cmd(cmd)
+        # Broken by Virgin Tivo change
+        # cmd = "SETCH " + str(channel_id) + "\r"
 
+        for digits in str(channel_id):
+            cmd = "IRCODE NUM" + digits + "\r"
+            self.tivo_cmd(cmd)
 
 class ChannelListing:
     def __init__(self, channel_id, channel_name, package, is_hd, is_plus_one = False, base_name = ""):
@@ -1031,6 +1035,7 @@ def get_channel_listings(config, cfg_dir):
                 all_channels[str_channel_id].base_name = base_name(channel_name)
 
         res = requests.get(vc_url)
+        res.raise_for_status()
         soup = BeautifulSoup(res.text, "html.parser")
 
         parsed = False
@@ -1148,7 +1153,155 @@ def get_channel_listings(config, cfg_dir):
                 CONF_SOURCE: channel.source if channel.source != "" else "",
                 CONF_PACKAGE: channel.package if channel.package != "" else "UNSET",
             }
-     
+
+            try:
+                channel_listings[int(channel_id)] = channel_listing
+            except:
+                _LOGGER.debug("unexpected channel_id: %s (%s)", channel_id, channel.channel_name)
+
+        _LOGGER.debug(str(channel_listings))
+
+    except Exception as e:
+        _LOGGER.error("Could not fetch channel listings from %s, error %s", vc_url, str(e))
+
+    return channel_listings
+
+
+def get_channel_listings_csv(config, cfg_dir):
+    import os
+
+    cache_file = os.path.join(cfg_dir, 'virgin_tivo_csv.pickle')
+
+    def base_name(name):
+        return str(name).replace(" +1", "").replace(" ja vu", "").replace(" HD", "")
+
+    channel_listings = {}
+    vc_url = ""
+
+    try:
+        all_channels = {}
+        ignore_channels = []
+        hide_channels = []
+        show_channels = []
+        logos = {}
+        targets = {}
+        sources = {}
+
+        # The URL for the TV channels page
+        vc_url = config[CONF_URL]
+        # Region for channels
+        region = config[CONF_REGION]
+        # Channels to ignore
+        if CONF_IGNORE_CHANNELS in config:
+            ignore_channels = str(config[CONF_IGNORE_CHANNELS]).split(',')
+        # Channels to be shown in drop down (when default_is_show = False)
+        if CONF_SHOW_CHANNELS in config:
+            show_channels = str(config[CONF_SHOW_CHANNELS]).split(',')
+        # Channels to be shown in drop down (when default_is_show = True)
+        if CONF_HIDE_CHANNELS in config:
+            hide_channels = str(config[CONF_HIDE_CHANNELS]).split(',')
+        # Channel logos
+        if CONF_LOGOS in config:
+            logos = config[CONF_LOGOS]
+        # Targets
+        if CONF_TARGETS in config:
+            targets = config[CONF_TARGETS]
+        # Sources
+        if CONF_SOURCES in config:
+            sources = config[CONF_SOURCES]
+        # Channel overrides
+        if CONF_OVERRIDE in config:
+            for channel_id, override_conf in config[CONF_OVERRIDE].items():
+                str_channel_id = str(channel_id)
+                channel_name = override_conf[CONF_NAME].strip()
+                channel_name = "'{}'".format(channel_name) if "&" in channel_name else channel_name
+                package = override_conf[CONF_PACKAGE].strip()
+                is_hd = override_conf[CONF_IS_HD]
+                ignore_channels.append(str_channel_id)
+                all_channels[str_channel_id] = ChannelListing(str_channel_id, channel_name, package, is_hd)
+                if "+1" in channel_name or "ja vu" in channel_name:
+                    all_channels[str_channel_id].is_plus_one = True
+                all_channels[str_channel_id].base_name = base_name(channel_name)
+
+        try:
+            res = requests.get(vc_url)
+            res.raise_for_status()
+            res_text = res.text
+        except Exception as e:
+            _LOGGER.error("Could not fetch channel listings from %s, error %s, trying cache", vc_url, str(e))
+            try:
+                res_text = pickle.load(open(cache_file, 'rb'))
+            except (OSError, IOError) as e:
+                _LOGGER.error("Could not load cached version")
+                raise
+
+        _LOGGER.debug("Writing channels cache")
+        try:
+            pickle.dump(res_text, open(cache_file, 'wb'))
+        except Exception as e:
+            _LOGGER.error("Could not create cached version, skipping: %s", str(e))
+
+        for row in res_text.splitlines():
+            items = row.split(',')
+            if items[0] == "ID":
+                continue
+            str_channel_id = items[0]
+            channel_no = re.match('\d+', str_channel_id)[0]
+            if channel_no != str_channel_id:
+                channel_region = str_channel_id[len(channel_no):]
+                if region not in channel_region:
+                    continue
+            channel_name = items[1]
+            package = items[2]
+            is_hd = ("HD" in channel_name)
+            is_plus_one = ("+1" in channel_name)
+            if channel_no not in all_channels and channel_no not in ignore_channels:
+                all_channels[channel_no] = ChannelListing(channel_no, channel_name, package, is_hd, is_plus_one, base_name(channel_name))
+
+        for channel in all_channels.values():
+            if not channel.is_hd and not channel.is_plus_one:
+                hd_id = next((hd_id for hd_id, hd_ch in all_channels.items()
+                              if hd_ch.base_name == channel.base_name and hd_ch.is_hd), None)
+                if hd_id is not None:
+                    channel.hd_ver = hd_id
+            if not channel.is_plus_one:
+                plus_one_id = next((plus_one_id for plus_one_id, plus_one_ch in all_channels.items()
+                                    if plus_one_ch.base_name == channel.base_name and plus_one_ch.is_plus_one), None)
+                if plus_one_id is not None:
+                    channel.plus_one_ver = plus_one_id
+
+        for channel_id in show_channels:
+            if channel_id in all_channels:
+                all_channels[channel_id].show = "true"
+
+        for channel_id in hide_channels:
+            if channel_id in all_channels:
+                all_channels[channel_id].show = "false"
+
+        for channel_id, logo_url in logos.items():
+            if str(channel_id) in all_channels:
+                all_channels[str(channel_id)].logo = logo_url
+
+        for channel_id, source_name in sources.items():
+            if str(channel_id) in all_channels:
+                all_channels[str(channel_id)].source = source_name
+
+        for channel_id, target_name in targets.items():
+            if str(channel_id) in all_channels:
+                all_channels[str(channel_id)].target = target_name
+
+        for channel_id, channel in sorted(all_channels.items()):
+            channel_listing = {
+                CONF_NAME: channel.channel_name,
+                CONF_LOGO: channel.logo if channel.logo != "" else "",
+                CONF_HDCHANNEL: int(channel.hd_ver) if channel.hd_ver != "" else 0,
+                CONF_PLUSONE: int(channel.plus_one_ver) if channel.plus_one_ver != "" else 0,
+                CONF_SHOW: channel.show if channel.show != "" else "UNSET",
+                CONF_TARGET: channel.target if channel.target != "" else "",
+                CONF_SOURCE: channel.source if channel.source != "" else "",
+                CONF_PACKAGE: channel.package if channel.package != "" else "UNSET",
+            }
+
             try:
                 channel_listings[int(channel_id)] = channel_listing
             except:
