@@ -148,15 +148,10 @@ ID,Name,Package
 290,HGTV +1,Mixit
 292,God Channel,Mixit
 300,New Music on Demand,Mixit
-300,New Music on Demand,Mixit
 310,MTV Music,Lifestyle
 311,MTV Live HD,Lifestyle
 312,MTV Hits,Lifestyle
 313,MTV 90s,Lifestyle
-313,MTV 90s,Lifestyle
-313,MTV 90s,Lifestyle
-313,MTV 90s,Lifestyle
-316,MTV 80s,Lifestyle
 316,MTV 80s,Lifestyle
 335,The Box,Lifestyle
 336,4Music,Lifestyle
@@ -167,10 +162,7 @@ ID,Name,Package
 344,Vevo,Mixit
 345,Clubland TV,Mixit
 346,NOW 70s,Mixit
-346,NOW 70s,Mixit
 347,NOW 80s,Mixit
-347,NOW 80s,Mixit
-348,NOW 90s,Mixit
 348,NOW 90s,Mixit
 400,Virgin Movies & Store,Mixit
 401,Sky Cinema Premiere HD,Sky Cinema
@@ -284,8 +276,6 @@ ID,Name,Package
 757,TJC HD,Mixit
 800,Desi Entertainment,Asian Mela
 800,Eros Now,Premium
-800,Eros Now,Premium
-800,Voot,Premium
 800,Voot,Premium
 801,Utsav Gold HD,Asian Mela
 802,Utsav Bharat,Asian Mela
@@ -302,7 +292,6 @@ ID,Name,Package
 826,Colors HD,Asian Mela
 827,Colors Rishtey,Asian Mela
 828,Colors Cineplex,Asian Mela
-829,NDTV Good Times,Asian Mela
 829,NDTV Good Times,Asian Mela
 831,Al Jazeera Arabic,Mixit
 838,Islam Channel,Mixit
@@ -331,7 +320,6 @@ ID,Name,Package
 911,BBC Radio 4 LW,Mixit
 912,BBC Asian Network,Mixit
 913,BBC Radio Cymru 2,Mixit
-913,BBC Radio Cymru 2,Mixit
 915,Absolute Radio,Mixit
 916,Smooth Radio,Mixit
 917,RTÉ Radio 1,Mixit
@@ -347,11 +335,8 @@ ID,Name,Package
 930,BBC Radio Scotland,Mixit
 931,BBC Radio Wales,Mixit
 932,BBC Radio Ulster,Mixit
-932,BBC Radio Ulster,Mixit
 933,BBC Radio Foyle,Mixit
 934,BBC Radio nan Gàidheal,Mixit
-934,BBC Radio nan Gàidheal,Mixit
-936,BBC Radio Cymru,Mixit
 936,BBC Radio Cymru,Mixit
 937,BBC Radio London,Mixit
 951,Absolute 80s,Mixit
@@ -360,7 +345,6 @@ ID,Name,Package
 959,Capital XTRA,Mixit
 960,Radio X,Mixit
 963,Kiss,Mixit
-968,For Parents,Mixit
 968,For Parents,Mixit
 969,Adult Previews,Mixit
 970,Television X,Pay-per-view
