@@ -60,13 +60,14 @@ The Tivos should be listed under the `tivos:` section.  Each entry has two requi
 | keep_connected _(opt)_ | false | Persistent telnet connection to Tivo | false |
 
 ## tvchannellists
-This allows automatic updating of the channel lists from the TV Channel Lists site. Overrides are available to customise the list as required.
+This allows automatic updating of the channel lists from the GitHub repository. Overrides are available to customise the list as required.
 
 NB: If both _tvchannellists_ and _channels_ are configured, the site will be tried first and if this fails the local channel configuration will be used.
 
 | Name | Default | Description | Example |
 |:-----|:--------|:------------|:--------|
 | enable _(req)_ | | Enable this functionality | True |
+| region _(opt)_ | E | Channel region: E(ngland), S(cotland), W(ales), N(orthern Ireland) | N |
 | url _(opt)_<sup>1</sup> | | URL for channel listing | |
 | ignore_channels _(opt)_ | | Ignore these channels from the site | 0 |
 | show_channels _(opt)_ | | Show the channel in the sources list | 101,102,103,104 |
@@ -122,7 +123,7 @@ These can be called by automations, scripts etc.
 
 <sup>2</sup> This forces the Tivo into certain modes.  Known available entries are: TIVO, LIVETV, GUIDE, NOWPLAYING
 
-# Custom_Updater
+# Custom_Updater (Depricated)
 
 The component can be kept up-to-date using the optional _custom_updater_ integration.  To use this, add the line in bold to your _custom_updater_ configuration.
 
