@@ -4,7 +4,7 @@
 
 + Supports multiple boxes
 + Configurable list of channels (see /resources for a tool to help)
-+ Optionally update list of channels automatically from TV Channel Lists
++ Optionally update list of channels automatically
 + Automatically switch to HD version of channel
 + Show current channel
 + Set channel through dropdown
