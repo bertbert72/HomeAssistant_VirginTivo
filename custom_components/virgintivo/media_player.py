@@ -25,20 +25,25 @@ try:
     from homeassistant.components.media_player import MediaPlayerEntity
 except ImportError:
     from homeassistant.components.media_player import MediaPlayerDevice as MediaPlayerEntity
+
+from homeassistant.components.media_player import MediaPlayerEntityFeature
+
 from homeassistant.components.media_player import PLATFORM_SCHEMA
 
 from homeassistant.components.media_player.const import (
-    DOMAIN, SUPPORT_SELECT_SOURCE, SUPPORT_TURN_OFF, SUPPORT_TURN_ON, MEDIA_TYPE_TVSHOW,
-    SUPPORT_NEXT_TRACK, SUPPORT_PREVIOUS_TRACK, SUPPORT_PLAY, SUPPORT_PAUSE, SUPPORT_STOP)
+    DOMAIN, MEDIA_TYPE_TVSHOW)
+
 from homeassistant.const import (
     ATTR_ENTITY_ID, CONF_NAME, CONF_HOST, CONF_PORT, STATE_OFF, STATE_PLAYING, STATE_PAUSED, STATE_UNKNOWN,
     ATTR_COMMAND, CONF_URL, CONF_SCAN_INTERVAL)
+
 import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
 
-SUPPORT_VIRGINTIVO = SUPPORT_SELECT_SOURCE | SUPPORT_NEXT_TRACK | SUPPORT_PREVIOUS_TRACK | SUPPORT_TURN_ON \
-                     | SUPPORT_TURN_OFF | SUPPORT_PLAY | SUPPORT_PAUSE | SUPPORT_STOP
+SUPPORT_VIRGINTIVO = MediaPlayerEntityFeature.SELECT_SOURCE | MediaPlayerEntityFeature.NEXT_TRACK | MediaPlayerEntityFeature.PREVIOUS_TRACK \
+                     | MediaPlayerEntityFeature.TURN_ON | MediaPlayerEntityFeature.TURN_OFF | MediaPlayerEntityFeature.PLAY | MediaPlayerEntityFeature.PAUSE \
+                     | MediaPlayerEntityFeature.STOP
 
 MEDIA_PLAYER_SCHEMA = vol.Schema({
     ATTR_ENTITY_ID: cv.comp_entity_ids,
