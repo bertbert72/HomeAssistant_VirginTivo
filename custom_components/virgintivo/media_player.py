@@ -611,8 +611,8 @@ class VirginTivo(MediaPlayerEntity):
                     self._guide_channel = None
 
         # Check listing each time
-        if self._guide_channel is not None:
-            self.get_guide_listings(self._guide_channel["channel_number"])
+        #if self._guide_channel is not None:
+        #    self.get_guide_listings(self._guide_channel["channel_number"])
 
         if current_channel_name != self._channel_name:
             self._last_channel = current_channel_name
