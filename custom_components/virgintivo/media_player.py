@@ -31,7 +31,7 @@ from homeassistant.components.media_player import MediaPlayerEntityFeature
 from homeassistant.components.media_player import PLATFORM_SCHEMA
 
 from homeassistant.components.media_player.const import (
-    DOMAIN, MEDIA_TYPE_TVSHOW)
+    DOMAIN, MediaType) # Update for HA support
 
 from homeassistant.const import (
     ATTR_ENTITY_ID, CONF_NAME, CONF_HOST, CONF_PORT, STATE_OFF, STATE_PLAYING, STATE_PAUSED, STATE_UNKNOWN,
@@ -105,7 +105,7 @@ ATTR_REPEATS = 'repeats'
 TIVO_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=9))
 
 # Valid channel ids: 1-999
-CHANNEL_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=999))
+CHANNEL_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=9999))
 
 TIVO_SERVICE_SCHEMA = MEDIA_PLAYER_SCHEMA.extend({
     vol.Optional(ATTR_ENTITY_ID): cv.entity_id,
@@ -694,7 +694,7 @@ class VirginTivo(MediaPlayerEntity):
         if current_prog:
             # MEDIA_TYPE_MOVIE doesn't display as much info - see prog_type instead
             # return MEDIA_TYPE_MOVIE if current_prog["prog_type"] == "Movie" else MEDIA_TYPE_TVSHOW
-            return MEDIA_TYPE_TVSHOW
+            return MediaTYpe.TVSHOW
         else:
             return None
 
