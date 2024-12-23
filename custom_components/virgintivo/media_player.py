@@ -105,7 +105,7 @@ ATTR_REPEATS = 'repeats'
 TIVO_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=9))
 
 # Valid channel ids: 1-999
-CHANNEL_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=999))
+CHANNEL_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=9999))
 
 TIVO_SERVICE_SCHEMA = MEDIA_PLAYER_SCHEMA.extend({
     vol.Optional(ATTR_ENTITY_ID): cv.entity_id,
