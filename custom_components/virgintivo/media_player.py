@@ -1251,7 +1251,7 @@ def get_channel_listings_csv(config, cfg_dir):
             if items[0] == "ID":
                 continue
             str_channel_id = items[0]
-            channel_no = re.match('\d+', str_channel_id)[0]
+            channel_no = re.match(r'\d+', str_channel_id)[0]
             if channel_no != str_channel_id:
                 channel_region = str_channel_id[len(channel_no):]
                 if region not in channel_region:
