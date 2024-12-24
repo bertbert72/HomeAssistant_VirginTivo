@@ -98,7 +98,7 @@ The guide settings come under the `guide:` section.  This section has a number o
 
 | Name | Default | Description | Example |
 |:-----|:--------|:------------|:--------|
-| enable_guide _(opt)_ | true | Enable the guide functionality | false |
+| enable_guide _(opt)_ | false | Enable the guide functionality | true |
 | cache_hours _(opt)_ | 12 | How many hours of the guide to preload | 12 |
 | picture_refresh _(opt)_ | 60 | Seconds between screen updates | 60 |
 

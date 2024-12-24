@@ -101,8 +101,8 @@ SERVICE_SUBTITLES_ON = DATA_VIRGINTIVO + '_subtitles_on'
 SERVICE_TELEPORT = DATA_VIRGINTIVO + '_teleport'
 ATTR_REPEATS = 'repeats'
 
-# Valid tivo ids: 1-9
-TIVO_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=9))
+# Valid tivo ids: 1-100
+TIVO_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=100))
 
 # Valid channel ids: 1-999
 CHANNEL_IDS = vol.All(vol.Coerce(int), vol.Range(min=1, max=9999))
@@ -134,7 +134,7 @@ CHANNEL_SCHEMA = vol.Schema({
 GUIDE_SCHEMA = vol.Schema({
     vol.Optional(CONF_CACHE_HOURS, default=12): cv.positive_int,
     vol.Optional(CONF_PICTURE_REFRESH, default=60): cv.positive_int,
-    vol.Optional(CONF_ENABLE_GUIDE, default=True): cv.boolean,
+    vol.Optional(CONF_ENABLE_GUIDE, default=False): cv.boolean, # change default to False since this no longer is supported
 })
 
 OVERRIDE_CHANNEL_SCHEMA = vol.Schema({
